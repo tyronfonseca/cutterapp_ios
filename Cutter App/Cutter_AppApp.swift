@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct Cutter_AppApp: App {
+    var mainScreenData = MainScreenModel()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainScreen()
+                .environmentObject(mainScreenData)
         }
     }
 }
