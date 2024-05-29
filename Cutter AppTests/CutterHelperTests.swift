@@ -77,7 +77,7 @@ final class CutterHelperTests: XCTestCase {
         let expected = "Ll"
         
         // act
-        let result = CutterHelper.getFirstLetter(word: "Llorente", currVersion: .ucr)
+        let result = CutterHelper.getFirstLetter(word: "Llorente", currVersion: .old)
         
         // assert
         XCTAssertEqual(expected, result)
@@ -88,7 +88,7 @@ final class CutterHelperTests: XCTestCase {
         let expected = "Ch"
         
         // act
-        let result = CutterHelper.getFirstLetter(word: "Chavez", currVersion: .ucr)
+        let result = CutterHelper.getFirstLetter(word: "Chavez", currVersion: .old)
         
         // assert
         XCTAssertEqual(expected, result)
@@ -100,7 +100,7 @@ final class CutterHelperTests: XCTestCase {
         
         // act
         let arr = CutterHelper.convertStrToIntArr(str: "NAVES")
-        let result = CutterHelper.ucrFix(list: arr)
+        let result = CutterHelper.oldAlphFix(list: arr)
         
         // assert
         XCTAssertEqual(expected, result)
@@ -112,7 +112,7 @@ final class CutterHelperTests: XCTestCase {
         
         // act
         let arr = CutterHelper.convertStrToIntArr(str: "LLAVES")
-        let result = CutterHelper.ucrFix(list: arr)
+        let result = CutterHelper.oldAlphFix(list: arr)
         
         // assert
         XCTAssertEqual(expected, result)
@@ -124,7 +124,7 @@ final class CutterHelperTests: XCTestCase {
         
         // act
         let arr = CutterHelper.convertStrToIntArr(str: "CHAVES")
-        let result = CutterHelper.ucrFix(list: arr)
+        let result = CutterHelper.oldAlphFix(list: arr)
         
         // assert
         XCTAssertEqual(expected, result)
@@ -136,7 +136,7 @@ final class CutterHelperTests: XCTestCase {
         
         // act
         let arr = CutterHelper.convertStrToIntArr(str: "BACH")
-        let result = CutterHelper.ucrFix(list: arr)
+        let result = CutterHelper.oldAlphFix(list: arr)
         
         // assert
         XCTAssertEqual(expected, result)

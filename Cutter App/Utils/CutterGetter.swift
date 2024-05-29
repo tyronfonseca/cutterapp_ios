@@ -37,7 +37,7 @@ final class CutterGetter {
         let fullName = (lastName + ", " + name).uppercased()
         var searchValue = CutterHelper.convertStrToIntArr(str: fullName)
         
-        let oldResult = [Int]()
+        var oldResult = [Int]()
         var index = 0
         var keepSearching = true
         while(keepSearching && index < data.count - 1){
@@ -49,12 +49,12 @@ final class CutterGetter {
                 var row = CutterHelper.convertStrToIntArr(str: data[index].name.uppercased())
                 var secondRow = CutterHelper.convertStrToIntArr(str: data[index + 1].name.uppercased())
                 
-                // Fix values if the version is UCR
-                if(currentVersion == CsvVersion.ucr)
+                // Fix values if the version is cutter_old
+                if(currentVersion == CsvVersion.old)
                 {
-                    row = CutterHelper.ucrFix(list: row)
-                    secondRow = CutterHelper.ucrFix(list: secondRow)
-                    searchValue = CutterHelper.ucrFix(list: searchValue)
+                    row = CutterHelper.oldAlphFix(list: row)
+                    secondRow = CutterHelper.oldAlphFix(list: secondRow)
+                    searchValue = CutterHelper.oldAlphFix(list: searchValue)
                 }
                 
                 // use to determinate the lexicographic order
@@ -69,6 +69,7 @@ final class CutterGetter {
                     if(pInitial >= 0 && sInitial < 0){
                         result = data[index]
                     }else if (oldCompared < 0){
+                        oldResult = row
                         result = data[index]
                     }
                 // The value is before preRow so we stop searching

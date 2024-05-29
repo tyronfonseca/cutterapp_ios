@@ -17,7 +17,7 @@
 		F83DE2762BE9B19200E668B6 /* MainScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83DE2752BE9B19200E668B6 /* MainScreenModel.swift */; };
 		F83DE2782BE9B2C600E668B6 /* MainScreenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83DE2772BE9B2C600E668B6 /* MainScreenData.swift */; };
 		F83DE27B2BE9BC2800E668B6 /* CSVParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83DE27A2BE9BC2800E668B6 /* CSVParser.swift */; };
-		F83DE2812BE9C16600E668B6 /* cutter_ucr.csv in Resources */ = {isa = PBXBuildFile; fileRef = F83DE2802BE9C16600E668B6 /* cutter_ucr.csv */; };
+		F83DE2812BE9C16600E668B6 /* cutter_old.csv in Resources */ = {isa = PBXBuildFile; fileRef = F83DE2802BE9C16600E668B6 /* cutter_old.csv */; };
 		F83DE2832BE9C17600E668B6 /* cutter_normal.csv in Resources */ = {isa = PBXBuildFile; fileRef = F83DE2822BE9C17600E668B6 /* cutter_normal.csv */; };
 		F83DE2852BE9C33600E668B6 /* CutterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83DE2842BE9C33600E668B6 /* CutterData.swift */; };
 		F83DE2872BE9C54300E668B6 /* CutterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83DE2862BE9C54300E668B6 /* CutterHelper.swift */; };
@@ -51,7 +51,7 @@
 		F83DE2752BE9B19200E668B6 /* MainScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenModel.swift; sourceTree = "<group>"; };
 		F83DE2772BE9B2C600E668B6 /* MainScreenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenData.swift; sourceTree = "<group>"; };
 		F83DE27A2BE9BC2800E668B6 /* CSVParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVParser.swift; sourceTree = "<group>"; };
-		F83DE2802BE9C16600E668B6 /* cutter_ucr.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cutter_ucr.csv; sourceTree = "<group>"; };
+		F83DE2802BE9C16600E668B6 /* cutter_old.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cutter_old.csv; sourceTree = "<group>"; };
 		F83DE2822BE9C17600E668B6 /* cutter_normal.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cutter_normal.csv; sourceTree = "<group>"; };
 		F83DE2842BE9C33600E668B6 /* CutterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterData.swift; sourceTree = "<group>"; };
 		F83DE2862BE9C54300E668B6 /* CutterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterHelper.swift; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 		F83DE27F2BE9C15000E668B6 /* Raw */ = {
 			isa = PBXGroup;
 			children = (
-				F83DE2802BE9C16600E668B6 /* cutter_ucr.csv */,
+				F83DE2802BE9C16600E668B6 /* cutter_old.csv */,
 				F83DE2822BE9C17600E668B6 /* cutter_normal.csv */,
 			);
 			path = Raw;
@@ -262,7 +262,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					F83DE2572BE9747200E668B6 = {
 						CreatedOnToolsVersion = 15.3;
@@ -302,7 +302,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F83DE2812BE9C16600E668B6 /* cutter_ucr.csv in Resources */,
+				F83DE2812BE9C16600E668B6 /* cutter_old.csv in Resources */,
 				F83DE2632BE9747300E668B6 /* Preview Assets.xcassets in Resources */,
 				F83DE2602BE9747300E668B6 /* Assets.xcassets in Resources */,
 				F83DE2832BE9C17600E668B6 /* cutter_normal.csv in Resources */,
@@ -365,6 +365,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -412,7 +413,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -428,6 +429,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -469,7 +471,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

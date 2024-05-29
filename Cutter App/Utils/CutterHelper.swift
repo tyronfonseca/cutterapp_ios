@@ -61,7 +61,7 @@ final class CutterHelper{
         let secondLetter = word[1]
         var letter = String(firstLetter)
         
-        if(currVersion == .ucr){
+        if(currVersion == .old){
             if(firstLetter == "C" && secondLetter == "h"){
                 letter = "Ch"
             }else if (firstLetter == "L" && secondLetter == "l"){
@@ -73,7 +73,7 @@ final class CutterHelper{
     }
     
     
-    static func ucrFix(list: [Int]) -> [Int] {
+    static func oldAlphFix(list: [Int]) -> [Int] {
         var toAdd = 0
         var listResult = [Int]()
         var index = 1
@@ -97,7 +97,6 @@ final class CutterHelper{
                 listResult.append(secondChar)
             }
         }
-        
         return listResult
     }
 }

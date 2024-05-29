@@ -9,11 +9,11 @@ import Foundation
 
 enum CsvVersion: String, Codable, CaseIterable {
     case normal = "cutter_normal"
-    case ucr = "cutter_ucr"
+    case old = "cutter_old"
     
     var description: String {
         switch self{
-        case .ucr: return String(localized: "abc_old")
+        case .old: return String(localized: "abc_old")
         case .normal: return String(localized: "abc_normal")
         }
     }

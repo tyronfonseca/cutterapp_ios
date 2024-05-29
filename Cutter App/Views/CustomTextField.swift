@@ -13,7 +13,7 @@ struct CustomTextField: View {
     var body: some View {
         TextField("", text: $text
                   , prompt: Text(placeholder).foregroundStyle(.cTextSecondary))
-            .underLineTextField()    }
+        .underLineTextField()    }
 }
 
 #Preview {
