@@ -9,11 +9,15 @@ import SwiftUI
 
 @main
 struct Cutter_AppApp: App {
-    var mainScreenData = MainScreenModel()
+    @StateObject var mainScreenData = MainScreenModel()
+    @StateObject private var searchesCDStack = SearchesCD.shared
+    
     var body: some Scene {
         WindowGroup {
             MainScreen()
                 .environmentObject(mainScreenData)
+                .environment(\.managedObjectContext,
+                              searchesCDStack.persistentContainer.viewContext)
         }
     }
 }

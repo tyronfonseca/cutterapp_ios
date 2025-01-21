@@ -59,14 +59,19 @@ final class MainScreenModel: ObservableObject {
     
     func changeVersion(newVersion: CsvVersion){
         self.data.versionSelected = newVersion
-        self.saveChanges()
+        self.saveChanges(true)
     }
 
     
-    func saveChanges(){
+    func saveChanges(_ isChangeVersion : Bool = false){
         do {
             let data = try JSONEncoder().encode(data)
             appData = data
+            
+            if !isChangeVersion {
+                SearchesCD.shared.insertOrUpdate(firstName: self.firstName,
+                                                    lastName: self.lastName, result: self.data)
+            }
         }catch
         {
             

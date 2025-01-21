@@ -2,26 +2,13 @@
   "sourceLanguage" : "en",
   "strings" : {
     "" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ""
-          }
-        },
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ""
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ""
-          }
-        }
-      }
+      "shouldTranslate" : false
+    },
+    "%@" : {
+      "shouldTranslate" : false
+    },
+    "%@:" : {
+      "shouldTranslate" : false
     },
     "abc_normal" : {
       "extractionState" : "manual",
@@ -81,7 +68,7 @@
         }
       }
     },
-    "about" : {
+    "about_btn" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -109,6 +96,59 @@
           }
         }
       }
+    },
+    "author" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tyron Fonseca – 2025"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "author_header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Design and development"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diseño y desarrollo"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diseño y desarrollo"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Design e desenvolvimento"
+          }
+        }
+      }
+    },
+    "author_url" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://github.com/tyronfonseca/cutterapp_ios"
+          }
+        }
+      },
+      "shouldTranslate" : false
     },
     "change_version" : {
       "extractionState" : "manual",
@@ -168,6 +208,18 @@
         }
       }
     },
+    "contact_email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "contactfonsecasoftware@gmail.com"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
     "empty_text" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -203,7 +255,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "the number used will appear here."
+            "value" : "the calling number will appear here."
           }
         },
         "es" : {
@@ -222,6 +274,35 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "o Cutter usado aparecerá aqui."
+          }
+        }
+      }
+    },
+    "faq_header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frequently asked questions (F.A.Q)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preguntas frecuentes (F.A.Q)"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preguntas frecuentes (F.A.Q)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perguntas frequentes (F.A.Q)"
           }
         }
       }
@@ -319,25 +400,25 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Old alphabet includes the letters CH and LL"
+            "value" : "Old spanish alphabet includes the letters CH and LL"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "El alfabeto antiguo incluye las letras CH y LL"
+            "value" : "El alfabeto español antiguo que incluye las letras CH y LL"
           }
         },
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "El alfabeto antiguo incluye las letras CH y LL"
+            "value" : "El alfabeto español antiguo que incluye las letras CH y LL"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alfabeto antigo inclui as letras CH e LL"
+            "value" : "Alfabeto espanhol antigo inclui as letras CH e LL"
           }
         }
       }
@@ -400,6 +481,122 @@
         }
       }
     },
+    "question_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What accented letters or characters does the application accept?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Qué letras acentuadas o carácteres acepta la aplicación?"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Qué letras acentuadas o carácteres acepta la aplicación?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quais letras ou caracteres acentuados o aplicativo aceita?"
+          }
+        }
+      }
+    },
+    "question_1_a" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Currently the application only accepts Spanish / English alphabet characters and the following accents: Á É Í Ó Ó Ü. In future updates the capacity will be expanded."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualmente la aplicación solo acepta caracteres del alfabeto español/inglés y los siguientes acentos: Á É Í Ó Ú Ü. En futuras actualizaciones se irá expandiendo la capacidad."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualmente la aplicación solo acepta caracteres del alfabeto español/inglés y los siguientes acentos: Á É Í Ó Ú Ü. En futuras actualizaciones se irá expandiendo la capacidad."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualmente, o aplicativo aceita apenas caracteres do alfabeto espanhol / inglês e os seguintes acentos: Á É Í Ó Ó Ü. Em futuras atualizações, a capacidade será expandida."
+          }
+        }
+      }
+    },
+    "question_2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How do I submit a suggestion or report a problem with the application?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Cómo envío una sugerencia o reporto un problema con la aplicación?"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Cómo envío una sugerencia o reporto un problema con la aplicación?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Como submeto uma sugestão ou relatar um problema com o aplicativo?"
+          }
+        }
+      }
+    },
+    "question_2_a" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can send suggestions or report a problem to the following email"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puede enviar sugerencias o reportar algún problema al siguiente correo"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puede enviar sugerencias o reportar algún problema al siguiente correo"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você pode enviar sugestões ou relatar um problema para o seguinte email"
+          }
+        }
+      }
+    },
     "save_close" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -458,6 +655,63 @@
         }
       }
     },
+    "search_history_accessibility" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History of previous searches"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historial de búsquedas anteriores"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historial de búsquedas anteriores"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Histórico de pesquisas anteriores"
+          }
+        }
+      }
+    },
+    "search_history_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search History"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historial de búsqueda"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historial de búsqueda"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Histórico de pesquisa"
+          }
+        }
+      }
+    },
     "settings" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -486,6 +740,59 @@
           }
         }
       }
+    },
+    "ui_header" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icon and other UI aspects"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ícono y otros aspectos de la IU"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ícono y otros aspectos de la interfaz gráfica"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ícone e outros aspectos da interface do usuário"
+          }
+        }
+      }
+    },
+    "ui_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omar Zamora G."
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "ui_url" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://www.instagram.com/crea.cr"
+          }
+        }
+      },
+      "shouldTranslate" : false
     }
   },
   "version" : "1.0"
