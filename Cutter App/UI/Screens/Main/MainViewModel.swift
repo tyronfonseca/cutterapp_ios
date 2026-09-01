@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class MainScreenModel: ObservableObject {
+final class MainViewModel: ObservableObject {
     @AppStorage("appData") private var appData: Data?
     
     @Published var data = MainScreenData()

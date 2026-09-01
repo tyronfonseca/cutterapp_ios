@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct MainScreen: View {
-    @EnvironmentObject var mainScreenData: MainScreenModel
+struct Main: View {
+    @EnvironmentObject var mainScreenData: MainViewModel
     @FocusState private var focusedTextField: FormTextField?
         
     enum FormTextField {
@@ -85,17 +85,6 @@ struct MainScreen: View {
                     })
                     .padding(.top, 60)
                 }
-                .overlay(Button {
-                    mainScreenData.settingOpen = true
-                } label: {
-                    Image(systemName: "gearshape.fill")
-                        .resizable()
-                        .foregroundStyle(.cText)
-                        .frame(width: 30, height: 30)
-                        .accessibilityLabel(String(localized: "change_version"))
-                        .accessibilityAddTraits(.isButton)
-                    
-                }, alignment: .bottomLeading)
                 .overlay(
                     NavigationLink(destination: SearchHistory(), label: {
                     Image(systemName: "clock.arrow.trianglehead.counterclockwise.rotate.90")
@@ -122,6 +111,6 @@ struct MainScreen: View {
 }
 
 #Preview {
-    MainScreen()
-        .environmentObject(MainScreenModel())
+    Main()
+        .environmentObject(MainViewModel())
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsScreen: View {
-    @EnvironmentObject var mainScreenData: MainScreenModel
+    @EnvironmentObject var mainScreenData: MainViewModel
     let versions = CsvVersion.allCases
     
     var body: some View {
@@ -42,5 +42,5 @@ struct SettingsScreen: View {
 
 #Preview {
     SettingsScreen()
-        .environmentObject(MainScreenModel())
+        .environmentObject(MainViewModel())
 }

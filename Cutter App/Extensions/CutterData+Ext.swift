@@ -1,16 +1,11 @@
 //
-//  CutterData.swift
+//  CutterData+Ext.swift
 //  Cutter App
 //
 //  Created by Tyron Fonseca on 6/5/24.
 //
 
 import Foundation
-
-struct CutterData {
-    let name: String
-    let value: String
-}
 
 // For unit testing purposes
 extension CutterData : Equatable {
