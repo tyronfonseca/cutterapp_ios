@@ -8,21 +8,22 @@
 import Foundation
 
 final class CutterGetter {
+    // Singleton
     static let shared  = CutterGetter()
     
     private var currentVersion = CsvVersion.normal //Default
     private var cutterData = [CutterData]()
     
     private init(){
-        self.getData()
+        self.getCutterList()
     }
     
     func changeVersion(newVersion: CsvVersion){
         self.currentVersion = newVersion
-        self.getData()
+        self.getCutterList()
     }
     
-    func getData(){
+    func getCutterList(){
         self.cutterData = CSVParser().getCSVData(self.currentVersion)
     }
     
@@ -32,60 +33,31 @@ final class CutterGetter {
         if(data.count == 0){
             data = self.cutterData
         }
-        
-        var result: CutterData?
-        let fullName = (lastName + ", " + name).uppercased()
-        var searchValue = CutterHelper.convertStrToIntArr(str: fullName)
-        
-        var oldResult = [Int]()
-        var index = 0
-        var keepSearching = true
-        while(keepSearching && index < data.count - 1){
-            
-            if(fullName.compareToInsen(rightStr: data[index].name)){
-                result = data[index]
-                keepSearching = false
-            }else{
-                var row = CutterHelper.convertStrToIntArr(str: data[index].name.uppercased())
-                var secondRow = CutterHelper.convertStrToIntArr(str: data[index + 1].name.uppercased())
-                
-                // Fix values if the version is cutter_old
-                if(currentVersion == CsvVersion.old)
-                {
-                    row = CutterHelper.oldAlphFix(list: row)
-                    secondRow = CutterHelper.oldAlphFix(list: secondRow)
-                    searchValue = CutterHelper.oldAlphFix(list: searchValue)
-                }
-                
-                // use to determinate the lexicographic order
-                let prevRow = CutterHelper.compareIntArrTo(leftArr: searchValue, rightArr: row)
-                let nextRow = CutterHelper.compareIntArrTo(leftArr: searchValue, rightArr: secondRow)
-                let pInitial = searchValue.last! - row.last!
-                let sInitial = searchValue.last! - secondRow.last!
-                
-                // lexicographic order
-                if(prevRow >= 0 && nextRow < 0){
-                    let oldCompared = CutterHelper.compareIntArrTo(leftArr: oldResult, rightArr: row)
-                    if(pInitial >= 0 && sInitial < 0){
-                        result = data[index]
-                    }else if (oldCompared < 0){
-                        oldResult = row
-                        result = data[index]
-                    }
-                // The value is before preRow so we stop searching
-                // and return the result
-                }else if (prevRow < 0){
-                    keepSearching = false
-                }
-                index += 1
+
+        let query = CutterHelper.getQueryFromName(name: name, lastName: lastName)
+
+        // Binary search
+        var low = 0
+        var high = data.count - 1
+        var bestMatchIndex = 0
+
+        while(low <= high){
+            let mid = (low + high) / 2
+            let candidateName = CutterHelper.removeAccents(query: data[mid].name)
+            let cmp = query.compare(candidateName)
+
+            if cmp == .orderedSame {
+                return data[mid]
+            } else if cmp == .orderedAscending {
+                high = mid - 1
+            } else {
+               // The searched term is after candidateName,
+               // we save this position as a valid predecessor candidate
+                bestMatchIndex = mid
+                low = mid + 1
             }
         }
-        // Handle special case where the result was never found
-        // Get last value
-        if (result == nil){
-            result = data[index]
-        }
 
-        return result
+        return data[bestMatchIndex]
     }
 }

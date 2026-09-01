@@ -99,4 +99,23 @@ final class CutterHelper{
         }
         return listResult
     }
+
+    static func removeAccents(query:String) -> String {
+        let result = query.uppercased().folding(options: .diacriticInsensitive, locale: .current)
+        return result
+    }
+
+    static func getQueryFromName(name: String, lastName: String) -> String {
+        let _name = name.replacingOccurrences(of: " ", with: "")
+        let _lastName = lastName.replacingOccurrences(of: " ", with: "")
+        var result = ""
+
+        if(_name.isEmpty){
+            result = _lastName.uppercased()
+        } else {
+            result = "\(_lastName), \(_name)"
+        }
+
+        return removeAccents(query: result)
+    }
 }

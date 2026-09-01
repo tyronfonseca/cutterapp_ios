@@ -20,8 +20,10 @@ class CSVParser {
         do {
             let result = try String(contentsOfFile: path, encoding: .utf8).components(separatedBy: "\n")
             for row in result {
-                let data = row.components(separatedBy: ";")
-                dataResult.append(CutterData(name: data[0], value: data[1]))
+                if(!row.isEmpty){
+                    let data = row.components(separatedBy: ";")
+                    dataResult.append(CutterData(name: data[0], value: data[1]))
+                }
             }
         }catch{
             print("Error parsing file")
