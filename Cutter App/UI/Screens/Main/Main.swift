@@ -9,104 +9,47 @@ import SwiftUI
 
 struct Main: View {
     @EnvironmentObject var mainScreenData: MainViewModel
-    @FocusState private var focusedTextField: FormTextField?
-        
-    enum FormTextField {
-        case firstName, lastName
+    @State private var selectedTab: AppTab = .home
+    
+    enum AppTab: Hashable {
+        case home, scan, history, about
     }
     
     var body: some View {
-        NavigationStack {
-            ZStack{
-                Color(.cPrimary)
-                VStack {
-                    Image(.longLogoWhite)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 250)
-                        .padding(.bottom, 120)
-                        .accessibilityLabel(String("logo_description"))
-                        .accessibilityAddTraits(.isImage)
-                    
-                    Text(mainScreenData.data.result)
-                        .bold()
-                        .font(.largeTitle)
-                        .foregroundStyle(.cText)
-                        .animation(.smooth)
-                    
-                    Text(mainScreenData.data.dataUsed)
-                        .foregroundStyle(.cTextSecondary)
-                        .font(.title3)
-                        .animation(.smooth)
-                    
-                    
-                    VStack{
-                        CustomTextField(text: $mainScreenData.lastName, placeholder: "placeholder_last_name")
-                        
-                            .focused($focusedTextField, equals: .lastName)
-                            .onSubmit {
-                                focusedTextField = .firstName
-                            }
-                            .submitLabel(.next)
-                            .autocorrectionDisabled()
-                            .padding(.horizontal, 30)
-                        
-                        CustomTextField(text: $mainScreenData.firstName, placeholder: "placeholder_name")
-                            .focused($focusedTextField, equals: .firstName)
-                            .onSubmit {
-                                focusedTextField = nil
-                            }
-                            .submitLabel(.continue)
-                            .onSubmit {
-                                mainScreenData.searchValue()
-                            }
-                            .autocorrectionDisabled()
-                            .padding(.horizontal, 30)
-                    }
-                    .padding(.bottom, 60)
-                    
-                    Button {
-                        mainScreenData.searchValue()
-                    } label: {
-                        Text("search_btn")
-                            .textCase(.uppercase)
-                            .foregroundStyle(.cText)
-                            .bold()
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(.white)
-                    .controlSize(.large)
-                    
-                    NavigationLink(destination: About(), label:
-                                    {
-                        Text("about_btn")
-                            .foregroundStyle(.white)
-                            .bold()
-                    })
-                    .padding(.top, 60)
+        TabView(selection: $selectedTab) {
+            // MARK: - Tab: Search Main Flow
+            Tab("home", systemImage: "house", value: .home) {
+                NavigationStack {
+                    MainScreen()
                 }
-                .overlay(
-                    NavigationLink(destination: SearchHistory(), label: {
-                    Image(systemName: "clock.arrow.trianglehead.counterclockwise.rotate.90")
-                        .resizable()
-                        .foregroundStyle(.cText)
-                        .frame(width: 35, height: 30)
-                        .accessibilityLabel(String(localized: "search_history_accessibility"))
-                        .accessibilityAddTraits(.isButton)
-                    
-                }), alignment: .bottomTrailing)
-                .padding()
             }
-            .sheet(isPresented: $mainScreenData.settingOpen
-                   , onDismiss: { mainScreenData.saveChanges(true) }){
-                SettingsScreen()
-                    .environmentObject(mainScreenData)
+            
+            // MARK: - Tab: Scan
+            Tab("scan_text", systemImage: "document.viewfinder", value: .scan) {
+                NavigationStack {
+                    OCRCameraView(
+                        lastName: $mainScreenData.lastName,
+                        firstName: $mainScreenData.firstName,
+                        selectedTab: $selectedTab
+                    )
+                }
             }
-            .onAppear(){
-                mainScreenData.retriveData()
+            
+            // MARK: - Tab: Search History
+            Tab("history", systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90", value: .history) {
+                NavigationStack {
+                    SearchHistory()
+                }
             }
-            .ignoresSafeArea()
+            
+            // MARK: - Tab: About
+            Tab("about_btn", systemImage: "info.circle", value: .about) {
+                NavigationStack {
+                    About()
+                }
+            }
         }
+        .tabViewStyle(.sidebarAdaptable)
     }
 }
 

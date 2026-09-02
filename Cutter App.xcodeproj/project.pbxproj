@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A425FE2E30486CEA0007F2C1 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A425FE2D30486CEA0007F2C1 /* CameraView.swift */; };
+		A425FE3030486D6F0007F2C1 /* OCRCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A425FE2F30486D6F0007F2C1 /* OCRCameraView.swift */; };
+		A425FE3230488E9E0007F2C1 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A425FE3130488E9E0007F2C1 /* MainScreen.swift */; };
 		F83D098A304710D70078DC3C /* AdknowledgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83D0979304710D70078DC3C /* AdknowledgeView.swift */; };
 		F83D098B304710D70078DC3C /* CardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83D097A304710D70078DC3C /* CardModifier.swift */; };
 		F83D098C304710D70078DC3C /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83D097B304710D70078DC3C /* CustomTextField.swift */; };
@@ -51,6 +54,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A425FE2D30486CEA0007F2C1 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		A425FE2F30486D6F0007F2C1 /* OCRCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRCameraView.swift; sourceTree = "<group>"; };
+		A425FE3130488E9E0007F2C1 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		F82ED0302D41582300F7CFB9 /* Cutter-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Cutter-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		F83D0979304710D70078DC3C /* AdknowledgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdknowledgeView.swift; sourceTree = "<group>"; };
 		F83D097A304710D70078DC3C /* CardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModifier.swift; sourceTree = "<group>"; };
@@ -105,6 +111,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A425FE2C30486CC80007F2C1 /* OCRCamera */ = {
+			isa = PBXGroup;
+			children = (
+				A425FE2D30486CEA0007F2C1 /* CameraView.swift */,
+				A425FE2F30486D6F0007F2C1 /* OCRCameraView.swift */,
+			);
+			path = OCRCamera;
+			sourceTree = "<group>";
+		};
 		F83D097D304710D70078DC3C /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +145,7 @@
 				F83D0980304710D70078DC3C /* Main.swift */,
 				F83D0981304710D70078DC3C /* MainScreenData.swift */,
 				F83D0982304710D70078DC3C /* MainViewModel.swift */,
+				A425FE3130488E9E0007F2C1 /* MainScreen.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -154,6 +170,7 @@
 		F83D0988304710D70078DC3C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A425FE2C30486CC80007F2C1 /* OCRCamera */,
 				F83D097F304710D70078DC3C /* About */,
 				F83D0983304710D70078DC3C /* Main */,
 				F83D0985304710D70078DC3C /* History */,
@@ -345,7 +362,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 2660;
 				TargetAttributes = {
 					F83DE2572BE9747200E668B6 = {
 						CreatedOnToolsVersion = 15.3;
@@ -413,9 +430,11 @@
 				F83D0997304711BF0078DC3C /* CutterData.swift in Sources */,
 				F83F23D02D406750003944B3 /* TextField+Ext.swift in Sources */,
 				F83F23D12D406750003944B3 /* CutterGetter.swift in Sources */,
+				A425FE3230488E9E0007F2C1 /* MainScreen.swift in Sources */,
 				F83F23D62D406750003944B3 /* SearchesCD.swift in Sources */,
 				F83F23D72D406750003944B3 /* CSVParser.swift in Sources */,
 				F83D098A304710D70078DC3C /* AdknowledgeView.swift in Sources */,
+				A425FE2E30486CEA0007F2C1 /* CameraView.swift in Sources */,
 				F83D098B304710D70078DC3C /* CardModifier.swift in Sources */,
 				F83D098C304710D70078DC3C /* CustomTextField.swift in Sources */,
 				F83D098D304710D70078DC3C /* FAQView.swift in Sources */,
@@ -428,6 +447,7 @@
 				F83F23DA2D406750003944B3 /* CsvVersion.swift in Sources */,
 				F83F23DB2D406750003944B3 /* CutterHelper.swift in Sources */,
 				F83F23DD2D406750003944B3 /* CutterData+Ext.swift in Sources */,
+				A425FE3030486D6F0007F2C1 /* OCRCameraView.swift in Sources */,
 				F83F23DE2D406750003944B3 /* View+Ext.swift in Sources */,
 				F83F23E32D406750003944B3 /* Previewing.swift in Sources */,
 				F83F23E52D406750003944B3 /* Searches.xcdatamodeld in Sources */,
@@ -490,6 +510,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 7N78JQ4KFW;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -513,6 +534,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -554,6 +576,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7N78JQ4KFW;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -570,6 +593,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -583,12 +607,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Cutter App/Preview Content\"";
-				DEVELOPMENT_TEAM = 7N78JQ4KFW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Cutter-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Cutter App";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We use the camera to scan the text and the author cutter number. We don't save any image.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -620,12 +645,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Cutter App/Preview Content\"";
-				DEVELOPMENT_TEAM = 7N78JQ4KFW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Cutter-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Cutter App";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We use the camera to scan the text and the author cutter number. We don't save any image.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -655,7 +681,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7N78JQ4KFW;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tfonseca.cuttersanborn.Cutter-AppTests";
@@ -673,7 +698,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7N78JQ4KFW;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tfonseca.cuttersanborn.Cutter-AppTests";

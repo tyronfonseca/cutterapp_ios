@@ -14,11 +14,19 @@ struct SearchHistory: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(searchHistory, id: \.id) { result in
-                    SearchResultItem(result: result)
+            if searchHistory.isEmpty {
+                ContentUnavailableView(
+                    "history_empty",
+                    systemImage: "book.closed.fill",
+                    description: Text("history_empty_description")
+                )
+            } else {
+                List {
+                    ForEach(searchHistory, id: \.id) { result in
+                        SearchResultItem(result: result)
+                    }
+                    .onDelete(perform: deleteItem)
                 }
-                .onDelete(perform: deleteItem)
             }
         }
         .navigationTitle("search_history_title")
