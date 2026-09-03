@@ -10,6 +10,7 @@
 		A425FE2E30486CEA0007F2C1 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A425FE2D30486CEA0007F2C1 /* CameraView.swift */; };
 		A425FE3030486D6F0007F2C1 /* OCRCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A425FE2F30486D6F0007F2C1 /* OCRCameraView.swift */; };
 		A425FE3230488E9E0007F2C1 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A425FE3130488E9E0007F2C1 /* MainScreen.swift */; };
+		A45B3C4D304A1A3E00357514 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45B3C4C304A1A3E00357514 /* HistoryViewModel.swift */; };
 		F83D098A304710D70078DC3C /* AdknowledgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83D0979304710D70078DC3C /* AdknowledgeView.swift */; };
 		F83D098B304710D70078DC3C /* CardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83D097A304710D70078DC3C /* CardModifier.swift */; };
 		F83D098C304710D70078DC3C /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83D097B304710D70078DC3C /* CustomTextField.swift */; };
@@ -57,6 +58,7 @@
 		A425FE2D30486CEA0007F2C1 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		A425FE2F30486D6F0007F2C1 /* OCRCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRCameraView.swift; sourceTree = "<group>"; };
 		A425FE3130488E9E0007F2C1 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		A45B3C4C304A1A3E00357514 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		F82ED0302D41582300F7CFB9 /* Cutter-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Cutter-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		F83D0979304710D70078DC3C /* AdknowledgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdknowledgeView.swift; sourceTree = "<group>"; };
 		F83D097A304710D70078DC3C /* CardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModifier.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			children = (
 				F83D09983047132B0078DC3C /* HistoryItem.swift */,
 				F83D0984304710D70078DC3C /* History.swift */,
+				A45B3C4C304A1A3E00357514 /* HistoryViewModel.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				F83F23DE2D406750003944B3 /* View+Ext.swift in Sources */,
 				F83F23E32D406750003944B3 /* Previewing.swift in Sources */,
 				F83F23E52D406750003944B3 /* Searches.xcdatamodeld in Sources */,
+				A45B3C4D304A1A3E00357514 /* HistoryViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

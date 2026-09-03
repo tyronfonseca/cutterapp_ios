@@ -19,9 +19,7 @@ struct Main: View {
         TabView(selection: $selectedTab) {
             // MARK: - Tab: Search Main Flow
             Tab("home", systemImage: "house", value: .home) {
-                NavigationStack {
-                    MainScreen()
-                }
+                MainScreen()
             }
             
             // MARK: - Tab: Scan
@@ -36,7 +34,8 @@ struct Main: View {
             }
             
             // MARK: - Tab: Search History
-            Tab("history", systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90", value: .history) {
+            Tab("history", systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90", value: .history)
+            {
                 NavigationStack {
                     SearchHistory()
                 }
@@ -44,9 +43,7 @@ struct Main: View {
             
             // MARK: - Tab: About
             Tab("about_btn", systemImage: "info.circle", value: .about) {
-                NavigationStack {
-                    About()
-                }
+                About()
             }
         }
         .tabViewStyle(.sidebarAdaptable)

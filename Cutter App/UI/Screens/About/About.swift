@@ -34,8 +34,8 @@ struct About: View {
                 .toCard()
             }
             .padding()
+            .navigationTitle("about_btn")
         }
-        .navigationTitle("about_btn")
     }
 }
 
