@@ -23,8 +23,12 @@ final class CutterGetter {
         self.getCutterList()
     }
     
-    func getCutterList(){
+    private func getCutterList(){
         self.cutterData = CSVParser().getCSVData(self.currentVersion)
+    }
+    
+    func getCutterData() -> [CutterData] {
+        return self.cutterData
     }
     
     func search(name:String, lastName:String, _data: [CutterData] = [CutterData]()) -> CutterData? {

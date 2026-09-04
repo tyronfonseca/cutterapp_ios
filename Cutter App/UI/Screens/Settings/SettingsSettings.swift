@@ -8,30 +8,20 @@
 import SwiftUI
 
 struct SettingsScreen: View {
-    @EnvironmentObject var mainScreenData: MainViewModel
-    let versions = CsvVersion.allCases
-    
     var body: some View {
         NavigationStack{
             VStack{
                 Form {
                     Section{
-                        Picker("change_version", selection: $mainScreenData.data.versionSelected){
-                            ForEach(versions, id:\.self){
-                                Text($0.description)
-                            }
-                        }
-                        .frame(height: 40)
-                        
                         Button{
-                            mainScreenData.settingOpen = false
+                            print("Version")
                         }label: {
                             Text("save_close")
                         }
                     }
-                footer: {
-                    Text("old_explained")
-                }
+                    footer: {
+                        Text("old_explained")
+                    }
                 }
                 
             }
@@ -42,5 +32,4 @@ struct SettingsScreen: View {
 
 #Preview {
     SettingsScreen()
-        .environmentObject(MainViewModel())
 }

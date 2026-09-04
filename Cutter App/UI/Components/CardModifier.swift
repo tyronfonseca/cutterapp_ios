@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct CardModifier: ViewModifier {
+    var backgroundColor: Color = Color(uiColor: .darkGray)
     func body(content: Content) -> some View {
         content.padding()
-            .background(Color.darkGray.cornerRadius(10))
+            .background(backgroundColor.cornerRadius(10))
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .shadow(color: Color.black.opacity(0.1), radius: 10)
     }

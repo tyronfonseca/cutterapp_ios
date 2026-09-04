@@ -22,7 +22,7 @@ class CSVParser {
             for row in result {
                 if(!row.isEmpty){
                     let data = row.components(separatedBy: ";")
-                    dataResult.append(CutterData(name: data[0], value: data[1]))
+                    dataResult.append(CutterData(name: data[0], code: data[1]))
                 }
             }
         }catch{

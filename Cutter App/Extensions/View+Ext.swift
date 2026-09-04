@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension View {
-    public func toCard() -> some View {
-        return modifier(CardModifier())
+    public func toCard(backgroundColor: Color = Color(uiColor: .darkGray)) -> some View {
+        return modifier(CardModifier(backgroundColor: backgroundColor))
     }
 }

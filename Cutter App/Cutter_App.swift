@@ -9,15 +9,21 @@ import SwiftUI
 
 @main
 struct Cutter_App: App {
-    @StateObject var mainScreenData = MainViewModel()
-    @StateObject private var searchesCDStack = SearchesCD.shared
     
     var body: some Scene {
         WindowGroup {
             Main()
-                .environmentObject(mainScreenData)
-                .environment(\.managedObjectContext,
-                              searchesCDStack.persistentContainer.viewContext)
+                .onOpenURL { url in
+                    if let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
+                       let query = components.queryItems?.first(where: { $0.name == "query" })?.value {
+                        
+                        NotificationCenter.default.post(
+                            name: .didReceiveShortcutSearch,
+                            object: nil,
+                            userInfo: ["query": query]
+                        )
+                    }
+                }
         }
     }
 }
