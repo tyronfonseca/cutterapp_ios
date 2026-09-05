@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct SearchView: View {
     @StateObject private var viewModel: SearchViewModel
     @State private var showScanner: Bool = false
+    @State private var isExporting = false
+    @State private var exportDocument: CSVFile?
     
     init() {
         self._viewModel = StateObject(wrappedValue: SearchViewModel())
@@ -43,13 +46,15 @@ struct SearchView: View {
                     }
                     
                     HStack(spacing: 8) {
-                        Button(action: { showScanner = true }) {
-                            Label("Scan", systemImage: "document.viewfinder")
+                        if !ProcessInfo.processInfo.isiOSAppOnMac {
+                            Button(action: { showScanner = true }) {
+                                Label("Scan", systemImage: "document.viewfinder")
+                            }
+                            .sheet(isPresented: $showScanner) {
+                                OCRCameraView(searchText: $viewModel.searchText)
+                            }
+                            .buttonStyle(.glass)
                         }
-                        .sheet(isPresented: $showScanner) {
-                            OCRCameraView(searchText: $viewModel.searchText)
-                        }
-                        .buttonStyle(.glass)
                         
                         Spacer()
                         
@@ -161,23 +166,49 @@ struct SearchView: View {
                     .disabled(viewModel.capturedText.isEmpty)
                     
                     Spacer()
-                    if let csvURL = viewModel.exportToCSV() {
-                        ShareLink(
-                            item: csvURL,
-                            preview: SharePreview(
-                                "Export to CSV (\(viewModel.capturedText.count) items)",
-                                image: Image(systemName: "doc.text")
-                            )
-                        ) {
-                            Label("Share", systemImage: "square.and.arrow.up")
+                    Group {
+                        if let csvURL = viewModel.exportToCSV() {
+                            if ProcessInfo.processInfo.isiOSAppOnMac {
+                                Button(action: {
+                                    exportDocument = CSVFile(url: csvURL)
+                                    isExporting = true
+                                }) {
+                                    Label("Save CSV", systemImage: "doc.badge.plus")
+                                }
+                                .buttonStyle(.glassProminent)
+                                .controlSize(.large)
+                            } else {
+                                ShareLink(
+                                    item: csvURL,
+                                    preview: SharePreview(
+                                        "Export to CSV (\(viewModel.capturedText.count) items)",
+                                        image: Image(systemName: "doc.text")
+                                    )
+                                ) {
+                                    Label("Share", systemImage: "square.and.arrow.up")
+                                }
+                                .buttonStyle(.glassProminent)
+                                .controlSize(.large)
+                            }
+                        } else {
+                            Button("Share", systemImage: "square.and.arrow.up") {}
+                                .buttonStyle(.glassProminent)
+                                .controlSize(.large)
+                                .disabled(true)
                         }
-                        .buttonStyle(.glassProminent)
-                        .controlSize(.large)
-                    } else {
-                        Button("Share", systemImage: "square.and.arrow.up") {}
-                            .buttonStyle(.glassProminent)
-                            .controlSize(.large)
-                            .disabled(true)
+                    }
+                    .fileExporter(
+                        isPresented: $isExporting,
+                        document: exportDocument,
+                        contentType: .commaSeparatedText,
+                        defaultFilename: "Export-\(Date().formatted(.iso8601.year().month().day())).csv"
+                    ) { result in
+                        switch result {
+                        case .success(let destinationURL):
+                            print("CSV saved directly to: \(destinationURL.path)")
+                        case .failure(let error):
+                            print("Failed to save CSV: \(error.localizedDescription)")
+                        }
                     }
                 }
                 .padding(16)

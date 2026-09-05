@@ -914,6 +914,9 @@
         }
       }
     },
+    "Save CSV" : {
+
+    },
     "save_close" : {
       "extractionState" : "manual",
       "localizations" : {
