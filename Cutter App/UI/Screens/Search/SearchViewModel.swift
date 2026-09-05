@@ -6,16 +6,31 @@
 //
 
 import SwiftUI
+import Foundation
 
-@MainActor
-final class SearchViewModel: ObservableObject {
-    @Published var searchText: String = ""
-    @Published var capturedText: [CutterData] = []
-    @Published var isSearchingISBN: Bool = false
-    @Published var errorMessage: String = ""
-    @Published var showErrorAlert: Bool = false
+@Observable
+final class SearchViewModel {
+    var searchText: String = ""
+    var capturedText: [CutterData] = []
+    var isSearchingISBN: Bool = false
+    var errorMessage: String = ""
+    var showErrorAlert: Bool = false
+    var showScanner: Bool = false
+    var isExporting: Bool = false
+    var exportDocument: CSVFile?
+    var showEditItem: Bool = false
+    var showOnlyNeedsReview: Bool = false
+    var showExportAlert: Bool = false
     
-    private let cutterGetter = CutterGetter.shared
+    let sharedData: AppSharedData
+    
+    private let pattern = "^([a-zA-Z]+),\\s([a-zA-Z]+)$"
+    private var cutterRegex : NSRegularExpression?
+
+    init(sharedData: AppSharedData) {
+        self.sharedData = sharedData
+        cutterRegex = try? NSRegularExpression(pattern: pattern)
+    }
     
     func reset() {
         capturedText.removeAll()
@@ -47,22 +62,27 @@ final class SearchViewModel: ObservableObject {
     }
     
     private func getCutter(_ text: String) -> CutterData? {
-        let cutterResult: CutterData?
-        var formattedSearchText = text
+        let range = NSRange(text.startIndex..., in: text)
+        let matchesRegex = cutterRegex?.firstMatch(in: text, range: range) != nil
         
-        if let lastSpaceIndex = text.range(of: " ", options: .backwards)?.lowerBound {
-            let firstPart = String(text[..<lastSpaceIndex])
-            let lastPart = String(text[text.index(after: lastSpaceIndex)...])
-            
-            cutterResult = cutterGetter.search(name: firstPart, lastName: lastPart)
-            formattedSearchText = "\(lastPart), \(firstPart)"
+        let dontSeparateName = sharedData.dontSeparateName
+        let authorName: String
+        let authorSurname: String
+        
+        if !dontSeparateName, !matchesRegex, let lastSpaceIndex = text.range(of: " ", options: .backwards)?.lowerBound {
+            authorName = String(text[..<lastSpaceIndex])
+            authorSurname = String(text[text.index(after: lastSpaceIndex)...])
         } else {
-            cutterResult = cutterGetter.search(name: "", lastName: text)
+            authorName = ""
+            authorSurname = text
         }
         
-        if var cutter = cutterResult {
-            cutter.searchValue = formattedSearchText
-            return cutter
+        if var cutter = sharedData.search(name: authorName, lastName: authorSurname, dontSeparateName: dontSeparateName) {
+            var updatedCutter = cutter
+            updatedCutter.id = UUID()
+            updatedCutter.authorName = authorName
+            updatedCutter.authorSurname = authorSurname
+            return updatedCutter
         }
         
         return nil
@@ -75,20 +95,17 @@ final class SearchViewModel: ObservableObject {
             throw URLError(.badURL)
         }
         
-        // Build URLRequest with required User-Agent and Contact Info headers
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("CutterApp/1.0 (contactfonsecasoftware@gmail.com)", forHTTPHeaderField: "User-Agent")
         request.setValue("contactfonsecasoftware@gmail.com.", forHTTPHeaderField: "From")
         
-        // Configure URLCache (20MB Memory, 100MB Disk)
         let cache = URLCache(memoryCapacity: 20 * 1024 * 1024, diskCapacity: 100 * 1024 * 1024, diskPath: "OpenLibraryCache")
         let config = URLSessionConfiguration.default
         config.urlCache = cache
         config.requestCachePolicy = .useProtocolCachePolicy
         let session = URLSession(configuration: config)
         
-        // Perform network request using configured session and request
         let (data, response) = try await session.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
@@ -111,12 +128,13 @@ final class SearchViewModel: ObservableObject {
                 if let book = try await fetchBookByISBN(isbn) {
                     let title = book.title ?? "Unknown Title"
                     let author = book.authorName?.first ?? ""
-                    let ddc = book.primaryDDC
+                    let ddc = book.ddc ?? []
                     
                     if var cutter = getCutter(author.isEmpty ? title : author) {
                         cutter.bookName = title
                         cutter.ddc = ddc
                         cutter.isbn = isbn
+                        cutter.needsReview = true
                         capturedText.append(cutter)
                         searchText = ""
                     } else {
@@ -132,17 +150,31 @@ final class SearchViewModel: ObservableObject {
         }
     }
     
+    func checkAndExport(_ url: URL) {
+        let itemsNeedingReview = capturedText.filter { $0.needsReview }
+        
+        if !itemsNeedingReview.isEmpty {
+            showExportAlert = true
+        } else {
+            proceedWithExport(url)
+        }
+    }
+    
+    func proceedWithExport(_ url: URL) {
+        exportDocument = CSVFile(url: url)
+        isExporting = true
+    }
+    
     func exportToCSV() -> URL? {
         guard !capturedText.isEmpty else { return nil }
         
-        var csvString = "Search Input,Name,Code,Number,ISBN,Book Name,DDC\n"
+        var csvString = "Author Name,Author Surname,Name,Code,Number,ISBN,Book Name,DDC\n"
         
         for item in capturedText {
-            let cleanSearch = item.searchValue.replacingOccurrences(of: "\"", with: "\"\"")
             let cleanName = item.name.replacingOccurrences(of: "\"", with: "\"\"")
             let cleanBookName = item.bookName.replacingOccurrences(of: "\"", with: "\"\"")
             
-            let row = "\"\(cleanSearch)\",\"\(cleanName)\",\"\(item.code)\",\"\(item.number)\",\"\(item.isbn)\",\"\(cleanBookName)\",\"\(item.ddc)\"\n"
+            let row = "\"\(item.authorName)\",\"\(item.authorSurname)\",\"\(cleanName)\",\"\(item.code)\",\"\(item.number)\",\"\(item.isbn)\",\"\(cleanBookName)\",\"\(item.ddc)\"\n"
             csvString.append(row)
         }
         

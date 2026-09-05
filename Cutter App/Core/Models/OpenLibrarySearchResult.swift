@@ -28,9 +28,4 @@ struct BookDoc: Codable {
         case ddc
         case authorName = "author_name"
     }
-        
-    // Get the primary DDC classification number
-    var primaryDDC: String {
-        ddc?.first ?? ""
-    }
 }

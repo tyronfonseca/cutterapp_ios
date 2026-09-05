@@ -55,8 +55,8 @@ final class CutterHelper{
         
         return leftLen - rightLen
     }
-    
-    static func getFirstLetter(word:String, currVersion: CsvVersion) -> String {
+    /*
+    static func getFirstLetter(word:String, currVersion: CSVVersion) -> String {
         let firstLetter = word[0]
         let secondLetter = word[1]
         var letter = String(firstLetter)
@@ -99,7 +99,7 @@ final class CutterHelper{
         }
         return listResult
     }
-
+    */
     static func removeAccents(query:String) -> String {
         let result = query.uppercased().folding(options: .diacriticInsensitive, locale: .current)
         return result

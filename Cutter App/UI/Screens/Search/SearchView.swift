@@ -9,21 +9,19 @@ import SwiftUI
 import Foundation
 
 struct SearchView: View {
-    @StateObject private var viewModel: SearchViewModel
-    @State private var showScanner: Bool = false
-    @State private var isExporting = false
-    @State private var exportDocument: CSVFile?
+    @State private var viewModel: SearchViewModel
     
-    init() {
-        self._viewModel = StateObject(wrappedValue: SearchViewModel())
+    init(sharedData: AppSharedData) {
+        self._viewModel = State(wrappedValue: SearchViewModel(sharedData: sharedData))
     }
     
     var body: some View {
+        @Bindable var viewModel = viewModel
         NavigationStack {
-            VStack (
+            VStack(
                 alignment: .center,
                 spacing: 0
-            ){
+            ) {
                 Image(.longLogo)
                     .renderingMode(.template)
                     .resizable()
@@ -47,10 +45,10 @@ struct SearchView: View {
                     
                     HStack(spacing: 8) {
                         if !ProcessInfo.processInfo.isiOSAppOnMac {
-                            Button(action: { showScanner = true }) {
+                            Button(action: { viewModel.showScanner = true }) {
                                 Label("Scan", systemImage: "document.viewfinder")
                             }
-                            .sheet(isPresented: $showScanner) {
+                            .sheet(isPresented: $viewModel.showScanner) {
                                 OCRCameraView(searchText: $viewModel.searchText)
                             }
                             .buttonStyle(.glass)
@@ -80,74 +78,83 @@ struct SearchView: View {
                 
                 Divider()
                 
-                VStack (
-                    alignment: .leading,
-                ) {
+                VStack(alignment: .leading) {
                     if viewModel.capturedText.isEmpty {
                         ContentUnavailableView(
-                            "No captures yet",
+                            "No entries yet",
                             systemImage: "book.closed.fill",
-                            description: Text("Add a capture by scanning or entering an author name or ISBN")
+                            description: Text("Add a entry by scanning or entering an author name or ISBN")
                         )
                     } else {
-                        ScrollView {
-                            VStack(alignment: .leading, spacing: 8) {
-                                ForEach(viewModel.capturedText) { cutter in
-                                    HStack {
-                                        VStack(alignment: .leading, spacing: 2) {
-                                            Text(cutter.searchValue)
-                                                .font(.body)
-                                                .fontWeight(.medium)
-                                            HStack {
-                                                Text(cutter.cutterUsed)
-                                                    .font(.caption2)
-                                                    .foregroundStyle(.secondary)
-                                                
-                                                if(!cutter.isbn.isEmpty) {
-                                                    Text("ISBN: \(cutter.isbn)")
-                                                        .font(.caption2)
-                                                        .foregroundStyle(.secondary)
+                        // Filter toggle
+                        if viewModel.capturedText.contains(where: { $0.needsReview }) {
+                            HStack {
+                                Text("Show only needing review")
+                                    .font(.footnote)
+                                    .foregroundStyle(.secondary)
+                                
+                                Button(action: {
+                                    viewModel.showOnlyNeedsReview.toggle()
+                                }) {
+                                    Image(systemName: viewModel.showOnlyNeedsReview ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+                                }
+                                .controlSize(.regular)
+                                .buttonStyle(.glass)
+                            }
+                            .accessibilityHint("Filter items that need review")
+                            .padding(.horizontal)
+                            .padding(.vertical, 8)
+                        }
+                        
+                        var displayedItems: [CutterData] { // Replace CapturedItem with your model type
+                            let items = viewModel.showOnlyNeedsReview
+                            ? viewModel.capturedText.filter { $0.needsReview }
+                            : viewModel.capturedText
+                            return items.reversed()
+                        }
+                        
+                        List {
+                            ForEach(displayedItems) { item in
+                                NavigationLink {
+                                    EditSearchItemView(
+                                        item: Binding(
+                                            get: {
+                                                viewModel.capturedText.first(where: { $0.id == item.id }) ?? item
+                                            },
+                                            set: { newValue in
+                                                if let index = viewModel.capturedText.firstIndex(where: { $0.id == item.id }) {
+                                                    viewModel.capturedText[index] = newValue
                                                 }
                                             }
-                                        }
-                                        
-                                        Spacer()
-                                        
-                                        // Cutter Value Badge
-                                        VStack {
-                                            Text(cutter.number)
-                                                .font(.callout)
-                                                .fontDesign(.monospaced)
-                                                .fontWeight(.semibold)
-                                                .padding(.horizontal, 10)
-                                                .padding(.vertical, 4)
-                                                .background(Color.blue.opacity(0.12))
-                                                .foregroundColor(.blue)
-                                                .clipShape(Capsule())
-                                            if !cutter.ddc.isEmpty {
-                                                Text("DDC: \(cutter.ddc)")
-                                                    .font(.caption)
-                                                    .fontDesign(.monospaced)
-                                                    .fontWeight(.semibold)
-                                                    .padding(.horizontal, 10)
-                                                    .padding(.vertical, 4)
-                                                    .background(Color.blue.opacity(0.12))
-                                                    .foregroundColor(.green)
-                                                    .clipShape(Capsule())
+                                        ),
+                                        onDelete: {
+                                            viewModel.capturedText.removeAll(where: { $0.id == item.id })
+                                            // Auto-switch back if no items need review anymore
+                                            if viewModel.showOnlyNeedsReview && !viewModel.capturedText.contains(where: \.needsReview) {
+                                                viewModel.showOnlyNeedsReview = false
                                             }
-                                            
                                         }
-                                    }
-                                    .padding(.vertical, 4)
-                                    
-                                    Divider()
+                                    )
+                                } label: {
+                                    SearchItemView(item: item)
+                                }
+                            }
+                            .onDelete { indexSet in
+                                let itemsToDelete = indexSet.map { displayedItems[$0] }
+                                let idsToDelete = Set(itemsToDelete.map(\.id))
+                                
+                                viewModel.capturedText.removeAll(where: { idsToDelete.contains($0.id) })
+                                
+                                // Auto-switch back if no items need review anymore
+                                if viewModel.showOnlyNeedsReview && !viewModel.capturedText.contains(where: \.needsReview) {
+                                    viewModel.showOnlyNeedsReview = false
                                 }
                             }
                         }
+                        .listStyle(.plain)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(16)
                 .alert("Search Error", isPresented: $viewModel.showErrorAlert) {
                     Button("OK", role: .cancel) { }
                 } message: {
@@ -157,7 +164,7 @@ struct SearchView: View {
                 Spacer()
                 Divider()
                 
-                HStack{
+                HStack {
                     Button("Reset") {
                         viewModel.reset()
                     }
@@ -170,21 +177,16 @@ struct SearchView: View {
                         if let csvURL = viewModel.exportToCSV() {
                             if ProcessInfo.processInfo.isiOSAppOnMac {
                                 Button(action: {
-                                    exportDocument = CSVFile(url: csvURL)
-                                    isExporting = true
+                                    viewModel.checkAndExport(csvURL)
                                 }) {
                                     Label("Save CSV", systemImage: "doc.badge.plus")
                                 }
                                 .buttonStyle(.glassProminent)
                                 .controlSize(.large)
                             } else {
-                                ShareLink(
-                                    item: csvURL,
-                                    preview: SharePreview(
-                                        "Export to CSV (\(viewModel.capturedText.count) items)",
-                                        image: Image(systemName: "doc.text")
-                                    )
-                                ) {
+                                Button(action: {
+                                    viewModel.checkAndExport(csvURL)
+                                }) {
                                     Label("Share", systemImage: "square.and.arrow.up")
                                 }
                                 .buttonStyle(.glassProminent)
@@ -198,8 +200,8 @@ struct SearchView: View {
                         }
                     }
                     .fileExporter(
-                        isPresented: $isExporting,
-                        document: exportDocument,
+                        isPresented: $viewModel.isExporting,
+                        document: viewModel.exportDocument,
                         contentType: .commaSeparatedText,
                         defaultFilename: "Export-\(Date().formatted(.iso8601.year().month().day())).csv"
                     ) { result in
@@ -209,6 +211,17 @@ struct SearchView: View {
                         case .failure(let error):
                             print("Failed to save CSV: \(error.localizedDescription)")
                         }
+                    }
+                    .alert("Items Need Review", isPresented: $viewModel.showExportAlert) {
+                        Button("Export Anyway", role: .confirm) {
+                            if let csvURL = viewModel.exportToCSV() {
+                                viewModel.proceedWithExport(csvURL)
+                            }
+                        }
+                        Button("Cancel", role: .cancel) { }
+                    } message: {
+                        let count = viewModel.capturedText.filter { $0.needsReview }.count
+                        Text("\(count) item\(count == 1 ? "" : "s") \(count == 1 ? "has" : "have") been marked as needing review. Export anyway?")
                     }
                 }
                 .padding(16)
@@ -226,5 +239,5 @@ struct SearchView: View {
 }
 
 #Preview {
-    SearchView()
+    SearchView(sharedData: AppSharedData())
 }
