@@ -56,8 +56,12 @@ struct SettingsView: View {
                 ) {
                     Toggle("Author has no surname", isOn: $settings.dontSeparateName)
                         .toggleStyle(.switch)
-                    
+                }
+                
+                Section {
                     Toggle("Ignore grammar articles", isOn: $settings.ignoreArticles)
+                        .toggleStyle(.switch)
+                    Toggle("Spell Mc and M' as Mac", isOn: $settings.useFormatMac)
                         .toggleStyle(.switch)
                 }
                 
@@ -80,8 +84,8 @@ struct SettingsView: View {
                             .foregroundStyle(.secondary)
                         
                         Picker("Cutter prefix", selection: $settings.textBeforeNum) {
-                            Text("Author").tag(AppSettings.TextBeforeAfterNum.authorSurname)
-                            Text("Title").tag(AppSettings.TextBeforeAfterNum.title)
+                            Text("Author").tag(TextBeforeAfterNum.authorSurname)
+                            Text("Title").tag(TextBeforeAfterNum.title)
                         }
                         .pickerStyle(.segmented)
                     }
@@ -102,8 +106,8 @@ struct SettingsView: View {
                             .foregroundStyle(.secondary)
                         
                         Picker("Cutter suffix", selection: $settings.textAfterNum) {
-                            Text("Author").tag(AppSettings.TextBeforeAfterNum.authorSurname)
-                            Text("Title").tag(AppSettings.TextBeforeAfterNum.title)
+                            Text("Author").tag(TextBeforeAfterNum.authorSurname)
+                            Text("Title").tag(TextBeforeAfterNum.title)
                         }
                         .pickerStyle(.segmented)
                     }

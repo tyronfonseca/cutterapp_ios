@@ -10,13 +10,13 @@ extension CutterData {
     func fullCallNumber(using settings: AppSettings) -> String {
         // Resolve prefix text (Author Surname vs Title)
         let prefixSource = settings.textBeforeNum == .authorSurname ? authorSurname : bookName
-        let cleanPrefix = prefixSource.strippingLeadingArticles(shouldIgnore: settings.ignoreArticles)
-        let prefix = String(cleanPrefix.prefix(settings.charsBeforeNum))
+        let cleanPrefix = prefixSource.strippingLeadingArticles(settings.ignoreArticles)
+        let prefix = String(cleanPrefix.prefix(settings.charsBeforeNum)).trimmingCharacters(in: .whitespaces)
         
         // Resolve suffix text (Author Surname vs Title)
         let suffixSource = settings.textAfterNum == .authorSurname ? authorSurname : bookName
-        let cleanSuffix = suffixSource.strippingLeadingArticles(shouldIgnore: settings.ignoreArticles)
-        let suffix = String(cleanSuffix.prefix(settings.charsAfterNum))
+        let cleanSuffix = suffixSource.strippingLeadingArticles(settings.ignoreArticles)
+        let suffix = String(cleanSuffix.prefix(settings.charsAfterNum)).trimmingCharacters(in: .whitespaces)
         
         // Assemble: [Prefix][Cutter Number][Suffix] (e.g. "Bs825T")
         return "\(prefix)\(self.code)\(suffix)"

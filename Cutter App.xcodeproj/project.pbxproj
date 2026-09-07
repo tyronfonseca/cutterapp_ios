@@ -28,6 +28,10 @@
 		A46B0E85304B5E0700488617 /* SearchCutterIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B0E84304B5E0000488617 /* SearchCutterIntent.swift */; };
 		A4BDB9B0304E037C00332E71 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDB9AF304E037C00332E71 /* AppSettings.swift */; };
 		A4BDB9B4304E0A6D00332E71 /* CutterData+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDB9B3304E0A6700332E71 /* CutterData+Ext.swift */; };
+		A4CF00F9304F42FC003D003B /* CutterSearchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CF00F8304F42F7003D003B /* CutterSearchOptions.swift */; };
+		A4CF00FB304F4C87003D003B /* CutterSearchEngineTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CF00FA304F4C87003D003B /* CutterSearchEngineTest.swift */; };
+		A4CF00FE304F53E9003D003B /* MockAppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CF00FD304F53E4003D003B /* MockAppSettings.swift */; };
+		A4CF0104304F5829003D003B /* CSVHelperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CF0103304F5824003D003B /* CSVHelperTest.swift */; };
 		A4E9DCC5304B7F88004C68A3 /* Get Cutter Number.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A4E9DCBB304B7F87004C68A3 /* Get Cutter Number.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A4E9DCE9304B9C89004C68A3 /* CSVFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E9DCE8304B9C86004C68A3 /* CSVFile.swift */; };
 		F83D098A304710D70078DC3C /* AdknowledgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83D0979304710D70078DC3C /* AdknowledgeView.swift */; };
@@ -38,15 +42,12 @@
 		F83D0997304711BF0078DC3C /* CutterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83D0996304711B80078DC3C /* CutterData.swift */; };
 		F83DE25C2BE9747200E668B6 /* Cutter_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83DE25B2BE9747200E668B6 /* Cutter_App.swift */; };
 		F83DE2632BE9747300E668B6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F83DE2622BE9747300E668B6 /* Preview Assets.xcassets */; };
-		F83DE2982BE9D7E700E668B6 /* CutterHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83DE2972BE9D7E700E668B6 /* CutterHelperTests.swift */; };
 		F83F23CB2D406750003944B3 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F83F23C12D406750003944B3 /* Localizable.xcstrings */; };
 		F83F23CC2D406750003944B3 /* cutter_normal.csv in Resources */ = {isa = PBXBuildFile; fileRef = F83F23AB2D406750003944B3 /* cutter_normal.csv */; };
 		F83F23CD2D406750003944B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F83F23AE2D406750003944B3 /* Assets.xcassets */; };
 		F83F23CE2D406750003944B3 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83F23A32D406750003944B3 /* String+Ext.swift */; };
 		F83F23D72D406750003944B3 /* CSVHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83F23BD2D406750003944B3 /* CSVHelper.swift */; };
-		F83F23DB2D406750003944B3 /* CutterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83F23BF2D406750003944B3 /* CutterHelper.swift */; };
 		F83F23DE2D406750003944B3 /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83F23A52D406750003944B3 /* View+Ext.swift */; };
-		F8CE739A2BEA9AF4002D867D /* CutterGetterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CE73992BEA9AF4002D867D /* CutterGetterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,11 @@
 		A46B0E84304B5E0000488617 /* SearchCutterIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCutterIntent.swift; sourceTree = "<group>"; };
 		A4BDB9AF304E037C00332E71 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		A4BDB9B3304E0A6700332E71 /* CutterData+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CutterData+Ext.swift"; sourceTree = "<group>"; };
+		A4CF00F8304F42F7003D003B /* CutterSearchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterSearchOptions.swift; sourceTree = "<group>"; };
+		A4CF00FA304F4C87003D003B /* CutterSearchEngineTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterSearchEngineTest.swift; sourceTree = "<group>"; };
+		A4CF00FD304F53E4003D003B /* MockAppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAppSettings.swift; sourceTree = "<group>"; };
+		A4CF00FF304F5578003D003B /* Cutter AppTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Cutter AppTests.xctestplan"; sourceTree = "<group>"; };
+		A4CF0103304F5824003D003B /* CSVHelperTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVHelperTest.swift; sourceTree = "<group>"; };
 		A4E9DCBB304B7F87004C68A3 /* Get Cutter Number.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Get Cutter Number.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4E9DCE8304B9C86004C68A3 /* CSVFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVFile.swift; sourceTree = "<group>"; };
 		F82ED0302D41582300F7CFB9 /* Cutter-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Cutter-App-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -115,15 +121,12 @@
 		F83DE25B2BE9747200E668B6 /* Cutter_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cutter_App.swift; sourceTree = "<group>"; };
 		F83DE2622BE9747300E668B6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F83DE28E2BE9D79A00E668B6 /* Cutter AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cutter AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F83DE2972BE9D7E700E668B6 /* CutterHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterHelperTests.swift; sourceTree = "<group>"; };
 		F83F23A32D406750003944B3 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		F83F23A52D406750003944B3 /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
 		F83F23AB2D406750003944B3 /* cutter_normal.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = cutter_normal.csv; sourceTree = "<group>"; };
 		F83F23AE2D406750003944B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F83F23BD2D406750003944B3 /* CSVHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVHelper.swift; sourceTree = "<group>"; };
-		F83F23BF2D406750003944B3 /* CutterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterHelper.swift; sourceTree = "<group>"; };
 		F83F23C12D406750003944B3 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		F8CE73992BEA9AF4002D867D /* CutterGetterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterGetterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -210,6 +213,48 @@
 			path = CSV;
 			sourceTree = "<group>";
 		};
+		A4CF00FC304F53DE003D003B /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				A4CF00FD304F53E4003D003B /* MockAppSettings.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		A4CF0100304F57F5003D003B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				A4CF0101304F57FC003D003B /* Utils */,
+				A4CF00FA304F4C87003D003B /* CutterSearchEngineTest.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		A4CF0101304F57FC003D003B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A4CF0102304F5804003D003B /* CSV */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		A4CF0102304F5804003D003B /* CSV */ = {
+			isa = PBXGroup;
+			children = (
+				A4CF0103304F5824003D003B /* CSVHelperTest.swift */,
+			);
+			path = CSV;
+			sourceTree = "<group>";
+		};
+		A4CF0105304F5981003D003B /* CutterData */ = {
+			isa = PBXGroup;
+			children = (
+				F83D0996304711B80078DC3C /* CutterData.swift */,
+				A4BDB9B3304E0A6700332E71 /* CutterData+Ext.swift */,
+			);
+			path = CutterData;
+			sourceTree = "<group>";
+		};
 		F83D097D304710D70078DC3C /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,7 +321,8 @@
 		F83D09953047119E0078DC3C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F83D0996304711B80078DC3C /* CutterData.swift */,
+				A4CF0105304F5981003D003B /* CutterData */,
+				A4CF00F8304F42F7003D003B /* CutterSearchOptions.swift */,
 				A46B0E7E304B4B4000488617 /* OpenLibrarySearchResult.swift */,
 				A447C9EB304C9CBD002AB980 /* AppSharedData.swift */,
 				A4BDB9AF304E037C00332E71 /* AppSettings.swift */,
@@ -287,6 +333,7 @@
 		F83DE24F2BE9747200E668B6 = {
 			isa = PBXGroup;
 			children = (
+				A4CF00FF304F5578003D003B /* Cutter AppTests.xctestplan */,
 				F83DE25A2BE9747200E668B6 /* Cutter App */,
 				F83DE28F2BE9D79A00E668B6 /* Cutter AppTests */,
 				A4E9DCBC304B7F87004C68A3 /* Get Cutter Number */,
@@ -330,8 +377,8 @@
 		F83DE28F2BE9D79A00E668B6 /* Cutter AppTests */ = {
 			isa = PBXGroup;
 			children = (
-				F83DE2972BE9D7E700E668B6 /* CutterHelperTests.swift */,
-				F8CE73992BEA9AF4002D867D /* CutterGetterTests.swift */,
+				A4CF00FC304F53DE003D003B /* Mocks */,
+				A4CF0100304F57F5003D003B /* Core */,
 			);
 			path = "Cutter AppTests";
 			sourceTree = "<group>";
@@ -349,7 +396,6 @@
 		F83F23A62D406750003944B3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				A4BDB9B3304E0A6700332E71 /* CutterData+Ext.swift */,
 				F83F23A32D406750003944B3 /* String+Ext.swift */,
 				F83F23A52D406750003944B3 /* View+Ext.swift */,
 			);
@@ -378,7 +424,6 @@
 			children = (
 				A4CF00F7304F22A6003D003B /* CSV */,
 				A447C9E3304C8384002AB980 /* CutterSearchEngine.swift */,
-				F83F23BF2D406750003944B3 /* CutterHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -551,6 +596,7 @@
 				F83D0997304711BF0078DC3C /* CutterData.swift in Sources */,
 				A447C9DC304C7C15002AB980 /* CutterApp.xcdatamodeld in Sources */,
 				A447C9E2304C834B002AB980 /* CutterTableRepository.swift in Sources */,
+				A4CF00F9304F42FC003D003B /* CutterSearchOptions.swift in Sources */,
 				A46B0E7F304B4B4000488617 /* OpenLibrarySearchResult.swift in Sources */,
 				A447C9CE304C4B24002AB980 /* SearchItemView.swift in Sources */,
 				F83F23D72D406750003944B3 /* CSVHelper.swift in Sources */,
@@ -564,7 +610,6 @@
 				A447C9DE304C7D97002AB980 /* Persistence.swift in Sources */,
 				F83D0993304710D70078DC3C /* SettingsView.swift in Sources */,
 				A447C9E4304C8389002AB980 /* CutterSearchEngine.swift in Sources */,
-				F83F23DB2D406750003944B3 /* CutterHelper.swift in Sources */,
 				A4BDB9B4304E0A6D00332E71 /* CutterData+Ext.swift in Sources */,
 				A425FE3030486D6F0007F2C1 /* OCRCameraView.swift in Sources */,
 				A447C9E0304C831F002AB980 /* CSVStorageManager.swift in Sources */,
@@ -582,8 +627,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F83DE2982BE9D7E700E668B6 /* CutterHelperTests.swift in Sources */,
-				F8CE739A2BEA9AF4002D867D /* CutterGetterTests.swift in Sources */,
+				A4CF00FE304F53E9003D003B /* MockAppSettings.swift in Sources */,
+				A4CF00FB304F4C87003D003B /* CutterSearchEngineTest.swift in Sources */,
+				A4CF0104304F5829003D003B /* CSVHelperTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,6 +671,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
@@ -655,6 +704,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
@@ -876,6 +928,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tfonseca.cuttersanborn.Cutter-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -893,6 +948,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tfonseca.cuttersanborn.Cutter-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -45,20 +45,23 @@ extension String {
         }
     }
     
-    /// Remove leading articles (grammar). Ther articles could be in English, Spanish or Portuguese.
-    func strippingLeadingArticles(shouldIgnore: Bool) -> String {
-        guard shouldIgnore else { return self.trimmingCharacters(in: .whitespaces) }
+    /// Returns the character range of a leading article if present.
+    func leadingArticleRange(enabled: Bool) -> Range<String.Index>? {
+        guard enabled else { return nil }
         
-        let lower = self.lowercased().trimmingCharacters(in: .whitespaces)
-        // Standard English, Spanish, and Portuguese leading articles
-        let articles = ["the ", "a ", "an ", "el ", "la ", "los ", "las ", "un ", "una ", "unos ", "unas ", "o ", "a ", "os ", "as ", "um ", "uma "]
+        let trimmed = self.trimmingCharacters(in: .whitespaces)
+        let pattern = #/^(the|unos|unas|uma|los|las|una|an|el|la|un|os|as|um|a|o)\s+/#.ignoresCase()
         
-        for article in articles {
-            if lower.hasPrefix(article) {
-                let index = self.index(self.startIndex, offsetBy: article.count)
-                return String(self[index...]).trimmingCharacters(in: .whitespaces)
-            }
+        // Use firstMatch(of:) instead of range(of:)
+        return trimmed.firstMatch(of: pattern)?.range
+    }
+    
+    /// Removes leading English, Spanish, or Portuguese articles.
+    func strippingLeadingArticles(_ shouldIgnore: Bool) -> String {
+        let trimmed = self.trimmingCharacters(in: .whitespaces)
+        guard shouldIgnore, let range = trimmed.leadingArticleRange(enabled: true) else {
+            return trimmed
         }
-        return self.trimmingCharacters(in: .whitespaces)
+        return String(trimmed[range.upperBound...]).trimmingCharacters(in: .whitespaces)
     }
 }

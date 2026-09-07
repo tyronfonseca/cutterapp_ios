@@ -82,9 +82,8 @@ struct EditSearchItemView: View {
             }
             
             Section(header: Text("Book"), footer: Text(item.isbn.isEmpty ? "" : "Data taken from OpenLibray.org it may be inaccurate")) {
-                TextField("Add or modify the book" ,text: $item.bookName)
+                TextField("Add or modify the book", text: $item.bookName)
             }
-            
             
             if !item.isbn.isEmpty {
                 Section(header: Text("ISBN")) {
@@ -111,8 +110,6 @@ struct EditSearchItemView: View {
         .onChange(of: item.authorName) { recalculateAndSave() }
         .onChange(of: item.authorSurname) { recalculateAndSave() }
         .onChange(of: item.dontSeparateName) { recalculateAndSave() }
-        .onChange(of: item.bookName){ recalculateAndSave() }
-        .onChange(of: item.ddcSelected){ item.needsReview = false  }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(role: .destructive) {
@@ -135,13 +132,21 @@ struct EditSearchItemView: View {
     }
     
     private func recalculateAndSave() {
-        if let newCutter = sharedData.search(name: item.authorName, lastName: item.authorSurname, dontSeparateName: item.dontSeparateName) {
+        let options = CutterSearchOptions(
+            settings: sharedData.settings,
+            dontSeparateName: item.dontSeparateName
+        )
+        
+        if let newCutter = sharedData.search(
+            name: item.authorName,
+            lastName: item.authorSurname,
+            options: options
+        ) {
             item.code = newCutter.code
             item.name = newCutter.name
             item.needsReview = false
         }
     }
-    
 }
 
 #Preview {
@@ -158,5 +163,6 @@ struct EditSearchItemView: View {
                 needsReview: true
             )
         )
-    ).environment(AppSharedData())
+    )
+    .environment(AppSharedData())
 }

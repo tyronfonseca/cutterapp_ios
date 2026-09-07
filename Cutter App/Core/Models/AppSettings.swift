@@ -8,8 +8,25 @@
 import Foundation
 import SwiftUI
 
+/// Determines whether to use the author's surname or book title when formatting call numbers.
+public enum TextBeforeAfterNum: Int {
+    case authorSurname
+    case title
+}
+
+public protocol AppSettingsProtocol: AnyObject {
+    var dontSeparateName: Bool { get set }
+    var ignoreArticles: Bool { get set }
+    var textBeforeNum: TextBeforeAfterNum { get set }
+    var charsBeforeNum: Int { get set }
+    var textAfterNum: TextBeforeAfterNum { get set }
+    var charsAfterNum: Int { get set }
+    var includeExtrasInExport: Bool { get set }
+    var useFormatMac: Bool { get set }
+}
+
 @Observable
-final class AppSettings {
+final class AppSettings: AppSettingsProtocol {
     // MARK: - App Storage Keys
     private enum Keys {
         static let dontSeparateName = "dontSeparateName"
@@ -19,12 +36,7 @@ final class AppSettings {
         static let textAfterNum = "textAfterNum"
         static let charsAfterNum = "charsAfterNum"
         static let ignoreArticles = "ignoreArticles"
-    }
-
-    /// Determines whether to use the author's surname or book title when formatting call numbers.
-    enum TextBeforeAfterNum: Int {
-        case authorSurname
-        case title
+        static let useFormatMac = "useFormatMac"
     }
 
     // MARK: - Properties with Observation Notifications
@@ -130,6 +142,21 @@ final class AppSettings {
         set {
             withMutation(keyPath: \.includeExtrasInExport) {
                 _includeExtrasInExport = newValue
+            }
+        }
+    }
+    
+    /// Names using Mc, M' and Mac will be compare as they were Mac
+    @ObservationIgnored
+    @AppStorage(Keys.useFormatMac) private var _useFormatMac: Bool = true
+    var useFormatMac: Bool {
+        get {
+            access(keyPath: \.useFormatMac)
+            return _useFormatMac
+        }
+        set {
+            withMutation(keyPath: \.useFormatMac) {
+                _useFormatMac = newValue
             }
         }
     }

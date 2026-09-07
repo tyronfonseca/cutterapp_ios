@@ -19,7 +19,6 @@ final class AppSharedData {
     
     @ObservationIgnored private let storage = CSVStorageManager.shared
     @ObservationIgnored private let repository = CutterTableRepository()
-    @ObservationIgnored private let searchEngine = CutterSearchEngine()
     
     // MARK: - Orchestration Logic
     
@@ -46,9 +45,17 @@ final class AppSharedData {
         loadActiveTable(context: context)
     }
     
-    func search(name: String, lastName: String, dontSeparateName: Bool? = nil) -> CutterData? {
-        let dontSeparate = dontSeparateName ?? self.settings.dontSeparateName
-        return searchEngine.search(queryName: name, queryLastName: lastName, in: currentCutterData, with: dontSeparate)
+    func search(
+        name: String,
+        lastName: String,
+        options: CutterSearchOptions
+    ) -> CutterData? {
+        return CutterSearchEngine.search(
+            queryName: name,
+            queryLastName: lastName,
+            in: currentCutterData,
+            options: options
+        )
     }
     
     @discardableResult
@@ -87,7 +94,7 @@ final class AppSharedData {
             context: context
         )
         
-        if let entity = savedEntity {            
+        if let entity = savedEntity {
             if setSelected {
                 selectActiveTable(entity, context: context)
             }

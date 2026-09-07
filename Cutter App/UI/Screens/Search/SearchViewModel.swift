@@ -65,11 +65,10 @@ final class SearchViewModel {
         let range = NSRange(text.startIndex..., in: text)
         let matchesRegex = cutterRegex?.firstMatch(in: text, range: range) != nil
         
-        let dontSeparateName = sharedData.settings.dontSeparateName
         let authorName: String
         let authorSurname: String
         
-        if  !matchesRegex, let lastSpaceIndex = text.range(of: " ", options: .backwards)?.lowerBound {
+        if !matchesRegex, let lastSpaceIndex = text.range(of: " ", options: .backwards)?.lowerBound {
             authorName = String(text[..<lastSpaceIndex])
             authorSurname = String(text[text.index(after: lastSpaceIndex)...])
         } else {
@@ -77,7 +76,9 @@ final class SearchViewModel {
             authorSurname = text
         }
         
-        if let cutter = sharedData.search(name: authorName, lastName: authorSurname, dontSeparateName: dontSeparateName) {
+        let options = CutterSearchOptions(settings: sharedData.settings)
+        
+        if let cutter = sharedData.search(name: authorName, lastName: authorSurname, options: options) {
             var updatedCutter = cutter
             updatedCutter.id = UUID()
             updatedCutter.authorName = authorName

@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "B2155BED-542A-48DC-AC99-B373C85EBF38",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Cutter App.xcodeproj",
+        "identifier" : "F83DE28D2BE9D79A00E668B6",
+        "name" : "Cutter AppTests"
+      }
+    }
+  ],
+  "version" : 1
+}

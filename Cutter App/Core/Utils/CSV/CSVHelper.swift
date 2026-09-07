@@ -31,7 +31,7 @@ class CSVHelper {
     }
     
     /// Internal helper to parse raw CSV string into CutterData models
-    private static func parse(csvString: String, hasHeaders: Bool) -> [CutterData] {
+    static func parse(csvString: String, hasHeaders: Bool) -> [CutterData] {
         let rows = csvString.components(separatedBy: .newlines)
         let contentRows = hasHeaders ? Array(rows.dropFirst()) : rows
         
