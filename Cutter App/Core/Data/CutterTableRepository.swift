@@ -24,7 +24,7 @@ final class CutterTableRepository {
             let defaultTable = CutterTableEntity(context: context)
             defaultTable.id = UUID()
             defaultTable.name = "Sanborn 3-Digit Table"
-            defaultTable.tableDescription = "Default Cutter-Sanborn classification table"
+            defaultTable.tableDescription = "Cutter-Sanborn classification table. Swanson-Swift Revision (1969)"
             defaultTable.filename = "cutter_normal.csv"
             defaultTable.isSelected = true
             defaultTable.cannotDelete = true

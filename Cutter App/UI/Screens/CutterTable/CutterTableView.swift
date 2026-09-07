@@ -69,27 +69,34 @@ struct CutterTableView: View {
                     .listStyle(.plain)
                 }
             }
-            .navigationTitle("Cutter Table")
+            .navigationTitle("Cutter Table:")
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
-                        AddNewCutterTableView()
-                    } label: {
-                        Label("Add new cutter table", systemImage: "book.badge.plus")
-                    }
+                ToolbarItem(placement: .subtitle) {
+                    Text("\(sharedData.currentTableSelected?.name ?? "")")
+                        .font(.caption)
                 }
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
-                        SelectCutterTableView()
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Menu {
+                        NavigationLink {
+                            AddNewCutterTableView()
+                        } label: {
+                            Label("Add new table", systemImage: "book.badge.plus")
+                        }
+                        NavigationLink {
+                            SelectCutterTableView()
+                        } label: {
+                            Label("Set current table", systemImage: "book.and.wrench")
+                        }
                     } label: {
-                        Label("Change current cutter table", systemImage: "book.and.wrench")
+                        Image(systemName: "ellipsis")
                     }
                 }
             }
+            .toolbarTitleDisplayMode(.inline)
             .searchable(
                 text: $searchText,
                 placement: .navigationBarDrawer(displayMode: .always),
-                prompt: "Search author or number..."
+                prompt: "Search..."
             )
             .overlay {
                 if !sharedData.currentCutterData.isEmpty && filteredCutters.isEmpty {

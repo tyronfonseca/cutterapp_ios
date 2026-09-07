@@ -32,15 +32,26 @@ struct SearchView: View {
                     .accessibilityAddTraits(.isImage)
                 
                 VStack(alignment: .leading, spacing: 12) {
+                    
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Author Name (or Name Lastname) or ISBN")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
                         
                         TextField("Enter author name or scan text", text: $viewModel.searchText)
-                            .padding(12)
-                            .background(Color(uiColor: .secondarySystemBackground))
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .padding(14)
+                            .glassEffect()
+                            .onSubmit {
+                                viewModel.search()
+                            }
+                            
+                        HStack {
+                            
+                            Image(systemName: "info.circle")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Text("\"Name Surname\", \"Name\", \"Surname, Name\" or ISBN to search online")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        
                     }
                     
                     HStack(spacing: 8) {
@@ -63,8 +74,7 @@ struct SearchView: View {
                             Button(action: {
                                 viewModel.search()
                             }) {
-                                Text("Add")
-                                    .bold()
+                                Label("Search", systemImage: "magnifyingglass")
                             }
                             .buttonStyle(.glassProminent)
                             .disabled(viewModel.searchText.trimmingCharacters(in: .whitespaces).isEmpty)
@@ -106,7 +116,7 @@ struct SearchView: View {
                             .padding(.vertical, 8)
                         }
                         
-                        var displayedItems: [CutterData] { // Replace CapturedItem with your model type
+                        var displayedItems: [CutterData] {
                             let items = viewModel.showOnlyNeedsReview
                             ? viewModel.capturedText.filter { $0.needsReview }
                             : viewModel.capturedText
@@ -165,8 +175,10 @@ struct SearchView: View {
                 Divider()
                 
                 HStack {
-                    Button("Reset") {
+                    Button( action:  {
                         viewModel.reset()
+                    }) {
+                        Label("Reset", systemImage: "arrow.clockwise")
                     }
                     .buttonStyle(.glass)
                     .controlSize(.large)
@@ -175,25 +187,16 @@ struct SearchView: View {
                     Spacer()
                     Group {
                         if let csvURL = viewModel.exportToCSV() {
-                            if ProcessInfo.processInfo.isiOSAppOnMac {
-                                Button(action: {
-                                    viewModel.checkAndExport(csvURL)
-                                }) {
-                                    Label("Save CSV", systemImage: "doc.badge.plus")
-                                }
-                                .buttonStyle(.glassProminent)
-                                .controlSize(.large)
-                            } else {
-                                Button(action: {
-                                    viewModel.checkAndExport(csvURL)
-                                }) {
-                                    Label("Share", systemImage: "square.and.arrow.up")
-                                }
-                                .buttonStyle(.glassProminent)
-                                .controlSize(.large)
+                            Button(action: {
+                                viewModel.checkAndExport(csvURL)
+                            }) {
+                                Label("Save CSV", systemImage: "arrow.down.document")
                             }
+                            .buttonStyle(.glassProminent)
+                            .controlSize(.large)
+                            
                         } else {
-                            Button("Share", systemImage: "square.and.arrow.up") {}
+                            Button("Save CSV", systemImage: "arrow.down.document") {}
                                 .buttonStyle(.glassProminent)
                                 .controlSize(.large)
                                 .disabled(true)
@@ -207,7 +210,9 @@ struct SearchView: View {
                     ) { result in
                         switch result {
                         case .success(let destinationURL):
+                            #if DEBUG
                             print("CSV saved directly to: \(destinationURL.path)")
+                            #endif
                         case .failure(let error):
                             print("Failed to save CSV: \(error.localizedDescription)")
                         }

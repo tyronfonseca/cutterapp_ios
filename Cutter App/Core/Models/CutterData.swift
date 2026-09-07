@@ -7,15 +7,16 @@
 
 import Foundation
 
-struct CutterData: Identifiable, Equatable, Hashable {
+struct CutterData: Identifiable, Equatable {
     var id: UUID
     var name: String
     var code: String
-    private var _authorName: String
+    var authorName: String
     private var _authorSurname: String
     var isbn: String
     var bookName: String
-    var ddc: [String]
+    var ddcs: [String]
+    var ddcSelected: String
     var needsReview: Bool
     var dontSeparateName: Bool // Don't split the name and surname
     
@@ -29,17 +30,19 @@ struct CutterData: Identifiable, Equatable, Hashable {
         isbn: String = "",
         bookName: String = "",
         ddc: [String] = [],
+        ddcSelected: String = "",
         needsReview: Bool = false,
         dontSeparateName: Bool = false
     ) {
         self.id = id
         self.name = name
         self.code = code
-        self._authorName = authorName
+        self.authorName = authorName
         self._authorSurname = authorSurname
         self.isbn = isbn
         self.bookName = bookName
-        self.ddc = ddc
+        self.ddcs = ddc
+        self.ddcSelected = ddcSelected.isEmpty ? (ddc.first ?? "") : ddcSelected
         self.needsReview = needsReview
         self.dontSeparateName = dontSeparateName
     }
@@ -56,31 +59,19 @@ struct CutterData: Identifiable, Equatable, Hashable {
     }
     
     var searchValue: String {
-        if authorName.isEmpty {
+        if authorName.isEmpty || dontSeparateName {
             return authorSurname
         }
         
-        if dontSeparateName {
-            return "\(authorName) \(authorSurname)"
-        }
         return "\(authorSurname), \(authorName)"
     }
     
     // MARK: - Computed Properties with Public Getters and Setters
     
-    var authorName: String {
-        get {
-            self.dontSeparateName ? "" : self._authorName
-        }
-        set {
-            self._authorName = newValue
-        }
-    }
-    
     var authorSurname: String {
         get {
             if self.dontSeparateName {
-                let combined = "\(self._authorName) \(self._authorSurname)"
+                let combined = "\(self.authorName) \(self._authorSurname)"
                 return combined.trimmingCharacters(in: .whitespaces)
             }
             return self._authorSurname
@@ -90,31 +81,4 @@ struct CutterData: Identifiable, Equatable, Hashable {
         }
     }
     
-    // MARK: - Equatable & Hashable Conformance
-    
-    static func == (lhs: CutterData, rhs: CutterData) -> Bool {
-        return lhs.id == rhs.id &&
-        lhs.name == rhs.name &&
-        lhs.code == rhs.code &&
-        lhs._authorName == rhs._authorName &&
-        lhs._authorSurname == rhs._authorSurname &&
-        lhs.isbn == rhs.isbn &&
-        lhs.bookName == rhs.bookName &&
-        lhs.ddc == rhs.ddc &&
-        lhs.needsReview == rhs.needsReview &&
-        lhs.dontSeparateName == rhs.dontSeparateName
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(name)
-        hasher.combine(code)
-        hasher.combine(_authorName)
-        hasher.combine(_authorSurname)
-        hasher.combine(isbn)
-        hasher.combine(bookName)
-        hasher.combine(ddc)
-        hasher.combine(needsReview)
-        hasher.combine(dontSeparateName)
-    }
 }

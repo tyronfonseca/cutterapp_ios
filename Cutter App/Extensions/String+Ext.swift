@@ -19,6 +19,11 @@ extension StringProtocol {
 }
 
 extension String {
+    /// Remove any accent. E.g., Ñ to N
+    func removeAccents() -> String {
+        return self.uppercased().folding(options: .diacriticInsensitive, locale: .current)
+    }
+    
     /// Extracts raw numeric ISBN-10 or ISBN-13 strings from text
     func extractISBNs() -> [String] {
         // Capture group 1 matches the digit sequence with hyphens/spaces
@@ -38,5 +43,22 @@ extension String {
             
             return numberOnly.isEmpty ? nil : numberOnly
         }
+    }
+    
+    /// Remove leading articles (grammar). Ther articles could be in English, Spanish or Portuguese.
+    func strippingLeadingArticles(shouldIgnore: Bool) -> String {
+        guard shouldIgnore else { return self.trimmingCharacters(in: .whitespaces) }
+        
+        let lower = self.lowercased().trimmingCharacters(in: .whitespaces)
+        // Standard English, Spanish, and Portuguese leading articles
+        let articles = ["the ", "a ", "an ", "el ", "la ", "los ", "las ", "un ", "una ", "unos ", "unas ", "o ", "a ", "os ", "as ", "um ", "uma "]
+        
+        for article in articles {
+            if lower.hasPrefix(article) {
+                let index = self.index(self.startIndex, offsetBy: article.count)
+                return String(self[index...]).trimmingCharacters(in: .whitespaces)
+            }
+        }
+        return self.trimmingCharacters(in: .whitespaces)
     }
 }

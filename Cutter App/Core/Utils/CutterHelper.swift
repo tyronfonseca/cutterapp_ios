@@ -100,22 +100,16 @@ final class CutterHelper{
         return listResult
     }
     */
-    static func removeAccents(query:String) -> String {
-        let result = query.uppercased().folding(options: .diacriticInsensitive, locale: .current)
-        return result
-    }
 
-    static func getQueryFromName(name: String, lastName: String) -> String {
+    static func getCutterQuery(name: String, lastName: String, dontSeparateName: Bool = false) -> String {
         let _name = name.replacingOccurrences(of: " ", with: "")
         let _lastName = lastName.replacingOccurrences(of: " ", with: "")
-        var result = ""
+        var result = _lastName
 
-        if(_name.isEmpty){
-            result = _lastName.uppercased()
-        } else {
+        if(!dontSeparateName) {
             result = "\(_lastName), \(_name)"
         }
 
-        return removeAccents(query: result)
+        return result.removeAccents()
     }
 }

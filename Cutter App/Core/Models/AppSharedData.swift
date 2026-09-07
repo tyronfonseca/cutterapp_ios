@@ -14,52 +14,12 @@ final class AppSharedData {
     var currentTableSelected : CutterTableEntity?
     /// Cutter table data used across the app
     var currentCutterData : [CutterData] = []
-    private var _dontSeparateName: Bool
-    /// Use the whole word instead of separeting the search in name and surname
-    var dontSeparateName: Bool {
-        get {
-            access(keyPath: \.dontSeparateName)
-            return _dontSeparateName
-        }
-        set {
-            withMutation(keyPath: \.dontSeparateName) {
-                _dontSeparateName = newValue
-            }
-            UserDefaults.standard.set(newValue, forKey: Keys.dontSeparateName)
-        }
-    }
-    
-    private var _includeExtrasInExport: Bool
-    /// Include DDC numbers and Book title in the CSV
-    var includeExtrasInExport: Bool {
-        get {
-            access(keyPath: \.includeExtrasInExport)
-            return _includeExtrasInExport
-        }
-        set {
-            withMutation(keyPath: \.includeExtrasInExport) {
-                _includeExtrasInExport = newValue
-            }
-            UserDefaults.standard.set(newValue, forKey: Keys.includeExtrasInExport)
-        }
-    }
+    /// User settings instance
+    var settings = AppSettings()
     
     @ObservationIgnored private let storage = CSVStorageManager.shared
     @ObservationIgnored private let repository = CutterTableRepository()
     @ObservationIgnored private let searchEngine = CutterSearchEngine()
-    
-    
-    // Keys for storage
-    private enum Keys {
-        static let dontSeparateName = "dontSeparateName"
-        static let includeExtrasInExport = "includeExtrasInExport"
-    }
-    
-    init() {
-        // Load stored values, defaulting to false if empty
-        self._dontSeparateName = UserDefaults.standard.bool(forKey: Keys.dontSeparateName)
-        self._includeExtrasInExport = UserDefaults.standard.bool(forKey: Keys.includeExtrasInExport)
-    }
     
     // MARK: - Orchestration Logic
     
@@ -67,15 +27,15 @@ final class AppSharedData {
         let activeEntity = repository.ensureDefaultTableExists(context: context)
         
         guard let filename = activeEntity?.filename else {
-            self.currentCutterData = CSVParser().getCSVData()
+            self.currentCutterData = CSVHelper.getCSVData()
             return
         }
         
         if let customURL = storage.getURL(for: filename) {
-            let parsed = CSVParser().getCSVData(from: customURL)
+            let parsed = CSVHelper.getCSVData(from: customURL)
             self.currentCutterData = parsed.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
         } else {
-            self.currentCutterData = CSVParser().getCSVData()
+            self.currentCutterData = CSVHelper.getCSVData()
         }
         
         currentTableSelected = activeEntity
@@ -87,7 +47,7 @@ final class AppSharedData {
     }
     
     func search(name: String, lastName: String, dontSeparateName: Bool? = nil) -> CutterData? {
-        let dontSeparate = dontSeparateName ?? self.dontSeparateName
+        let dontSeparate = dontSeparateName ?? self.settings.dontSeparateName
         return searchEngine.search(queryName: name, queryLastName: lastName, in: currentCutterData, with: dontSeparate)
     }
     
@@ -97,7 +57,8 @@ final class AppSharedData {
         name: String,
         description: String,
         context: NSManagedObjectContext,
-        setSelected: Bool = false
+        setSelected: Bool = false,
+        hasHeaders: Bool = false
     ) -> Bool {
         let accessGranted = fileURL.startAccessingSecurityScopedResource()
         defer {
@@ -111,7 +72,7 @@ final class AppSharedData {
             return false
         }
         
-        let parsedData = CSVParser().getCSVData(from: destinationURL)
+        let parsedData = CSVHelper.getCSVData(from: destinationURL, hasHeaders: hasHeaders)
         guard !parsedData.isEmpty else {
             storage.deleteFile(filename: uniqueFilename)
             return false

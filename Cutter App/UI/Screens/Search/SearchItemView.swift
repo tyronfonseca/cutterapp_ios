@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-struct SearchItemView : View {
+struct SearchItemView: View {
     let item: CutterData
+    @Environment(AppSettings.self) private var settings
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
@@ -17,10 +19,13 @@ struct SearchItemView : View {
                     .fontWeight(.medium)
                     .lineLimit(1)
                     .truncationMode(.tail)
-                HStack {
-                    Text(item.cutterUsed)
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
+                
+                if !item.bookName.isEmpty {
+                    HStack {
+                        Text(item.bookName)
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
             
@@ -28,7 +33,7 @@ struct SearchItemView : View {
             
             HStack {
                 // Cutter Value Badge
-                Text(item.number)
+                Text(item.fullCallNumber(using: settings))
                     .font(.callout)
                     .fontDesign(.monospaced)
                     .fontWeight(.semibold)
@@ -37,6 +42,7 @@ struct SearchItemView : View {
                     .background(Color.blue.opacity(0.12))
                     .foregroundColor(.blue)
                     .clipShape(Capsule())
+                
                 if item.needsReview {
                     Image(systemName: "exclamationmark.circle.fill")
                         .font(.caption)
@@ -49,14 +55,19 @@ struct SearchItemView : View {
                         .accessibilityLabel("Requires review")
                         .accessibilityHint("The author name needs manual verification.")
                 }
-                
             }
         }
     }
 }
 
 #Preview {
-    SearchItemView(item: CutterData(name: "Test, prueba", code: "251", authorName: "Test"))
-    SearchItemView(item: CutterData(name: "Test, prueba", code: "251", authorName: "Test", needsReview: true))
-    SearchItemView(item: CutterData(name: "Test, pruebaneedsReview: true", code: "251", authorName: "Test", needsReview: true))
+    VStack(spacing: 16) {
+        SearchItemView(item: CutterData(name: "Test, prueba", code: "251", authorName: "Test", bookName: "Sample Book Title"))
+        
+        SearchItemView(item: CutterData(name: "Test, prueba", code: "251", authorName: "Test", needsReview: true))
+        
+        SearchItemView(item: CutterData(name: "Test, prueba", code: "251", authorName: "Test", bookName: "Another Book", needsReview: true))
+    }
+    .padding()
+    .environment(AppSettings())
 }

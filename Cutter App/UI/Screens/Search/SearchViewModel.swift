@@ -65,11 +65,11 @@ final class SearchViewModel {
         let range = NSRange(text.startIndex..., in: text)
         let matchesRegex = cutterRegex?.firstMatch(in: text, range: range) != nil
         
-        let dontSeparateName = sharedData.dontSeparateName
+        let dontSeparateName = sharedData.settings.dontSeparateName
         let authorName: String
         let authorSurname: String
         
-        if !dontSeparateName, !matchesRegex, let lastSpaceIndex = text.range(of: " ", options: .backwards)?.lowerBound {
+        if  !matchesRegex, let lastSpaceIndex = text.range(of: " ", options: .backwards)?.lowerBound {
             authorName = String(text[..<lastSpaceIndex])
             authorSurname = String(text[text.index(after: lastSpaceIndex)...])
         } else {
@@ -77,7 +77,7 @@ final class SearchViewModel {
             authorSurname = text
         }
         
-        if var cutter = sharedData.search(name: authorName, lastName: authorSurname, dontSeparateName: dontSeparateName) {
+        if let cutter = sharedData.search(name: authorName, lastName: authorSurname, dontSeparateName: dontSeparateName) {
             var updatedCutter = cutter
             updatedCutter.id = UUID()
             updatedCutter.authorName = authorName
@@ -132,7 +132,7 @@ final class SearchViewModel {
                     
                     if var cutter = getCutter(author.isEmpty ? title : author) {
                         cutter.bookName = title
-                        cutter.ddc = ddc
+                        cutter.ddcs = ddc
                         cutter.isbn = isbn
                         cutter.needsReview = true
                         capturedText.append(cutter)
@@ -166,31 +166,6 @@ final class SearchViewModel {
     }
     
     func exportToCSV() -> URL? {
-        guard !capturedText.isEmpty else { return nil }
-        
-        var csvString = "Author Name,Author Surname,Name,Code,Number,ISBN,Book Name,DDC\n"
-        
-        for item in capturedText {
-            let cleanName = item.name.replacingOccurrences(of: "\"", with: "\"\"")
-            let cleanBookName = item.bookName.replacingOccurrences(of: "\"", with: "\"\"")
-            
-            let row = "\"\(item.authorName)\",\"\(item.authorSurname)\",\"\(cleanName)\",\"\(item.code)\",\"\(item.number)\",\"\(item.isbn)\",\"\(cleanBookName)\",\"\(item.ddc)\"\n"
-            csvString.append(row)
-        }
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
-        let dateString = dateFormatter.string(from: Date())
-        
-        let fileName = "CutterApp_\(dateString).csv"
-        let tempFileURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
-        
-        do {
-            try csvString.write(to: tempFileURL, atomically: true, encoding: .utf8)
-            return tempFileURL
-        } catch {
-            print("Failed to save temporary CSV file: \(error.localizedDescription)")
-            return nil
-        }
+        return CSVHelper.exportToCSV(with: capturedText, addExtras: sharedData.settings.includeExtrasInExport)
     }
 }

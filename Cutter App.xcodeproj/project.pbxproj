@@ -18,6 +18,7 @@
 		A447C9E8304C8C80002AB980 /* AddNewCutterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A447C9E7304C8C6C002AB980 /* AddNewCutterTableView.swift */; };
 		A447C9EA304C8CE7002AB980 /* SelectCutterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A447C9E9304C8CE7002AB980 /* SelectCutterTableView.swift */; };
 		A447C9EC304C9CBD002AB980 /* AppSharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A447C9EB304C9CBD002AB980 /* AppSharedData.swift */; };
+		A44D39A0304CFBC40012284C /* cutter_old.csv in Resources */ = {isa = PBXBuildFile; fileRef = A44D399F304CFBC40012284C /* cutter_old.csv */; };
 		A45CEF2E304CCA800081FBBA /* ReadOnlyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45CEF2D304CCA800081FBBA /* ReadOnlyField.swift */; };
 		A46B0E6E304B1D5600488617 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B0E6D304B1D5600488617 /* SearchView.swift */; };
 		A46B0E70304B31A500488617 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B0E6F304B31A500488617 /* BannerView.swift */; };
@@ -26,6 +27,8 @@
 		A46B0E7F304B4B4000488617 /* OpenLibrarySearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B0E7E304B4B4000488617 /* OpenLibrarySearchResult.swift */; };
 		A46B0E82304B57DB00488617 /* CutterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B0E81304B57DB00488617 /* CutterTableView.swift */; };
 		A46B0E85304B5E0700488617 /* SearchCutterIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B0E84304B5E0000488617 /* SearchCutterIntent.swift */; };
+		A4BDB9B0304E037C00332E71 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDB9AF304E037C00332E71 /* AppSettings.swift */; };
+		A4BDB9B4304E0A6D00332E71 /* CutterData+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDB9B3304E0A6700332E71 /* CutterData+Ext.swift */; };
 		A4E9DCC5304B7F88004C68A3 /* Get Cutter Number.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A4E9DCBB304B7F87004C68A3 /* Get Cutter Number.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A4E9DCE9304B9C89004C68A3 /* CSVFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E9DCE8304B9C86004C68A3 /* CSVFile.swift */; };
 		F83D098A304710D70078DC3C /* AdknowledgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83D0979304710D70078DC3C /* AdknowledgeView.swift */; };
@@ -37,13 +40,11 @@
 		F83DE25C2BE9747200E668B6 /* Cutter_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83DE25B2BE9747200E668B6 /* Cutter_App.swift */; };
 		F83DE2632BE9747300E668B6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F83DE2622BE9747300E668B6 /* Preview Assets.xcassets */; };
 		F83DE2982BE9D7E700E668B6 /* CutterHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83DE2972BE9D7E700E668B6 /* CutterHelperTests.swift */; };
-		F83F23CA2D406750003944B3 /* cutter_old.csv in Resources */ = {isa = PBXBuildFile; fileRef = F83F23AC2D406750003944B3 /* cutter_old.csv */; };
 		F83F23CB2D406750003944B3 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F83F23C12D406750003944B3 /* Localizable.xcstrings */; };
 		F83F23CC2D406750003944B3 /* cutter_normal.csv in Resources */ = {isa = PBXBuildFile; fileRef = F83F23AB2D406750003944B3 /* cutter_normal.csv */; };
 		F83F23CD2D406750003944B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F83F23AE2D406750003944B3 /* Assets.xcassets */; };
 		F83F23CE2D406750003944B3 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83F23A32D406750003944B3 /* String+Ext.swift */; };
-		F83F23D02D406750003944B3 /* TextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83F23A42D406750003944B3 /* TextField+Ext.swift */; };
-		F83F23D72D406750003944B3 /* CSVParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83F23BD2D406750003944B3 /* CSVParser.swift */; };
+		F83F23D72D406750003944B3 /* CSVHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83F23BD2D406750003944B3 /* CSVHelper.swift */; };
 		F83F23DB2D406750003944B3 /* CutterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83F23BF2D406750003944B3 /* CutterHelper.swift */; };
 		F83F23DE2D406750003944B3 /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83F23A52D406750003944B3 /* View+Ext.swift */; };
 		F8CE739A2BEA9AF4002D867D /* CutterGetterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CE73992BEA9AF4002D867D /* CutterGetterTests.swift */; };
@@ -92,6 +93,7 @@
 		A447C9E7304C8C6C002AB980 /* AddNewCutterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCutterTableView.swift; sourceTree = "<group>"; };
 		A447C9E9304C8CE7002AB980 /* SelectCutterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCutterTableView.swift; sourceTree = "<group>"; };
 		A447C9EB304C9CBD002AB980 /* AppSharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSharedData.swift; sourceTree = "<group>"; };
+		A44D399F304CFBC40012284C /* cutter_old.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = cutter_old.csv; sourceTree = "<group>"; };
 		A45CEF2D304CCA800081FBBA /* ReadOnlyField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadOnlyField.swift; sourceTree = "<group>"; };
 		A46B0E6D304B1D5600488617 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		A46B0E6F304B31A500488617 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,8 @@
 		A46B0E7E304B4B4000488617 /* OpenLibrarySearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLibrarySearchResult.swift; sourceTree = "<group>"; };
 		A46B0E81304B57DB00488617 /* CutterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterTableView.swift; sourceTree = "<group>"; };
 		A46B0E84304B5E0000488617 /* SearchCutterIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCutterIntent.swift; sourceTree = "<group>"; };
+		A4BDB9AF304E037C00332E71 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		A4BDB9B3304E0A6700332E71 /* CutterData+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CutterData+Ext.swift"; sourceTree = "<group>"; };
 		A4E9DCBB304B7F87004C68A3 /* Get Cutter Number.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Get Cutter Number.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4E9DCE8304B9C86004C68A3 /* CSVFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVFile.swift; sourceTree = "<group>"; };
 		F82ED0302D41582300F7CFB9 /* Cutter-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Cutter-App-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -115,12 +119,10 @@
 		F83DE28E2BE9D79A00E668B6 /* Cutter AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cutter AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F83DE2972BE9D7E700E668B6 /* CutterHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterHelperTests.swift; sourceTree = "<group>"; };
 		F83F23A32D406750003944B3 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
-		F83F23A42D406750003944B3 /* TextField+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+Ext.swift"; sourceTree = "<group>"; };
 		F83F23A52D406750003944B3 /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
 		F83F23AB2D406750003944B3 /* cutter_normal.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = cutter_normal.csv; sourceTree = "<group>"; };
-		F83F23AC2D406750003944B3 /* cutter_old.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = cutter_old.csv; sourceTree = "<group>"; };
 		F83F23AE2D406750003944B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F83F23BD2D406750003944B3 /* CSVParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVParser.swift; sourceTree = "<group>"; };
+		F83F23BD2D406750003944B3 /* CSVHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVHelper.swift; sourceTree = "<group>"; };
 		F83F23BF2D406750003944B3 /* CutterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterHelper.swift; sourceTree = "<group>"; };
 		F83F23C12D406750003944B3 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		F8CE73992BEA9AF4002D867D /* CutterGetterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterGetterTests.swift; sourceTree = "<group>"; };
@@ -200,6 +202,16 @@
 			path = Extras;
 			sourceTree = "<group>";
 		};
+		A4CF00F7304F22A6003D003B /* CSV */ = {
+			isa = PBXGroup;
+			children = (
+				A447C9DF304C831E002AB980 /* CSVStorageManager.swift */,
+				A4E9DCE8304B9C86004C68A3 /* CSVFile.swift */,
+				F83F23BD2D406750003944B3 /* CSVHelper.swift */,
+			);
+			path = CSV;
+			sourceTree = "<group>";
+		};
 		F83D097D304710D70078DC3C /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +281,7 @@
 				F83D0996304711B80078DC3C /* CutterData.swift */,
 				A46B0E7E304B4B4000488617 /* OpenLibrarySearchResult.swift */,
 				A447C9EB304C9CBD002AB980 /* AppSharedData.swift */,
+				A4BDB9AF304E037C00332E71 /* AppSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -338,8 +351,8 @@
 		F83F23A62D406750003944B3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A4BDB9B3304E0A6700332E71 /* CutterData+Ext.swift */,
 				F83F23A32D406750003944B3 /* String+Ext.swift */,
-				F83F23A42D406750003944B3 /* TextField+Ext.swift */,
 				F83F23A52D406750003944B3 /* View+Ext.swift */,
 			);
 			path = Extensions;
@@ -348,8 +361,8 @@
 		F83F23AD2D406750003944B3 /* Raw */ = {
 			isa = PBXGroup;
 			children = (
+				A44D399F304CFBC40012284C /* cutter_old.csv */,
 				F83F23AB2D406750003944B3 /* cutter_normal.csv */,
-				F83F23AC2D406750003944B3 /* cutter_old.csv */,
 			);
 			path = Raw;
 			sourceTree = "<group>";
@@ -366,9 +379,7 @@
 		F83F23C02D406750003944B3 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				A447C9DF304C831E002AB980 /* CSVStorageManager.swift */,
-				A4E9DCE8304B9C86004C68A3 /* CSVFile.swift */,
-				F83F23BD2D406750003944B3 /* CSVParser.swift */,
+				A4CF00F7304F22A6003D003B /* CSV */,
 				A447C9E3304C8384002AB980 /* CutterSearchEngine.swift */,
 				F83F23BF2D406750003944B3 /* CutterHelper.swift */,
 			);
@@ -506,8 +517,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A44D39A0304CFBC40012284C /* cutter_old.csv in Resources */,
 				F83DE2632BE9747300E668B6 /* Preview Assets.xcassets in Resources */,
-				F83F23CA2D406750003944B3 /* cutter_old.csv in Resources */,
 				F83F23CB2D406750003944B3 /* Localizable.xcstrings in Resources */,
 				F83F23CC2D406750003944B3 /* cutter_normal.csv in Resources */,
 				F83F23CD2D406750003944B3 /* Assets.xcassets in Resources */,
@@ -542,12 +553,11 @@
 				F83F23CE2D406750003944B3 /* String+Ext.swift in Sources */,
 				A4E9DCE9304B9C89004C68A3 /* CSVFile.swift in Sources */,
 				F83D0997304711BF0078DC3C /* CutterData.swift in Sources */,
-				F83F23D02D406750003944B3 /* TextField+Ext.swift in Sources */,
 				A447C9DC304C7C15002AB980 /* CutterApp.xcdatamodeld in Sources */,
 				A447C9E2304C834B002AB980 /* CutterTableRepository.swift in Sources */,
 				A46B0E7F304B4B4000488617 /* OpenLibrarySearchResult.swift in Sources */,
 				A447C9CE304C4B24002AB980 /* SearchItemView.swift in Sources */,
-				F83F23D72D406750003944B3 /* CSVParser.swift in Sources */,
+				F83F23D72D406750003944B3 /* CSVHelper.swift in Sources */,
 				F83D098A304710D70078DC3C /* AdknowledgeView.swift in Sources */,
 				F83D098B304710D70078DC3C /* CardModifier.swift in Sources */,
 				A447C9EA304C8CE7002AB980 /* SelectCutterTableView.swift in Sources */,
@@ -559,11 +569,13 @@
 				F83D0993304710D70078DC3C /* SettingsView.swift in Sources */,
 				A447C9E4304C8389002AB980 /* CutterSearchEngine.swift in Sources */,
 				F83F23DB2D406750003944B3 /* CutterHelper.swift in Sources */,
+				A4BDB9B4304E0A6D00332E71 /* CutterData+Ext.swift in Sources */,
 				A425FE3030486D6F0007F2C1 /* OCRCameraView.swift in Sources */,
 				A447C9E0304C831F002AB980 /* CSVStorageManager.swift in Sources */,
 				A447C9EC304C9CBD002AB980 /* AppSharedData.swift in Sources */,
 				A46B0E70304B31A500488617 /* BannerView.swift in Sources */,
 				F83F23DE2D406750003944B3 /* View+Ext.swift in Sources */,
+				A4BDB9B0304E037C00332E71 /* AppSettings.swift in Sources */,
 				A46B0E82304B57DB00488617 /* CutterTableView.swift in Sources */,
 				A447C9D0304C4DE4002AB980 /* EditSearchItemView.swift in Sources */,
 				A46B0E74304B39DD00488617 /* SearchViewModel.swift in Sources */,

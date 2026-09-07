@@ -15,8 +15,8 @@ struct OCRCameraView: View {
     var body: some View {
         ZStack(alignment: .topTrailing) {
             if DataScannerViewController.isSupported && DataScannerViewController.isAvailable {
-                DataScannerRepresentable { recognizedText in
-                    self.searchText = recognizedText
+                DataScannerRepresentable { scannedValue in
+                    self.searchText = scannedValue
                     dismiss()
                 }
                 .ignoresSafeArea()
@@ -39,14 +39,17 @@ struct OCRCameraView: View {
     }
 }
 
-// MARK: - VisionKit Live Text Camera Wrapper
+// MARK: - VisionKit Live Text & Barcode Camera Wrapper
 
 struct DataScannerRepresentable: UIViewControllerRepresentable {
-    var onTextSelected: (String) -> Void
+    var onScannedValue: (String) -> Void
 
     func makeUIViewController(context: Context) -> DataScannerViewController {
         let scanner = DataScannerViewController(
-            recognizedDataTypes: [.text()],
+            recognizedDataTypes: [
+                .text(),
+                .barcode(symbologies: [.ean13, .ean8])
+            ],
             qualityLevel: .balanced,
             recognizesMultipleItems: true,
             isHighFrameRateTrackingEnabled: true,
@@ -60,23 +63,29 @@ struct DataScannerRepresentable: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: DataScannerViewController, context: Context) {}
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(onTextSelected: onTextSelected)
+        Coordinator(onScannedValue: onScannedValue)
     }
 
     class Coordinator: NSObject, DataScannerViewControllerDelegate {
-        var onTextSelected: (String) -> Void
+        var onScannedValue: (String) -> Void
 
-        init(onTextSelected: @escaping (String) -> Void) {
-            self.onTextSelected = onTextSelected
+        init(onScannedValue: @escaping (String) -> Void) {
+            self.onScannedValue = onScannedValue
         }
 
         func dataScanner(_ dataScanner: DataScannerViewController, didTapOn item: RecognizedItem) {
             switch item {
             case .text(let text):
                 DispatchQueue.main.async {
-                    self.onTextSelected(text.transcript)
+                    self.onScannedValue(text.transcript)
                 }
-            default:
+            case .barcode(let barcode):
+                if let payload = barcode.payloadStringValue {
+                    DispatchQueue.main.async {
+                        self.onScannedValue(payload)
+                    }
+                }
+            @unknown default:
                 break
             }
         }

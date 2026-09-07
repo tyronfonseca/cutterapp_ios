@@ -18,6 +18,7 @@ struct Cutter_App: App {
             Main()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environment(appSharedData)
+                .environment(appSharedData.settings)
                 .onAppear(){
                     // First time use
                     appSharedData.loadActiveTable(context: persistenceController.container.viewContext)

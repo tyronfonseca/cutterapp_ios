@@ -12,7 +12,7 @@ struct CutterSearchEngine {
     func search(queryName: String, queryLastName: String, in data: [CutterData], with dontSeparateName: Bool) -> CutterData? {
         guard !data.isEmpty else { return nil }
 
-        let query = CutterHelper.getQueryFromName(name: queryName, lastName: queryLastName)
+        let query = CutterHelper.getCutterQuery(name: queryName, lastName: queryLastName, dontSeparateName: dontSeparateName)
 
         var low = 0
         var high = data.count - 1
@@ -20,11 +20,14 @@ struct CutterSearchEngine {
 
         while low <= high {
             let mid = (low + high) / 2
-            let candidateName = CutterHelper.removeAccents(query: data[mid].name)
-            let cmp = query.compare(candidateName)
+            let candidateName = data[mid].name.removeAccents()
+            
+            let queryPrefix = String(query.prefix(candidateName.count))
+            let cmp = queryPrefix.compare(candidateName, options: [.caseInsensitive, .diacriticInsensitive])
 
             if cmp == .orderedSame {
-                return data[mid]
+                bestMatchIndex = mid
+                low = mid + 1
             } else if cmp == .orderedAscending {
                 high = mid - 1
             } else {

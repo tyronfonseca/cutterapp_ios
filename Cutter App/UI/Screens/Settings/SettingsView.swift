@@ -10,20 +10,25 @@ import CoreData
 
 struct SettingsView: View {
     @Environment(AppSharedData.self) private var sharedData
+    @State private var cutterExample = CutterData(
+        name: "Borg",
+        code: "732",
+        authorName: "Jorge Luis",
+        authorSurname: "Borges",
+        bookName: "Ficciones"
+    )
     
     var body: some View {
         @Bindable var sharedData = sharedData
+        @Bindable var settings = sharedData.settings
+        
         NavigationStack {
             Form {
-                Section (
-                    footer: Text("Set to ON if you want the app to use the first name has the value to get the cutter number by default")
+                // MARK: - Cutter Table Selection
+                Section(
+                    header: Text("Cutter table"),
+                    footer: Text("You can add a custom cutter table. After adding the new table, you can set it as the current table used by the app.")
                 ) {
-                    Toggle("Author has no surname", isOn: $sharedData.dontSeparateName)
-                        .toggleStyle(.switch)
-                }
-                
-                Section(header: Text("Cutter table"),
-                        footer: Text("You can add a custom cutter table. After adding the new table you can set it has the current table use by the app")) {
                     NavigationLink {
                         SelectCutterTableView()
                     } label: {
@@ -34,6 +39,7 @@ struct SettingsView: View {
                                 .foregroundStyle(.secondary)
                         }
                     }
+                    
                     NavigationLink {
                         AddNewCutterTableView()
                     } label: {
@@ -41,27 +47,97 @@ struct SettingsView: View {
                             .font(.body.weight(.medium))
                             .foregroundStyle(.tint)
                     }
-                }
+                }                
                 
-                
-                Section (
-                    header: Text("Export to CSV"),
-                    footer: Text("If you use the ISBN to get the cutter number, we can also get the book title and possible DDC numbers. This data comes from OpenLibrary.org")
+                // MARK: - Search Behavior Settings
+                Section(
+                    header: Text("Search Behavior"),
+                    footer: Text("Set to ON if you want the app to treat the complete name string as a single entity rather than splitting author name and surname.")
                 ) {
-                    Toggle("Include DDC and Book title", isOn: $sharedData.includeExtrasInExport)
+                    Toggle("Author has no surname", isOn: $settings.dontSeparateName)
+                        .toggleStyle(.switch)
+                    
+                    Toggle("Ignore grammar articles", isOn: $settings.ignoreArticles)
                         .toggleStyle(.switch)
                 }
                 
+                // MARK: - Preview Section
+                Section(
+                    header: Text("Cutter generation"),
+                    footer: Text("This is a live preview demonstrating your current call number configuration.")
+                ) {
+                    SearchItemView(item: cutterExample)
+                }
+                
+                // MARK: - Call Number Formatting (Prefix & Suffix)
+                Section(
+                    header: Text("Call Number Formatting"),
+                    footer: Text("Configure what information and character length to append before and after the cutter number.")
+                ) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Cutter Prefix")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                        
+                        Picker("Cutter prefix", selection: $settings.textBeforeNum) {
+                            Text("Author").tag(AppSettings.TextBeforeAfterNum.authorSurname)
+                            Text("Title").tag(AppSettings.TextBeforeAfterNum.title)
+                        }
+                        .pickerStyle(.segmented)
+                    }
+                    .padding(.vertical, 4)
+                    
+                    Stepper(value: $settings.charsBeforeNum, in: 0...7) {
+                        HStack {
+                            Text("Prefix length")
+                            Spacer()
+                            Text("\(settings.charsBeforeNum) char\(settings.charsBeforeNum == 1 ? "" : "s")")
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Cutter Suffix")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                        
+                        Picker("Cutter suffix", selection: $settings.textAfterNum) {
+                            Text("Author").tag(AppSettings.TextBeforeAfterNum.authorSurname)
+                            Text("Title").tag(AppSettings.TextBeforeAfterNum.title)
+                        }
+                        .pickerStyle(.segmented)
+                    }
+                    .padding(.vertical, 4)
+                    
+                    Stepper(value: $settings.charsAfterNum, in: 0...7) {
+                        HStack {
+                            Text("Suffix length")
+                            Spacer()
+                            Text("\(settings.charsAfterNum) char\(settings.charsAfterNum == 1 ? "" : "s")")
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+                
+                // MARK: - Export Settings
+                Section(
+                    header: Text("Save to CSV"),
+                    footer: Text("If you use ISBN numbers during cutter resolution, supplementary metadata (Title, DDC classification) will be attached to the CSV file via OpenLibrary.org.")
+                ) {
+                    Toggle("Include DDC and Title", isOn: $settings.includeExtrasInExport)
+                        .toggleStyle(.switch)
+                }
             }
-            .navigationTitle("settings")
+            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
 
 #Preview {
-    NavigationStack {
-        SettingsView()
-            .environment(AppSharedData())
-    }
+    let sharedData = AppSharedData()
+    
+    return SettingsView()
+        .environment(sharedData)
+        .environment(sharedData.settings)
 }

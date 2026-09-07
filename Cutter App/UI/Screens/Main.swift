@@ -18,7 +18,7 @@ struct Main: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             // MARK: - Tab: Search Main Flow
-            Tab("home", systemImage: "book", value: .search) {
+            Tab("Search", systemImage: "text.page.badge.magnifyingglass", value: .search) {
                 SearchView(sharedData: sharedData)
             }
             
@@ -27,14 +27,14 @@ struct Main: View {
                 CutterTableView()
             }
             
-            // MARK: - Tab: Settings
-            Tab("settings", systemImage: "gear", value: .settings) {
-                SettingsView()
-            }
-            
             // MARK: - Tab: About
             Tab("about_btn", systemImage: "info.circle", value: .about) {
                 About()
+            }
+            
+            // MARK: - Tab: Settings
+            Tab("settings", systemImage: "gear", value: .settings) {
+                SettingsView()
             }
         }
         .tabViewStyle(.sidebarAdaptable)

@@ -10,6 +10,7 @@ import SwiftUI
 struct EditSearchItemView: View {
     @Environment(AppSharedData.self) private var sharedData
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
     @Binding var item: CutterData
     @State private var showingDeleteAlert = false
     
@@ -50,6 +51,10 @@ struct EditSearchItemView: View {
                 }
             }
             
+            Section(header: Text("Cutter Number Used")) {
+                ReadOnlyField(text: item.cutterUsed.isEmpty ? "No Cutter Code" : item.cutterUsed)
+            }
+            
             Section(
                 header: Text("Author"),
                 footer: Text("Verify that the name of the author is correct.")
@@ -76,15 +81,10 @@ struct EditSearchItemView: View {
                 .toggleStyle(.switch)
             }
             
-            Section(header: Text("Cutter Number")) {
-                ReadOnlyField(text: item.cutterUsed.isEmpty ? "No Cutter Code" : item.cutterUsed)
+            Section(header: Text("Book"), footer: Text(item.isbn.isEmpty ? "" : "Data taken from OpenLibray.org it may be inaccurate")) {
+                TextField("Add or modify the book" ,text: $item.bookName)
             }
             
-            if !item.bookName.isEmpty {
-                Section(header: Text("Book")) {
-                    ReadOnlyField(text: item.bookName)
-                }
-            }
             
             if !item.isbn.isEmpty {
                 Section(header: Text("ISBN")) {
@@ -92,11 +92,17 @@ struct EditSearchItemView: View {
                 }
             }
             
-            if !item.ddc.isEmpty {
-                Section(header: Text("Possible DDCs")) {
-                    ForEach(item.ddc, id: \.self) { ddc in
-                        ReadOnlyField(text: ddc).font(.subheadline)
+            if !item.ddcs.isEmpty {
+                Section(
+                    header: Text("Possible DDCs"),
+                    footer: Text("Data taken from OpenLibrary.org; it may be inaccurate.")
+                ) {
+                    Picker("Select DDC", selection: $item.ddcSelected) {
+                        ForEach(item.ddcs, id: \.self) { ddc in
+                            Text(ddc).tag(ddc)
+                        }
                     }
+                    .pickerStyle(.menu)
                 }
             }
         }
@@ -105,6 +111,8 @@ struct EditSearchItemView: View {
         .onChange(of: item.authorName) { recalculateAndSave() }
         .onChange(of: item.authorSurname) { recalculateAndSave() }
         .onChange(of: item.dontSeparateName) { recalculateAndSave() }
+        .onChange(of: item.bookName){ recalculateAndSave() }
+        .onChange(of: item.ddcSelected){ item.needsReview = false  }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(role: .destructive) {
