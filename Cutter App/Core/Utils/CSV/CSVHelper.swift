@@ -9,18 +9,23 @@ import Foundation
 
 class CSVHelper {
     
-    /// Parse CSV data from bundled version
-    static func getCSVData() -> [CutterData] {
-        guard let path = Bundle.main.path(forResource: "cutter_normal", ofType: "csv") else {
-            print("No file found in bundle for version: cutter_normal")
+    /// Parse CSV data from the app bundle using either a CSVVersion or a raw filename string
+    static func getCSVData(filename: String, hasHeaders: Bool = true) -> [CutterData] {
+        guard let url = Bundle.main.url(forResource: filename, withExtension: "csv") ??
+                Bundle.main.url(forResource: filename, withExtension: nil) else {
+            print("No file found in bundle for: \(filename)")
             return []
         }
-        let url = URL(fileURLWithPath: path)
-        return getCSVData(from: url, hasHeaders: true)
+        return getCSVData(from: url, hasHeaders: hasHeaders)
     }
     
-    /// Parse CSV data directly from a file URL (user-uploaded)
-    static func getCSVData(from url: URL, hasHeaders: Bool = false) -> [CutterData] {
+    /// Convenience overload for CSVVersion enum
+    static func getCSVData(version: CSVVersion = .sanborn, hasHeaders: Bool = true) -> [CutterData] {
+        return getCSVData(filename: version.rawValue, hasHeaders: hasHeaders)
+    }
+    
+    /// Parse CSV data directly from any file URL (bundle or external storage)
+    static func getCSVData(from url: URL, hasHeaders: Bool = true) -> [CutterData] {
         do {
             let content = try String(contentsOf: url, encoding: .utf8)
             return parse(csvString: content, hasHeaders: hasHeaders)
@@ -46,7 +51,7 @@ class CSVHelper {
             return CutterData(name: name, code: code)
         }
     }
-
+    
     /// Parses a single CSV line into trimmed field strings, preserving text inside quotes.
     private static func parseCSVRow(_ line: String) -> [String] {
         var fields: [String] = []

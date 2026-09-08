@@ -23,21 +23,27 @@ final class AppSharedData {
     // MARK: - Orchestration Logic
     
     func loadActiveTable(context: NSManagedObjectContext) {
-        let activeEntity = repository.ensureDefaultTableExists(context: context)
-        
-        guard let filename = activeEntity?.filename else {
-            self.currentCutterData = CSVHelper.getCSVData()
+        guard let activeEntity = repository.ensureDefaultTablesExist(context: context),
+              let filename = activeEntity.filename else {
+            self.currentCutterData = []
+            self.currentTableSelected = nil
             return
         }
-        
-        if let customURL = storage.getURL(for: filename) {
-            let parsed = CSVHelper.getCSVData(from: customURL)
-            self.currentCutterData = parsed.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
-        } else {
-            self.currentCutterData = CSVHelper.getCSVData()
+
+        let rawData: [CutterData]
+
+        // Try external/custom directory URL
+        if let customURL = storage.getURL(for: filename),
+           FileManager.default.fileExists(atPath: customURL.path) {
+            rawData = CSVHelper.getCSVData(from: customURL, hasHeaders: true)
         }
-        
-        currentTableSelected = activeEntity
+        // Fall back to main bundle using the filename string
+        else {
+            rawData = CSVHelper.getCSVData(filename: filename, hasHeaders: true)
+        }
+
+        self.currentCutterData = rawData
+        self.currentTableSelected = activeEntity
     }
     
     func selectActiveTable(_ entity: CutterTableEntity, context: NSManagedObjectContext) {

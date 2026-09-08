@@ -20,12 +20,16 @@
 		A447C9EC304C9CBD002AB980 /* AppSharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A447C9EB304C9CBD002AB980 /* AppSharedData.swift */; };
 		A45CEF2E304CCA800081FBBA /* ReadOnlyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45CEF2D304CCA800081FBBA /* ReadOnlyField.swift */; };
 		A46B0E6E304B1D5600488617 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B0E6D304B1D5600488617 /* SearchView.swift */; };
-		A46B0E70304B31A500488617 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B0E6F304B31A500488617 /* BannerView.swift */; };
 		A46B0E74304B39DD00488617 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B0E73304B39D400488617 /* SearchViewModel.swift */; };
 		A46B0E7B304B411D00488617 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B0E79304B411D00488617 /* Main.swift */; };
 		A46B0E7F304B4B4000488617 /* OpenLibrarySearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B0E7E304B4B4000488617 /* OpenLibrarySearchResult.swift */; };
 		A46B0E82304B57DB00488617 /* CutterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B0E81304B57DB00488617 /* CutterTableView.swift */; };
 		A46B0E85304B5E0700488617 /* SearchCutterIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B0E84304B5E0000488617 /* SearchCutterIntent.swift */; };
+		A4AD567D3050458500439823 /* pha.csv in Resources */ = {isa = PBXBuildFile; fileRef = A4AD567C3050458500439823 /* pha.csv */; };
+		A4AD567F305051C200439823 /* CSVVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AD567E305051BB00439823 /* CSVVersion.swift */; };
+		A4AD568130506AF500439823 /* CutterDataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AD568030506AF000439823 /* CutterDataEntity.swift */; };
+		A4AD568330506F1F00439823 /* SessionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AD568230506F1B00439823 /* SessionEntity.swift */; };
+		A4AD56863050712600439823 /* SessionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AD56853050711B00439823 /* SessionRepository.swift */; };
 		A4BDB9B0304E037C00332E71 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDB9AF304E037C00332E71 /* AppSettings.swift */; };
 		A4BDB9B4304E0A6D00332E71 /* CutterData+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDB9B3304E0A6700332E71 /* CutterData+Ext.swift */; };
 		A4CF00F9304F42FC003D003B /* CutterSearchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CF00F8304F42F7003D003B /* CutterSearchOptions.swift */; };
@@ -95,12 +99,16 @@
 		A447C9EB304C9CBD002AB980 /* AppSharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSharedData.swift; sourceTree = "<group>"; };
 		A45CEF2D304CCA800081FBBA /* ReadOnlyField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadOnlyField.swift; sourceTree = "<group>"; };
 		A46B0E6D304B1D5600488617 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
-		A46B0E6F304B31A500488617 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		A46B0E73304B39D400488617 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		A46B0E79304B411D00488617 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		A46B0E7E304B4B4000488617 /* OpenLibrarySearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLibrarySearchResult.swift; sourceTree = "<group>"; };
 		A46B0E81304B57DB00488617 /* CutterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterTableView.swift; sourceTree = "<group>"; };
 		A46B0E84304B5E0000488617 /* SearchCutterIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCutterIntent.swift; sourceTree = "<group>"; };
+		A4AD567C3050458500439823 /* pha.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = pha.csv; sourceTree = "<group>"; };
+		A4AD567E305051BB00439823 /* CSVVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVVersion.swift; sourceTree = "<group>"; };
+		A4AD568030506AF000439823 /* CutterDataEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterDataEntity.swift; sourceTree = "<group>"; };
+		A4AD568230506F1B00439823 /* SessionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEntity.swift; sourceTree = "<group>"; };
+		A4AD56853050711B00439823 /* SessionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRepository.swift; sourceTree = "<group>"; };
 		A4BDB9AF304E037C00332E71 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		A4BDB9B3304E0A6700332E71 /* CutterData+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CutterData+Ext.swift"; sourceTree = "<group>"; };
 		A4CF00F8304F42F7003D003B /* CutterSearchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterSearchOptions.swift; sourceTree = "<group>"; };
@@ -203,6 +211,15 @@
 			path = Extras;
 			sourceTree = "<group>";
 		};
+		A4AD56843050710800439823 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				A4AD568230506F1B00439823 /* SessionEntity.swift */,
+				A4AD56853050711B00439823 /* SessionRepository.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
 		A4CF00F7304F22A6003D003B /* CSV */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,7 +275,6 @@
 		F83D097D304710D70078DC3C /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				A46B0E6F304B31A500488617 /* BannerView.swift */,
 				F83D097A304710D70078DC3C /* CardModifier.swift */,
 				A45CEF2D304CCA800081FBBA /* ReadOnlyField.swift */,
 			);
@@ -321,6 +337,7 @@
 		F83D09953047119E0078DC3C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A4AD567E305051BB00439823 /* CSVVersion.swift */,
 				A4CF0105304F5981003D003B /* CutterData */,
 				A4CF00F8304F42F7003D003B /* CutterSearchOptions.swift */,
 				A46B0E7E304B4B4000488617 /* OpenLibrarySearchResult.swift */,
@@ -386,6 +403,8 @@
 		F83F23A22D406750003944B3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				A4AD56843050710800439823 /* Session */,
+				A4AD568030506AF000439823 /* CutterDataEntity.swift */,
 				A447C9E1304C8343002AB980 /* CutterTableRepository.swift */,
 				A447C9DD304C7D95002AB980 /* Persistence.swift */,
 				A447C9DA304C7C15002AB980 /* CutterApp.xcdatamodeld */,
@@ -405,6 +424,7 @@
 		F83F23AD2D406750003944B3 /* Raw */ = {
 			isa = PBXGroup;
 			children = (
+				A4AD567C3050458500439823 /* pha.csv */,
 				F83F23AB2D406750003944B3 /* cutter_normal.csv */,
 			);
 			path = Raw;
@@ -559,6 +579,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4AD567D3050458500439823 /* pha.csv in Resources */,
 				F83DE2632BE9747300E668B6 /* Preview Assets.xcassets in Resources */,
 				F83F23CB2D406750003944B3 /* Localizable.xcstrings in Resources */,
 				F83F23CC2D406750003944B3 /* cutter_normal.csv in Resources */,
@@ -591,19 +612,23 @@
 				A46B0E6E304B1D5600488617 /* SearchView.swift in Sources */,
 				A46B0E7B304B411D00488617 /* Main.swift in Sources */,
 				A447C9E8304C8C80002AB980 /* AddNewCutterTableView.swift in Sources */,
+				A4AD568130506AF500439823 /* CutterDataEntity.swift in Sources */,
 				F83F23CE2D406750003944B3 /* String+Ext.swift in Sources */,
 				A4E9DCE9304B9C89004C68A3 /* CSVFile.swift in Sources */,
+				A4AD568330506F1F00439823 /* SessionEntity.swift in Sources */,
 				F83D0997304711BF0078DC3C /* CutterData.swift in Sources */,
 				A447C9DC304C7C15002AB980 /* CutterApp.xcdatamodeld in Sources */,
 				A447C9E2304C834B002AB980 /* CutterTableRepository.swift in Sources */,
 				A4CF00F9304F42FC003D003B /* CutterSearchOptions.swift in Sources */,
 				A46B0E7F304B4B4000488617 /* OpenLibrarySearchResult.swift in Sources */,
 				A447C9CE304C4B24002AB980 /* SearchItemView.swift in Sources */,
+				A4AD56863050712600439823 /* SessionRepository.swift in Sources */,
 				F83F23D72D406750003944B3 /* CSVHelper.swift in Sources */,
 				F83D098A304710D70078DC3C /* AdknowledgeView.swift in Sources */,
 				F83D098B304710D70078DC3C /* CardModifier.swift in Sources */,
 				A447C9EA304C8CE7002AB980 /* SelectCutterTableView.swift in Sources */,
 				A45CEF2E304CCA800081FBBA /* ReadOnlyField.swift in Sources */,
+				A4AD567F305051C200439823 /* CSVVersion.swift in Sources */,
 				F83D098D304710D70078DC3C /* FAQView.swift in Sources */,
 				A46B0E85304B5E0700488617 /* SearchCutterIntent.swift in Sources */,
 				F83D098E304710D70078DC3C /* About.swift in Sources */,
@@ -614,7 +639,6 @@
 				A425FE3030486D6F0007F2C1 /* OCRCameraView.swift in Sources */,
 				A447C9E0304C831F002AB980 /* CSVStorageManager.swift in Sources */,
 				A447C9EC304C9CBD002AB980 /* AppSharedData.swift in Sources */,
-				A46B0E70304B31A500488617 /* BannerView.swift in Sources */,
 				F83F23DE2D406750003944B3 /* View+Ext.swift in Sources */,
 				A4BDB9B0304E037C00332E71 /* AppSettings.swift in Sources */,
 				A46B0E82304B57DB00488617 /* CutterTableView.swift in Sources */,

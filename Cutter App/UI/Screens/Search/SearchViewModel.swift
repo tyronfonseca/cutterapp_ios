@@ -23,13 +23,9 @@ final class SearchViewModel {
     var showExportAlert: Bool = false
     
     let sharedData: AppSharedData
-    
-    private let pattern = "^([a-zA-Z]+),\\s([a-zA-Z]+)$"
-    private var cutterRegex : NSRegularExpression?
 
     init(sharedData: AppSharedData) {
         self.sharedData = sharedData
-        cutterRegex = try? NSRegularExpression(pattern: pattern)
     }
     
     func reset() {
@@ -62,27 +58,15 @@ final class SearchViewModel {
     }
     
     private func getCutter(_ text: String) -> CutterData? {
-        let range = NSRange(text.startIndex..., in: text)
-        let matchesRegex = cutterRegex?.firstMatch(in: text, range: range) != nil
-        
-        let authorName: String
-        let authorSurname: String
-        
-        if !matchesRegex, let lastSpaceIndex = text.range(of: " ", options: .backwards)?.lowerBound {
-            authorName = String(text[..<lastSpaceIndex])
-            authorSurname = String(text[text.index(after: lastSpaceIndex)...])
-        } else {
-            authorName = ""
-            authorSurname = text
-        }
+        let parsed = CutterSearchEngine.splitText(text: text)
         
         let options = CutterSearchOptions(settings: sharedData.settings)
         
-        if let cutter = sharedData.search(name: authorName, lastName: authorSurname, options: options) {
+        if let cutter = sharedData.search(name: parsed.authorName, lastName: parsed.authorSurname, options: options) {
             var updatedCutter = cutter
             updatedCutter.id = UUID()
-            updatedCutter.authorName = authorName
-            updatedCutter.authorSurname = authorSurname
+            updatedCutter.authorName = parsed.authorName
+            updatedCutter.authorSurname = parsed.authorSurname
             return updatedCutter
         }
         

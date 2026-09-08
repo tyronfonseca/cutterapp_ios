@@ -16,22 +16,32 @@ final class CutterTableRepository {
         return (try? context.fetch(fetchRequest)) ?? []
     }
 
-    /// Seeds default table metadata if database is empty, returning current active entity
-    func ensureDefaultTableExists(context: NSManagedObjectContext) -> CutterTableEntity? {
-        let tables = fetchAllTables(context: context)
+    /// Seeds default tables metadata if database is empty, returning current active entity
+    func ensureDefaultTablesExist(context: NSManagedObjectContext) -> CutterTableEntity? {
+        var tables = fetchAllTables(context: context)
         
         if tables.isEmpty {
-            let defaultTable = CutterTableEntity(context: context)
-            defaultTable.id = UUID()
-            defaultTable.name = "Sanborn 3-Digit Table"
-            defaultTable.tableDescription = "Cutter-Sanborn classification table. Swanson-Swift Revision (1969)"
-            defaultTable.filename = "cutter_normal.csv"
-            defaultTable.isSelected = true
-            defaultTable.cannotDelete = true
-            defaultTable.createdAt = Date()
+            let versions = CSVVersion.allCases
             
-            try? context.save()
-            return defaultTable
+            for version in versions {
+                let table = CutterTableEntity(context: context)
+                table.id = UUID()
+                table.name = version.name
+                table.tableDescription = version.description
+                table.filename = version.rawValue
+                table.cannotDelete = true
+                table.createdAt = Date()
+                table.isSelected = version == .sanborn // Sanborn selected by default
+            }
+            
+            do {
+                try context.save()
+                // Refetch to ensure array is populated with saved entities
+                tables = fetchAllTables(context: context)
+            } catch {
+                print("Failed to save default tables: \(error)")
+                return nil
+            }
         }
         
         return tables.first(where: { $0.isSelected }) ?? tables.first
