@@ -12,7 +12,7 @@ struct CutterData: Identifiable, Equatable {
     var name: String
     var code: String
     var authorName: String
-    private var _authorSurname: String
+    private(set) var _authorSurname: String
     var isbn: String
     var bookName: String
     var ddcs: [String]

@@ -12,7 +12,6 @@
         <attribute name="isbn" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="needsReview" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <relationship name="seesion" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SessionEntity" inverseName="cutters" inverseEntity="SessionEntity"/>
     </entity>
     <entity name="CutterTableEntity" representedClassName=".CutterTableEntity" syncable="YES" codeGenerationType="class">
         <attribute name="cannotDelete" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -22,13 +21,5 @@
         <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="tableDescription" optional="YES" attributeType="String"/>
-    </entity>
-    <entity name="SessionEntity" representedClassName="SessionEntity" syncable="YES">
-        <attribute name="created_at" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="descriptionSession" optional="YES" attributeType="String"/>
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="name" attributeType="String"/>
-        <attribute name="updated_at" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="cutters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CutterDataEntity" inverseName="seesion" inverseEntity="CutterDataEntity"/>
     </entity>
 </model>

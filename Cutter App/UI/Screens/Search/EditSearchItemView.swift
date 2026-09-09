@@ -15,6 +15,7 @@ struct EditSearchItemView: View {
     @State private var showingDeleteAlert = false
     
     var onDelete: (() -> Void)? = nil
+    var onEdit: ((_ item: CutterData) -> Void)? = nil
     
     var body: some View {
         Form {
@@ -107,9 +108,7 @@ struct EditSearchItemView: View {
         }
         .navigationTitle("Edit cutter")
         .navigationBarTitleDisplayMode(.inline)
-        .onChange(of: item.authorName) { recalculateAndSave() }
-        .onChange(of: item.authorSurname) { recalculateAndSave() }
-        .onChange(of: item.dontSeparateName) { recalculateAndSave() }
+        .onChange(of: item) { recalculateAndSave() }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(role: .destructive) {
@@ -146,6 +145,8 @@ struct EditSearchItemView: View {
             item.name = newCutter.name
             item.needsReview = false
         }
+        
+        onEdit?(item)
     }
 }
 

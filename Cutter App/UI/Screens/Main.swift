@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Main: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(AppSharedData.self) private var sharedData
     @State private var selectedTab: AppTab = .search
     
@@ -19,7 +20,7 @@ struct Main: View {
         TabView(selection: $selectedTab) {
             // MARK: - Tab: Search Main Flow
             Tab("Search", systemImage: "text.page.badge.magnifyingglass", value: .search) {
-                SearchView(sharedData: sharedData)
+                SearchView(sharedData: sharedData, context: viewContext)
             }
             
             // MARK: - Tab: Cutter Table

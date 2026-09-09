@@ -80,12 +80,12 @@ struct CutterTableView: View {
                         NavigationLink {
                             AddNewCutterTableView()
                         } label: {
-                            Label("Add new table", systemImage: "book.badge.plus")
+                            Label("Add new table", systemImage: "plus.circle")
                         }
                         NavigationLink {
                             SelectCutterTableView()
                         } label: {
-                            Label("Set current table", systemImage: "book.and.wrench")
+                            Label("Set current table", systemImage: "checkmark.circle")
                         }
                     } label: {
                         Image(systemName: "ellipsis")

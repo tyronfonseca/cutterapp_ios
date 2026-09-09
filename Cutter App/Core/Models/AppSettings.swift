@@ -38,9 +38,9 @@ final class AppSettings: AppSettingsProtocol {
         static let ignoreArticles = "ignoreArticles"
         static let useFormatMac = "useFormatMac"
     }
-
+    
     // MARK: - Properties with Observation Notifications
-
+    
     /// Use the whole word instead of separating the search into name and surname.
     @ObservationIgnored
     @AppStorage(Keys.dontSeparateName) private var _dontSeparateName: Bool = false
@@ -55,7 +55,7 @@ final class AppSettings: AppSettingsProtocol {
             }
         }
     }
-
+    
     /// Ignore articles (grammar) in English, Spanish, and Portuguese. Set to true by default.
     @ObservationIgnored
     @AppStorage(Keys.ignoreArticles) private var _ignoreArticles: Bool = true
@@ -70,7 +70,7 @@ final class AppSettings: AppSettingsProtocol {
             }
         }
     }
-
+    
     /// What to use before the cutter number. Defaults to authorSurname.
     @ObservationIgnored
     @AppStorage(Keys.textBeforeNum) private var _textBeforeNum: TextBeforeAfterNum = .authorSurname
@@ -85,7 +85,7 @@ final class AppSettings: AppSettingsProtocol {
             }
         }
     }
-
+    
     /// How many characters to use before the cutter number. Accepts non-negative values (minimum 0).
     @ObservationIgnored
     @AppStorage(Keys.charsBeforeNum) private var _charsBeforeNum: Int = 1
@@ -100,7 +100,7 @@ final class AppSettings: AppSettingsProtocol {
             }
         }
     }
-
+    
     /// What to use after the cutter number. Defaults to authorSurname.
     @ObservationIgnored
     @AppStorage(Keys.textAfterNum) private var _textAfterNum: TextBeforeAfterNum = .title
@@ -115,7 +115,7 @@ final class AppSettings: AppSettingsProtocol {
             }
         }
     }
-
+    
     /// How many characters to use after the cutter number. Accepts non-negative values (minimum 0).
     @ObservationIgnored
     @AppStorage(Keys.charsAfterNum) private var _charsAfterNum: Int = 0
@@ -130,7 +130,7 @@ final class AppSettings: AppSettingsProtocol {
             }
         }
     }
-
+    
     /// Include DDC numbers and Book title in the exported CSV.
     @ObservationIgnored
     @AppStorage(Keys.includeExtrasInExport) private var _includeExtrasInExport: Bool = false

@@ -18,22 +18,56 @@ final class SearchViewModel {
     var showScanner: Bool = false
     var isExporting: Bool = false
     var exportDocument: CSVFile?
-    var showEditItem: Bool = false
     var showOnlyNeedsReview: Bool = false
     var showExportAlert: Bool = false
+    var showDeleteAllAlert: Bool = false
     
     let sharedData: AppSharedData
-
-    init(sharedData: AppSharedData) {
+    private let repository: CutterDataRepositoryProtocol
+    
+    init(sharedData: AppSharedData, repository: CutterDataRepositoryProtocol) {
         self.sharedData = sharedData
+        self.repository = repository
+        self.loadCapturedText()
+    }
+    
+    // MARK: - Persistence Operations
+    
+    func loadCapturedText() {
+        self.capturedText = repository.fetchAll()
+    }
+    
+    func deleteItem(at ids: Set<UUID>) {
+        for id in ids {
+            repository.delete(id: id)
+        }
+        
+        // Remove matching items from main array by ID
+        capturedText.removeAll { ids.contains($0.id) }
+        
+        //Reset filter state if needed
+        if showOnlyNeedsReview && !capturedText.contains(where: \.needsReview) {
+            showOnlyNeedsReview = false
+        }
+    }
+    
+    func deleteItem(_ item: CutterData) {
+        deleteItem(at: [item.id])
+    }
+    
+    func update(_ item: CutterData) {
+        repository.update(item)
     }
     
     func reset() {
+        repository.deleteAll()
         capturedText.removeAll()
         searchText = ""
         errorMessage = ""
         showErrorAlert = false
     }
+    
+    // MARK: - Search Operations
     
     func search() {
         let text = self.searchText.trimmingCharacters(in: .whitespaces)
@@ -46,6 +80,7 @@ final class SearchViewModel {
         
         if let cutter = getCutter(text) {
             capturedText.append(cutter)
+            repository.save(cutter)
             searchText = ""
         } else {
             presentError("No Cutter match found for '\(text)'")
@@ -59,7 +94,6 @@ final class SearchViewModel {
     
     private func getCutter(_ text: String) -> CutterData? {
         let parsed = CutterSearchEngine.splitText(text: text)
-        
         let options = CutterSearchOptions(settings: sharedData.settings)
         
         if let cutter = sharedData.search(name: parsed.authorName, lastName: parsed.authorSurname, options: options) {
@@ -83,7 +117,7 @@ final class SearchViewModel {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("CutterApp/1.0 (contactfonsecasoftware@gmail.com)", forHTTPHeaderField: "User-Agent")
-        request.setValue("contactfonsecasoftware@gmail.com.", forHTTPHeaderField: "From")
+        request.setValue("contactfonsecasoftware@gmail.com", forHTTPHeaderField: "From")
         
         let cache = URLCache(memoryCapacity: 20 * 1024 * 1024, diskCapacity: 100 * 1024 * 1024, diskPath: "OpenLibraryCache")
         let config = URLSessionConfiguration.default
@@ -104,10 +138,7 @@ final class SearchViewModel {
     private func authorByISBN(_ isbn: String) {
         Task {
             isSearchingISBN = true
-            
-            defer {
-                isSearchingISBN = false
-            }
+            defer { isSearchingISBN = false }
             
             do {
                 if let book = try await fetchBookByISBN(isbn) {
@@ -120,7 +151,9 @@ final class SearchViewModel {
                         cutter.ddcs = ddc
                         cutter.isbn = isbn
                         cutter.needsReview = true
+                        
                         capturedText.append(cutter)
+                        repository.save(cutter)
                         searchText = ""
                     } else {
                         presentError("Found book '\(title)', but couldn't generate Cutter code for author.")
@@ -130,7 +163,6 @@ final class SearchViewModel {
                 }
             } catch {
                 presentError("Network error: \(error.localizedDescription)")
-                print("Failed to fetch or parse JSON: \(error.localizedDescription)")
             }
         }
     }
@@ -150,7 +182,7 @@ final class SearchViewModel {
         isExporting = true
     }
     
-    func exportToCSV() -> URL? {
-        return CSVHelper.exportToCSV(with: capturedText, addExtras: sharedData.settings.includeExtrasInExport)
+    func exportToCSV(items: [CutterData]) -> URL? {
+        return CSVHelper.exportToCSV(with: items, addExtras: sharedData.settings.includeExtrasInExport)
     }
 }

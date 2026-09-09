@@ -44,7 +44,7 @@ extension CutterDataEntity {
         self.name = structData.name
         self.code = structData.code
         self.authorName = structData.authorName
-        self.authorSurname = structData.authorSurname
+        self.authorSurname = structData._authorSurname
         self.isbn = structData.isbn
         self.bookName = structData.bookName
         self.ddcs = structData.ddcs
@@ -58,7 +58,7 @@ extension CutterDataEntity {
         CutterData(
             id: id,
             name: name,
-            code: name,
+            code: code,
             authorName: authorName,
             authorSurname: authorSurname,
             isbn: isbn ?? "",
