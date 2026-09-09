@@ -183,6 +183,6 @@ final class SearchViewModel {
     }
     
     func exportToCSV(items: [CutterData]) -> URL? {
-        return CSVHelper.exportToCSV(with: items, addExtras: sharedData.settings.includeExtrasInExport)
+        return CSVHelper.exportToCSV(with: items, settings: sharedData.settings)
     }
 }

@@ -74,17 +74,17 @@ class CSVHelper {
     }
     
     /// Parse ``CutterData`` array to CSV
-    static func exportToCSV(with capturedText: [CutterData], addExtras: Bool = false) -> URL? {
+    static func exportToCSV(with capturedText: [CutterData], settings: AppSettings) -> URL? {
         guard !capturedText.isEmpty else { return nil }
         
-        var csvString = "Author,Name,Code,Number\(addExtras ? ",ISBN,Book Name,DDC" : "")\n"
+        var csvString = "Author,Name,Code,Number\(settings.includeExtrasInExport ? ",ISBN,Book Name,DDC" : "")\n"
         
         for item in capturedText {
             let cleanName = item.name.replacingOccurrences(of: "\"", with: "\"\"")
             let cleanBookName = item.bookName.replacingOccurrences(of: "\"", with: "\"\"")
             
-            let extras = addExtras ? ",\"\(item.isbn)\",\"\(cleanBookName)\",\"\(item.ddcSelected)\"" : ""
-            let row = "\"\(item.searchValue)\",\"\(cleanName)\",\"\(item.code)\",\"\(item.number)\"\(extras)\n"
+            let extras = settings.includeExtrasInExport ? ",\"\(item.isbn)\",\"\(cleanBookName)\",\"\(item.ddcSelected)\"" : ""
+            let row = "\"\(item.searchValue)\",\"\(cleanName)\",\"\(item.code)\",\"\(item.fullCallNumber(using: settings))\"\(extras)\n"
             csvString.append(row)
         }
         

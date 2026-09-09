@@ -270,13 +270,6 @@
 			path = CutterData;
 			sourceTree = "<group>";
 		};
-		A4E72316305089CB0079D5F0 /* Session */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Session;
-			sourceTree = "<group>";
-		};
 		F83D097D304710D70078DC3C /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,7 +302,6 @@
 		F83D0988304710D70078DC3C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				A4E72316305089CB0079D5F0 /* Session */,
 				A46B0E79304B411D00488617 /* Main.swift */,
 				A46B0E80304B57C600488617 /* CutterTable */,
 				A46B0E6C304B1D3500488617 /* Search */,
