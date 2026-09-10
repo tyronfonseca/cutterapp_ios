@@ -23,9 +23,9 @@ struct SelectCutterTableView: View {
     
     var body: some View {
         Form {
-            Section("Available Tables") {
+            Section("select_cutter_table_available") {
                 if customTables.isEmpty {
-                    Text("No tables available.")
+                    Text("select_cutter_table_no_available")
                         .foregroundStyle(.secondary)
                         .font(.subheadline)
                 } else {
@@ -41,7 +41,7 @@ struct SelectCutterTableView: View {
                                         deleteCutterTables(offsets: IndexSet([index]))
                                     }
                                 } label: {
-                                    Label("Delete", systemImage: "trash")
+                                    Label("delete", systemImage: "trash")
                                 }
                             }
                         }
@@ -60,7 +60,7 @@ struct SelectCutterTableView: View {
             }
         }
         .environment(\.editMode, $editMode)
-        .navigationTitle("Set current table")
+        .navigationTitle("cuttertable_set_current_table")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             sharedData.loadActiveTable(context: viewContext)

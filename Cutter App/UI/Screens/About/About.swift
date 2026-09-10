@@ -13,7 +13,7 @@ struct About: View {
             VStack (spacing: 30){
                 VStack (spacing: 30) {
                     AdknowledgeView(contribution: String(localized:"author_header")
-                                    , name: String(localized: "author")
+                                    , name: String(localized: "developer")
                                     , url: String(localized: "author_url"))
                     
                     AdknowledgeView(contribution: String(localized:"ui_header")

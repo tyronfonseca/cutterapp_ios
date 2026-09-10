@@ -22,9 +22,9 @@ struct OCRCameraView: View {
                 .ignoresSafeArea()
             } else {
                 ContentUnavailableView(
-                    "Camera Unavailable",
+                    String(localized: "ocrcamera_unavailable_title"),
                     systemImage: "camera.badge.ellipsis",
-                    description: Text("Data scanning is not supported or camera permission is restricted on this device.")
+                    description: Text(String(localized: "ocrcamera_unavailable_message"))
                 )
             }
 

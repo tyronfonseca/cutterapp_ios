@@ -51,9 +51,9 @@ struct CutterTableView: View {
             Group {
                 if sharedData.currentCutterData.isEmpty {
                     ContentUnavailableView(
-                        "No Cutter Data",
+                        String(localized: "cuttertable_no_data"),
                         systemImage: "book.closed",
-                        description: Text("Unable to load Cutter entries.")
+                        description: Text(String(localized: "cuttertable_unable_to_load"))
                     )
                 } else {
                     List {
@@ -69,7 +69,7 @@ struct CutterTableView: View {
                     .listStyle(.plain)
                 }
             }
-            .navigationTitle("Cutter Table:")
+            .navigationTitle(String(localized: "cuttertable_nav_title"))
             .toolbar {
                 ToolbarItem(placement: .subtitle) {
                     Text("\(sharedData.currentTableSelected?.name ?? "")")
@@ -80,12 +80,12 @@ struct CutterTableView: View {
                         NavigationLink {
                             SelectCutterTableView()
                         } label: {
-                            Label("Set current table", systemImage: "checkmark.circle")
+                            Label(String(localized: "cuttertable_set_current_table"), systemImage: "checkmark.circle")
                         }
                         NavigationLink {
                             AddNewCutterTableView()
                         } label: {
-                            Label("Add new table", systemImage: "plus.circle")
+                            Label(String(localized: "cuttertable_add_new_table"), systemImage: "plus.circle")
                         }
                     } label: {
                         Image(systemName: "ellipsis")
@@ -96,7 +96,7 @@ struct CutterTableView: View {
             .searchable(
                 text: $searchText,
                 placement: .navigationBarDrawer(displayMode: .always),
-                prompt: "Search..."
+                prompt: String(localized: "cuttertable_search_prompt")
             )
             .overlay {
                 if !sharedData.currentCutterData.isEmpty && filteredCutters.isEmpty {

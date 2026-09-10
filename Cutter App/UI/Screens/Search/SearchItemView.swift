@@ -52,8 +52,8 @@ struct SearchItemView: View {
                         .padding(.vertical, 4)
                         .background(Color.yellow.opacity(0.15))
                         .clipShape(Capsule())
-                        .accessibilityLabel("Requires review")
-                        .accessibilityHint("The author name needs manual verification.")
+                        .accessibilityLabel(String(localized: "searchitem_requires_review"))
+                        .accessibilityHint(String(localized: "searchitem_requires_review_hint"))
                 }
             }
         }
@@ -71,3 +71,4 @@ struct SearchItemView: View {
     .padding()
     .environment(AppSettings())
 }
+

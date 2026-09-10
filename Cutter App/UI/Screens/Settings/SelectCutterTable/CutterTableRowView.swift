@@ -15,7 +15,7 @@ struct CutterTableRowView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                Text(table.name ?? "Untitled Table")
+                Text(table.name ?? "select_cutter_table_untitled")
                     .font(.headline)
                 if let desc = table.tableDescription, !desc.isEmpty {
                     Text(desc)

@@ -8,6 +8,10 @@
 import SwiftUI
 import Foundation
 
+private func localizedError(_ key: String, _ args: CVarArg...) -> String {
+    String(format: NSLocalizedString(key, comment: "Error message"), arguments: args)
+}
+
 @Observable
 final class SearchViewModel {
     var searchText: String = ""
@@ -83,7 +87,7 @@ final class SearchViewModel {
             repository.save(cutter)
             searchText = ""
         } else {
-            presentError("No Cutter match found for '\(text)'")
+            presentError(localizedError("error_no_cutter_match", text))
         }
     }
     
@@ -156,13 +160,13 @@ final class SearchViewModel {
                         repository.save(cutter)
                         searchText = ""
                     } else {
-                        presentError("Found book '\(title)', but couldn't generate Cutter code for author.")
+                        presentError(localizedError("error_cutter_code_generation", title))
                     }
                 } else {
-                    presentError("No book found for ISBN: \(isbn)")
+                    presentError(localizedError("error_no_book_found", isbn))
                 }
             } catch {
-                presentError("Network error: \(error.localizedDescription)")
+                presentError(localizedError("error_network", error.localizedDescription))
             }
         }
     }
@@ -186,3 +190,4 @@ final class SearchViewModel {
         return CSVHelper.exportToCSV(with: items, settings: sharedData.settings)
     }
 }
+

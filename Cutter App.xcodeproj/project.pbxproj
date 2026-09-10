@@ -28,6 +28,7 @@
 		A46B0E85304B5E0700488617 /* SearchCutterIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B0E84304B5E0000488617 /* SearchCutterIntent.swift */; };
 		A4A120273052F9D200CD02DC /* AddNewCutterTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A120263052F9CD00CD02DC /* AddNewCutterTableViewModel.swift */; };
 		A4A1202E3053022100CD02DC /* CutterTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A1202D3053021B00CD02DC /* CutterTableRowView.swift */; };
+		A4A12039305336BE00CD02DC /* SearchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A12038305336B700CD02DC /* SearchOptions.swift */; };
 		A4AD567D3050458500439823 /* pha.csv in Resources */ = {isa = PBXBuildFile; fileRef = A4AD567C3050458500439823 /* pha.csv */; };
 		A4AD567F305051C200439823 /* CSVVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AD567E305051BB00439823 /* CSVVersion.swift */; };
 		A4AD568130506AF500439823 /* CutterDataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AD568030506AF000439823 /* CutterDataEntity.swift */; };
@@ -108,6 +109,7 @@
 		A46B0E84304B5E0000488617 /* SearchCutterIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCutterIntent.swift; sourceTree = "<group>"; };
 		A4A120263052F9CD00CD02DC /* AddNewCutterTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCutterTableViewModel.swift; sourceTree = "<group>"; };
 		A4A1202D3053021B00CD02DC /* CutterTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterTableRowView.swift; sourceTree = "<group>"; };
+		A4A12038305336B700CD02DC /* SearchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOptions.swift; sourceTree = "<group>"; };
 		A4AD567C3050458500439823 /* pha.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = pha.csv; sourceTree = "<group>"; };
 		A4AD567E305051BB00439823 /* CSVVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVVersion.swift; sourceTree = "<group>"; };
 		A4AD568030506AF000439823 /* CutterDataEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterDataEntity.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 		A46B0E6C304B1D3500488617 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				A4A12038305336B700CD02DC /* SearchOptions.swift */,
 				A447C9CF304C4DD8002AB980 /* EditSearchItemView.swift */,
 				A447C9CD304C4B1F002AB980 /* SearchItemView.swift */,
 				A46B0E6D304B1D5600488617 /* SearchView.swift */,
@@ -637,6 +640,7 @@
 				F83D0997304711BF0078DC3C /* CutterData.swift in Sources */,
 				A447C9DC304C7C15002AB980 /* CutterApp.xcdatamodeld in Sources */,
 				A4A1202E3053022100CD02DC /* CutterTableRowView.swift in Sources */,
+				A4A12039305336BE00CD02DC /* SearchOptions.swift in Sources */,
 				A40F97D63051BFCA00A39D49 /* SearchViewModel.swift in Sources */,
 				A447C9E2304C834B002AB980 /* CutterTableRepository.swift in Sources */,
 				A4CF00F9304F42FC003D003B /* CutterSearchOptions.swift in Sources */,

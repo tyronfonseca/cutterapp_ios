@@ -9,21 +9,6 @@ import SwiftUI
 import Foundation
 import CoreData
 
-enum SearchFilterOption: String, CaseIterable, Identifiable {
-    case all = "All"
-    case needsReview = "Needs Review"
-    case reviewed = "Reviewed"
-    
-    var id: String { rawValue }
-}
-
-enum SearchSortOption: String, CaseIterable, Identifiable {
-    case newest = "Newest First"
-    case oldest = "Oldest First"
-    case author = "Author (A-Z)"
-    
-    var id: String { rawValue }
-}
 
 struct SearchView: View {
     @Environment(AppSharedData.self) private var sharedData
@@ -83,7 +68,7 @@ struct SearchView: View {
                     if !isSelecting {
                         VStack(alignment: .leading, spacing: 12) {
                             VStack(alignment: .leading, spacing: 4) {
-                                TextField("Enter author name or scan text", text: bindableViewModel.searchText)
+                                TextField("search_placeholder", text: bindableViewModel.searchText)
                                     .padding(14)
                                     .glassEffect()
                                     .onSubmit {
@@ -94,7 +79,7 @@ struct SearchView: View {
                                     Image(systemName: "info.circle")
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
-                                    Text("Try: 'John Smith', 'John', 'Smith, John' or ISBN")
+                                    Text("search_examples")
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
                                 }
@@ -103,7 +88,7 @@ struct SearchView: View {
                             HStack(spacing: 8) {
                                 if !ProcessInfo.processInfo.isiOSAppOnMac {
                                     Button(action: { viewModel.showScanner = true }) {
-                                        Label("Scan", systemImage: "document.viewfinder")
+                                        Label("scan", systemImage: "document.viewfinder")
                                     }
                                     .sheet(isPresented: bindableViewModel.showScanner) {
                                         OCRCameraView(searchText: bindableViewModel.searchText)
@@ -118,7 +103,7 @@ struct SearchView: View {
                                         .padding(.horizontal, 8)
                                 } else {
                                     Button(action: { viewModel.search() }) {
-                                        Label("Search", systemImage: "magnifyingglass")
+                                        Label("search", systemImage: "magnifyingglass")
                                     }
                                     .buttonStyle(.glassProminent)
                                     .disabled(viewModel.searchText.trimmingCharacters(in: .whitespaces).isEmpty)
@@ -140,9 +125,9 @@ struct SearchView: View {
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                                 
-                                Picker("Sort Option", selection: $selectedSort) {
+                                Picker("search_sort_by", selection: $selectedSort) {
                                     ForEach(SearchSortOption.allCases) { option in
-                                        Text(option.rawValue).tag(option)
+                                        Text(option.localizedName).tag(option)
                                             .tag(option)
                                     }
                                 }
@@ -161,9 +146,9 @@ struct SearchView: View {
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                                 
-                                Picker("Filter Option", selection: $selectedFilter) {
+                                Picker("search_filter_by", selection: $selectedFilter) {
                                     ForEach(SearchFilterOption.allCases) { option in
-                                        Text(option.rawValue).tag(option)
+                                        Text(option.localizedName).tag(option)
                                     }
                                 }
                                 .pickerStyle(.menu)
@@ -182,16 +167,16 @@ struct SearchView: View {
                     Group {
                         if viewModel.capturedText.isEmpty {
                             ContentUnavailableView(
-                                "No entries yet",
+                                "search_no_entries",
                                 systemImage: "book.closed.fill",
-                                description: Text("Add an entry by scanning or entering an author name or ISBN")
+                                description: Text("search_no_entries_description")
                             )
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         } else if displayedItems.isEmpty {
                             ContentUnavailableView(
-                                "No Matching Items",
+                                "search_no_mathcing_items",
                                 systemImage: "line.3.horizontal.decrease.circle",
-                                description: Text("No entries match the selected filter criteria.")
+                                description: Text("search_no_mathcing_items_description")
                             )
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         } else {
@@ -222,8 +207,8 @@ struct SearchView: View {
                         }
                     }
                     .layoutPriority(1)
-                    .alert("Search Error", isPresented: bindableViewModel.showErrorAlert) {
-                        Button("OK", role: .cancel) { }
+                    .alert("search_error", isPresented: bindableViewModel.showErrorAlert) {
+                        Button("ok", role: .cancel) { }
                     } message: {
                         Text(viewModel.errorMessage)
                     }
@@ -262,16 +247,16 @@ struct SearchView: View {
                     print("Failed to save CSV: \(error.localizedDescription)")
                 }
             }
-            .alert("Items Need Review", isPresented: bindableViewModel.showExportAlert) {
-                Button("Export Anyway", role: .confirm) {
+            .alert("search_export_alert_title", isPresented: bindableViewModel.showExportAlert) {
+                Button("search_export_alert_btn", role: .confirm) {
                     if let url = pendingCSVURL {
                         viewModel.proceedWithExport(url)
                     }
                 }
-                Button("Cancel", role: .cancel) { }
+                Button("cancel", role: .cancel) { }
             } message: {
                 let count = viewModel.capturedText.filter { $0.needsReview }.count
-                Text("\(count) item\(count == 1 ? "" : "s") \(count == 1 ? "has" : "have") been marked as needing review. Export anyway?")
+                Text(.searchExportConfirmation(count, count == 1 ? "" : "s", count == 1 ? "has" : "have"))
             }
             
             // MARK: - Bottom Action Bar (Select Mode Only)
@@ -282,7 +267,7 @@ struct SearchView: View {
                             Button(role: .destructive) {
                                 viewModel.showDeleteAllAlert = true
                             } label: {
-                                Label("Delete (\(selectedItemIDs.count))", systemImage: "trash")
+                                Label(.searchDeleteCount(selectedItemIDs.count), systemImage: "trash")
                             }
                             .disabled(selectedItemIDs.isEmpty)
                             
@@ -295,7 +280,7 @@ struct SearchView: View {
                                     selectedItemIDs = Set(displayedItems.map(\.id))
                                 }
                             } label: {
-                                Text(selectedItemIDs.count == displayedItems.count ? "Deselect All" : "Select All")
+                                Text(selectedItemIDs.count == displayedItems.count ? String(localized: "deselect_all") : String(localized:"select_all"))
                             }
                         }
                     }
@@ -315,7 +300,7 @@ struct SearchView: View {
                 // MARK: - Navigation Bar Menu
                 ToolbarItem(placement: .topBarTrailing) {
                     if isSelecting {
-                        Button("Done") {
+                        Button("done") {
                             withAnimation {
                                 editMode = .inactive
                                 selectedItemIDs.removeAll()
@@ -327,14 +312,14 @@ struct SearchView: View {
                             Button {
                                 withAnimation { editMode = .active }
                             } label: {
-                                Label("Select Items", systemImage: "checkmark.circle")
+                                Label("select_items", systemImage: "checkmark.circle")
                             }
                             .disabled(viewModel.capturedText.isEmpty)
                             
                             Button(role: .destructive) {
                                 viewModel.showDeleteAllAlert = true
                             } label: {
-                                Label("Delete All", systemImage: "trash.circle")
+                                Label("delete_all", systemImage: "trash.circle")
                             }
                             .disabled(viewModel.capturedText.isEmpty)
                             
@@ -344,8 +329,8 @@ struct SearchView: View {
                     }
                 }
             }
-            .alert("Are you sure you want to delete \(selectedItemIDs.isEmpty ? "all": "the selected \(selectedItemIDs.count) items")?", isPresented: $viewModel.showDeleteAllAlert) {
-                Button("Delete All", role: .destructive) {
+            .alert(.searchDeleteConfirmation("All"), isPresented: $viewModel.showDeleteAllAlert) {
+                Button("delete_all", role: .destructive) {
                     if selectedItemIDs.isEmpty {
                         viewModel.reset()
                     } else {
@@ -355,7 +340,7 @@ struct SearchView: View {
                     }
                     
                 }
-                Button("Cancel", role: .cancel) { }
+                Button("cancel", role: .cancel) { }
             }
             .navigationBarTitleDisplayMode(.inline)
         }

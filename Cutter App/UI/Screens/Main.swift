@@ -17,7 +17,7 @@ struct Main: View {
                 SearchView(sharedData: sharedData, context: viewContext)
             } label: {
                 Label {
-                    Text("Search")
+                    Text("search")
                 } icon: {
                     Image(systemName: "text.page.badge.magnifyingglass")
                         .environment(\.symbolVariants, .none)
@@ -29,7 +29,7 @@ struct Main: View {
                 CutterTableView()
             } label: {
                 Label {
-                    Text("Cutter Table")
+                    Text("cutter_table")
                 } icon: {
                     Image(systemName: "list.bullet.rectangle.portrait")
                         .environment(\.symbolVariants, .none)

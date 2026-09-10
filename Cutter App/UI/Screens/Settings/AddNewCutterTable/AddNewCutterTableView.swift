@@ -16,25 +16,25 @@ struct AddNewCutterTableView: View {
     
     var body: some View {
         Form {
-            Section("Load Custom Cutter Table") {
-                TextField("Table Name", text: $viewModel.newCutterName)
-                TextField("Description (Optional)", text: $viewModel.newCutterDescription)
-                Toggle("CSV file has headers", isOn: $viewModel.includesHeader)
+            Section("add_cutter_table_load_table") {
+                TextField("add_cutter_table_name", text: $viewModel.newCutterName)
+                TextField("add_cutter_table_description", text: $viewModel.newCutterDescription)
+                Toggle("add_cutter_table_csv_headers", isOn: $viewModel.includesHeader)
             }
             
             Section {
-                Toggle("Set as current table", isOn: $viewModel.setSelected)
+                Toggle("add_cutter_table_set_current", isOn: $viewModel.setSelected)
             }
             
-            Section(footer: Text("The csv file needs to follow the format \"<name>\",\"<number>\" for example: \"Zac\",\"15\". If the file has headers please set ON the option above.")) {
-                Button("Select CSV file") {
+            Section(footer: Text("add_cutter_table_footer")) {
+                Button("add_cutter_table_select_csv") {
                     viewModel.isImporting = true
                 }
                 .disabled(viewModel.newCutterName.trimmingCharacters(in: .whitespaces).isEmpty)
             }
             
             if !viewModel.previewData.isEmpty {
-                Section(header: Text("CSV Preview (First 5 Rows)")) {
+                Section(header: Text("add_cutter_table_preview")) {
                     TableHeaderView()
                     
                     ForEach(viewModel.previewData) { item in
@@ -70,22 +70,22 @@ struct AddNewCutterTableView: View {
                 viewModel.importError = true
             }
         }
-        .alert("Import Error", isPresented: $viewModel.importError) {
-            Button("OK", role: .cancel) { dismiss() }
+        .alert("add_cutter_table_error_import", isPresented: $viewModel.importError) {
+            Button("ok", role: .cancel) { dismiss() }
         } message: {
-            Text("Failed to parse or save the selected CSV file. Please check the file formatting.")
+            Text("add_cutter_table_error_import_description")
         }
-        .alert("New table added successfully", isPresented: $viewModel.isImportSuccessful) {
-            Button("Close") { dismiss() }
+        .alert("add_cutter_table_successful", isPresented: $viewModel.isImportSuccessful) {
+            Button("close") { dismiss() }
         } message: {
-            Text("Cutter table \"\(viewModel.newCutterName)\" added.")
+            Text(.addCutterTableAdded(viewModel.newCutterName))
         }
-        .navigationTitle("Add Cutter Table")
+        .navigationTitle("add_cutter_table_title")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 if !viewModel.previewData.isEmpty {
-                    Button("Save") {
+                    Button("save") {
                         viewModel.saveCSV(viewContext: viewContext, sharedData: sharedData)
                     }
                 }
@@ -97,12 +97,12 @@ struct AddNewCutterTableView: View {
 private struct TableHeaderView : View {
     var body: some View {
         HStack {
-            Text("Name")
+            Text("name")
                 .font(.caption)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)
             Spacer()
-            Text("Code")
+            Text("code")
                 .font(.caption)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)

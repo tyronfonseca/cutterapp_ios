@@ -27,10 +27,10 @@ struct EditSearchItemView: View {
                             .font(.title3)
                         
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("Review Required")
+                            Text(String(localized: "edit_review_required"))
                                 .font(.subheadline)
                                 .bold()
-                            Text("Verify author name, surname, book title, or DDC (if applicable). Close this message to dismiss.")
+                            Text(String(localized: "edit_review_required_message"))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -52,46 +52,46 @@ struct EditSearchItemView: View {
                 }
             }
             
-            Section(header: Text("Cutter Number Used")) {
-                ReadOnlyField(text: item.cutterUsed.isEmpty ? "No Cutter Code" : item.cutterUsed)
+            Section(header: Text(String(localized: "edit_cutter_number_used"))) {
+                ReadOnlyField(text: item.cutterUsed.isEmpty ? String(localized: "edit_no_cutter_code") : item.cutterUsed)
             }
             
             Section(
-                header: Text("Author"),
-                footer: Text("Verify that the name of the author is correct.")
+                header: Text(String(localized: "author")),
+                footer: Text(String(localized: "edit_verify_author_name"))
             ) {
                 TextField(
-                    item.dontSeparateName ? "Name" : "Surname",
+                    item.dontSeparateName ? String(localized: "name") : String(localized: "surname"),
                     text: $item.authorSurname
                 )
                 if !item.dontSeparateName {
                     TextField(
-                        "Name (optional)",
+                        String(localized: "edit_name_optional"),
                         text: $item.authorName
                     )
                 }
             }
             
             Section(
-                footer: Text("If the author is an institution, organization or your system uses the name instead of the surname to get the cutter number set this to ON. If you want this option set to ON by default go to the Settings screen inside the app.")
+                footer: Text(String(localized: "edit_toggle_footer"))
             ) {
                 Toggle(
-                    "Author has no surname",
+                    String(localized: "edit_author_has_no_surname"),
                     isOn: $item.dontSeparateName
                 )
                 .toggleStyle(.switch)
             }
             
-            Section(header: Text("Book"), footer: Text(item.isbn.isEmpty ? "" : "Data taken from OpenLibrary.org; it may be inaccurate.")) {
-                TextField("Add or modify the book", text: $item.bookName)
+            Section(header: Text(String(localized: "book")), footer: Text(item.isbn.isEmpty ? "" : String(localized: "edit_data_warning"))) {
+                TextField(String(localized: "edit_add_or_modify_book"), text: $item.bookName)
             }
             
             if !item.ddcs.isEmpty {
                 Section(
-                    header: Text("Possible DDC"),
-                    footer: Text("Data taken from OpenLibrary.org; it may be inaccurate.")
+                    header: Text(String(localized: "edit_possible_ddc")),
+                    footer: Text(String(localized: "edit_data_warning"))
                 ) {
-                    Picker("Selected", selection: $item.ddcSelected) {
+                    Picker(String(localized: "selected"), selection: $item.ddcSelected) {
                         ForEach(item.ddcs, id: \.self) { ddc in
                             Text(ddc).tag(ddc)
                         }
@@ -106,13 +106,13 @@ struct EditSearchItemView: View {
             }
             
             if !item.isbn.isEmpty {
-                Section(header: Text("ISBN")) {
+                Section(header: Text("isbn")) {
                     ReadOnlyField(text: item.isbn)
                 }
             }
             
         }
-        .navigationTitle("Edit cutter")
+        .navigationTitle(String(localized: "edit_edit_cutter"))
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: item) { recalculateAndSave() }
         .toolbar {
@@ -120,19 +120,19 @@ struct EditSearchItemView: View {
                 Button(role: .destructive) {
                     showingDeleteAlert = true
                 } label: {
-                    Label("Delete", systemImage: "trash")
+                    Label(String(localized: "delete"), systemImage: "trash")
                         .foregroundStyle(.red)
                 }
             }
         }
-        .alert("Delete Item?", isPresented: $showingDeleteAlert) {
-            Button("Delete", role: .destructive) {
+        .alert(String(localized: "edit_delete_item_title"), isPresented: $showingDeleteAlert) {
+            Button(String(localized: "delete"), role: .destructive) {
                 onDelete?()
                 dismiss()
             }
-            Button("Cancel", role: .cancel) { }
+            Button(String(localized: "cancel"), role: .cancel) { }
         } message: {
-            Text("Are you sure you want to delete this entry? This action cannot be undone.")
+            Text(String(localized: "edit_delete_item_message"))
         }
     }
     

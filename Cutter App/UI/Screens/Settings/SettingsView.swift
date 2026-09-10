@@ -26,16 +26,16 @@ struct SettingsView: View {
             Form {
                 // MARK: - Cutter Table Selection
                 Section(
-                    header: Text("Cutter table"),
-                    footer: Text("You can add a custom cutter table. After adding the new table, you can set it as the current table used by the app.")
+                    header: Text(String(localized: "cutter_table")),
+                    footer: Text(String(localized: "settings_cutterTable_footer"))
                 ) {
                     NavigationLink {
                         SelectCutterTableView()
                     } label: {
                         HStack {
-                            Text("Active table")
+                            Text(String(localized: "settings_cutterTable_activeTable"))
                             Spacer()
-                            Text(sharedData.currentTableSelected?.name ?? "Default")
+                            Text(sharedData.currentTableSelected?.name ?? String(localized: "settings_cutterTable_defaultName"))
                                 .foregroundStyle(.secondary)
                         }
                     }
@@ -43,7 +43,7 @@ struct SettingsView: View {
                     NavigationLink {
                         AddNewCutterTableView()
                     } label: {
-                        Label("Add cutter table", systemImage: "plus.circle")
+                        Label(String(localized: "settings_cutterTable_add"), systemImage: "plus.circle")
                             .font(.body.weight(.medium))
                             .foregroundStyle(.tint)
                     }
@@ -51,41 +51,41 @@ struct SettingsView: View {
                 
                 // MARK: - Search Behavior Settings
                 Section(
-                    header: Text("Search Behavior"),
-                    footer: Text("Set to ON if you want the app to treat the complete name string as a single entity rather than splitting author name and surname.")
+                    header: Text(String(localized: "settings_searchBehavior_header")),
+                    footer: Text(String(localized: "settings_searchBehavior_footer"))
                 ) {
-                    Toggle("Author has no surname", isOn: $settings.dontSeparateName)
+                    Toggle(String(localized: "settings_searchBehavior_noSurname"), isOn: $settings.dontSeparateName)
                         .toggleStyle(.switch)
                 }
                 
                 Section {
-                    Toggle("Ignore grammar articles", isOn: $settings.ignoreArticles)
+                    Toggle(String(localized: "settings_searchBehavior_ignoreArticles"), isOn: $settings.ignoreArticles)
                         .toggleStyle(.switch)
-                    Toggle("Spell Mc and M' as Mac", isOn: $settings.useFormatMac)
+                    Toggle(String(localized: "settings_searchBehavior_spellAsMac"), isOn: $settings.useFormatMac)
                         .toggleStyle(.switch)
                 }
                 
                 // MARK: - Preview Section
                 Section(
-                    header: Text("Cutter generation"),
-                    footer: Text("This is a live preview demonstrating your current call number configuration.")
+                    header: Text(String(localized: "settings_preview_header")),
+                    footer: Text(String(localized: "settings_preview_footer"))
                 ) {
                     SearchItemView(item: cutterExample)
                 }
                 
-                // MARK: - Call Number Formatting (Prefix & Suffix)
+                // MARK: - Number Formatting (Prefix & Suffix)
                 Section(
-                    header: Text("Call Number Formatting"),
-                    footer: Text("Configure what information and character length to append before and after the cutter number.")
+                    header: Text(String(localized: "settings_number_header")),
+                    footer: Text(String(localized: "settings_number_footer"))
                 ) {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Cutter Prefix")
+                        Text(String(localized: "settings_number_prefix"))
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                         
-                        Picker("Cutter prefix", selection: $settings.textBeforeNum) {
-                            Text("Author").tag(TextBeforeAfterNum.authorSurname)
-                            Text("Title").tag(TextBeforeAfterNum.title)
+                        Picker(String(localized: "settings_number_prefix"), selection: $settings.textBeforeNum) {
+                            Text(String(localized: "author")).tag(TextBeforeAfterNum.authorSurname)
+                            Text(String(localized: "title")).tag(TextBeforeAfterNum.title)
                         }
                         .pickerStyle(.segmented)
                     }
@@ -93,21 +93,21 @@ struct SettingsView: View {
                     
                     Stepper(value: $settings.charsBeforeNum, in: 0...7) {
                         HStack {
-                            Text("Prefix length")
+                            Text(String(localized: "settings_number_prefix_length"))
                             Spacer()
-                            Text("\(settings.charsBeforeNum) char\(settings.charsBeforeNum == 1 ? "" : "s")")
+                            Text(String(localized: "settings_common_charsCount", defaultValue: "\(settings.charsBeforeNum) letter\(settings.charsBeforeNum == 1 ? "" : "s")"))
                                 .foregroundStyle(.secondary)
                         }
                     }
                     
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Cutter Suffix")
+                        Text(String(localized: "settings_number_suffix"))
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                         
-                        Picker("Cutter suffix", selection: $settings.textAfterNum) {
-                            Text("Author").tag(TextBeforeAfterNum.authorSurname)
-                            Text("Title").tag(TextBeforeAfterNum.title)
+                        Picker(String(localized: "settings_number_suffix"), selection: $settings.textAfterNum) {
+                            Text(String(localized: "author")).tag(TextBeforeAfterNum.authorSurname)
+                            Text(String(localized: "title")).tag(TextBeforeAfterNum.title)
                         }
                         .pickerStyle(.segmented)
                     }
@@ -115,9 +115,9 @@ struct SettingsView: View {
                     
                     Stepper(value: $settings.charsAfterNum, in: 0...7) {
                         HStack {
-                            Text("Suffix length")
+                            Text(String(localized: "settings_number_suffix_length"))
                             Spacer()
-                            Text("\(settings.charsAfterNum) char\(settings.charsAfterNum == 1 ? "" : "s")")
+                            Text(String(localized: "settings_common_charsCount", defaultValue: "\(settings.charsAfterNum) letter\(settings.charsAfterNum == 1 ? "" : "s")"))
                                 .foregroundStyle(.secondary)
                         }
                     }
@@ -125,14 +125,14 @@ struct SettingsView: View {
                 
                 // MARK: - Export Settings
                 Section(
-                    header: Text("Save to CSV"),
-                    footer: Text("If you use ISBN numbers during cutter resolution, supplementary metadata (Title, DDC classification) will be attached to the CSV file via OpenLibrary.org.")
+                    header: Text(String(localized: "settings_export_header")),
+                    footer: Text(String(localized: "settings_export_footer"))
                 ) {
-                    Toggle("Include DDC and Title", isOn: $settings.includeExtrasInExport)
+                    Toggle(String(localized: "settings_export_includeExtras"), isOn: $settings.includeExtrasInExport)
                         .toggleStyle(.switch)
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(String(localized: "settings"))
             .navigationBarTitleDisplayMode(.inline)
         }
     }
