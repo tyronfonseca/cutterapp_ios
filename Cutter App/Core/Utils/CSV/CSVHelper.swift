@@ -9,8 +9,8 @@ import Foundation
 
 class CSVHelper {
     
-    /// Parse CSV data from the app bundle using either a CSVVersion or a raw filename string
-    static func getCSVData(filename: String, hasHeaders: Bool = true) -> [CutterData] {
+    /// Parse CSV data from the app bundle using the raw filename string
+    static func getCSVData(filename: String, hasHeaders: Bool) -> [CutterData] {
         guard let url = Bundle.main.url(forResource: filename, withExtension: "csv") ??
                 Bundle.main.url(forResource: filename, withExtension: nil) else {
             print("No file found in bundle for: \(filename)")
@@ -19,13 +19,8 @@ class CSVHelper {
         return getCSVData(from: url, hasHeaders: hasHeaders)
     }
     
-    /// Convenience overload for CSVVersion enum
-    static func getCSVData(version: CSVVersion = .sanborn, hasHeaders: Bool = true) -> [CutterData] {
-        return getCSVData(filename: version.rawValue, hasHeaders: hasHeaders)
-    }
-    
     /// Parse CSV data directly from any file URL (bundle or external storage)
-    static func getCSVData(from url: URL, hasHeaders: Bool = true) -> [CutterData] {
+    static func getCSVData(from url: URL, hasHeaders: Bool) -> [CutterData] {
         do {
             let content = try String(contentsOf: url, encoding: .utf8)
             return parse(csvString: content, hasHeaders: hasHeaders)

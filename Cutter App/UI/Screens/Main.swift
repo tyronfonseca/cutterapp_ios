@@ -1,47 +1,75 @@
-//
-//  ContentView.swift
-//  Cutter App
-//
-//  Created by Tyron Fonseca on 6/5/24.
-//
-
 import SwiftUI
 
 struct Main: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(AppSharedData.self) private var sharedData
-    @State private var selectedTab: AppTab = .search
     
     enum AppTab: Hashable {
         case search, cutterlist, settings, about
     }
     
+    @State private var selectedTab: AppTab = .search
+    
     var body: some View {
         TabView(selection: $selectedTab) {
             // MARK: - Tab: Search Main Flow
-            Tab("Search", systemImage: "text.page.badge.magnifyingglass", value: .search) {
+            Tab(value: AppTab.search) {
                 SearchView(sharedData: sharedData, context: viewContext)
+            } label: {
+                Label {
+                    Text("Search")
+                } icon: {
+                    Image(systemName: "text.page.badge.magnifyingglass")
+                        .environment(\.symbolVariants, .none)
+                }
             }
-            
+
             // MARK: - Tab: Cutter Table
-            Tab("Cutter Table", systemImage: "list.bullet.rectangle.portrait", value: .cutterlist) {
+            Tab(value: AppTab.cutterlist) {
                 CutterTableView()
+            } label: {
+                Label {
+                    Text("Cutter Table")
+                } icon: {
+                    Image(systemName: "list.bullet.rectangle.portrait")
+                        .environment(\.symbolVariants, .none)
+                }
             }
-            
+
             // MARK: - Tab: About
-            Tab("about_btn", systemImage: "info.circle", value: .about) {
+            Tab(value: AppTab.about) {
                 About()
+            } label: {
+                Label {
+                    Text("about_btn")
+                } icon: {
+                    Image(systemName: "info.circle")
+                        .environment(\.symbolVariants, .none)
+                }
             }
-            
+
             // MARK: - Tab: Settings
-            Tab("settings", systemImage: "gear", value: .settings) {
+            Tab(value: AppTab.settings) {
                 SettingsView()
+            } label: {
+                Label {
+                    Text("settings")
+                } icon: {
+                    Image(systemName: "gear")
+                        .environment(\.symbolVariants, .none)
+                }
             }
         }
         .tabViewStyle(.sidebarAdaptable)
+        .onReceive(NotificationCenter.default.publisher(for: .tabChangeNotification)) { notification in
+            if let newTab = notification.userInfo?["tab"] as? Main.AppTab {
+                selectedTab = newTab
+            }
+        }
     }
 }
 
 #Preview {
     Main().environment(AppSharedData())
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

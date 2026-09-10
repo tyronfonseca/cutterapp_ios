@@ -22,15 +22,15 @@ struct EditSearchItemView: View {
             if item.needsReview {
                 Section {
                     HStack(spacing: 12) {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundStyle(.yellow)
+                        Image(systemName: "exclamationmark.circle.fill")
+                            .foregroundStyle(.orange)
                             .font(.title3)
                         
                         VStack(alignment: .leading, spacing: 2) {
                             Text("Review Required")
                                 .font(.subheadline)
                                 .bold()
-                            Text("Check the author name or surname to generate a valid Cutter number.")
+                            Text("Verify author name, surname, book title, or DDC (if applicable). Close this message to dismiss.")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -82,8 +82,27 @@ struct EditSearchItemView: View {
                 .toggleStyle(.switch)
             }
             
-            Section(header: Text("Book"), footer: Text(item.isbn.isEmpty ? "" : "Data taken from OpenLibray.org it may be inaccurate")) {
+            Section(header: Text("Book"), footer: Text(item.isbn.isEmpty ? "" : "Data taken from OpenLibrary.org; it may be inaccurate.")) {
                 TextField("Add or modify the book", text: $item.bookName)
+            }
+            
+            if !item.ddcs.isEmpty {
+                Section(
+                    header: Text("Possible DDC"),
+                    footer: Text("Data taken from OpenLibrary.org; it may be inaccurate.")
+                ) {
+                    Picker("Selected", selection: $item.ddcSelected) {
+                        ForEach(item.ddcs, id: \.self) { ddc in
+                            Text(ddc).tag(ddc)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .onAppear {
+                        if item.ddcSelected.isEmpty, let firstDDC = item.ddcs.first {
+                            item.ddcSelected = firstDDC
+                        }
+                    }
+                }
             }
             
             if !item.isbn.isEmpty {
@@ -92,19 +111,6 @@ struct EditSearchItemView: View {
                 }
             }
             
-            if !item.ddcs.isEmpty {
-                Section(
-                    header: Text("Possible DDCs"),
-                    footer: Text("Data taken from OpenLibrary.org; it may be inaccurate.")
-                ) {
-                    Picker("Select DDC", selection: $item.ddcSelected) {
-                        ForEach(item.ddcs, id: \.self) { ddc in
-                            Text(ddc).tag(ddc)
-                        }
-                    }
-                    .pickerStyle(.menu)
-                }
-            }
         }
         .navigationTitle("Edit cutter")
         .navigationBarTitleDisplayMode(.inline)

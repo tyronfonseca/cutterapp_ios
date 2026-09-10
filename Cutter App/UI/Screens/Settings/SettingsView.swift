@@ -43,7 +43,7 @@ struct SettingsView: View {
                     NavigationLink {
                         AddNewCutterTableView()
                     } label: {
-                        Label("Add new cutter table", systemImage: "plus.circle")
+                        Label("Add cutter table", systemImage: "plus.circle")
                             .font(.body.weight(.medium))
                             .foregroundStyle(.tint)
                     }

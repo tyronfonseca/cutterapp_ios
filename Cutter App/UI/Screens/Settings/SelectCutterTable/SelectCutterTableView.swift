@@ -1,4 +1,12 @@
+//
+//  SelectCutterTableView.swift
+//  Cutter App
+//
+//  Created by Tyron on 10/9/26.
+//
+
 import SwiftUI
+import CoreData
 
 struct SelectCutterTableView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -10,6 +18,8 @@ struct SelectCutterTableView: View {
         animation: .default
     )
     private var customTables: FetchedResults<CutterTableEntity>
+    
+    @State private var editMode: EditMode = .inactive
     
     var body: some View {
         Form {
@@ -23,6 +33,7 @@ struct SelectCutterTableView: View {
                         CutterTableRowView(table: table) {
                             selectCutterTable(table)
                         }
+                        .deleteDisabled(table.cannotDelete)
                         .swipeActions(edge: .trailing) {
                             if !table.cannotDelete {
                                 Button(role: .destructive) {
@@ -35,10 +46,21 @@ struct SelectCutterTableView: View {
                             }
                         }
                     }
+                    .onDelete(perform: deleteCutterTables)
                 }
             }
         }
-        .navigationTitle("Select cutter table")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                if customTables.allSatisfy(\.cannotDelete) {
+                    EmptyView()
+                } else {
+                    EditButton()
+                }
+            }
+        }
+        .environment(\.editMode, $editMode)
+        .navigationTitle("Set current table")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             sharedData.loadActiveTable(context: viewContext)
@@ -71,39 +93,46 @@ struct SelectCutterTableView: View {
         
         try? viewContext.save()
         
+        // Default to Cutter Sanborn if the deleted is active
         if wasActiveTableDeleted {
-            sharedData.loadActiveTable(context: viewContext)
+            if let newTable = customTables.first(where: { $0.name == CSVVersion.sanborn.name }) {
+                selectCutterTable(newTable)
+            } else {
+                sharedData.loadActiveTable(context: viewContext)
+            }
         }
     }
 }
 
-// MARK: - Row Subview for Reactive Observation
-
-private struct CutterTableRowView: View {
-    @ObservedObject var table: CutterTableEntity
-    let onSelect: () -> Void
+#Preview {
+    let context = PersistenceController.preview.container.viewContext
     
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(table.name ?? "Untitled Table")
-                    .font(.headline)
-                if let desc = table.tableDescription, !desc.isEmpty {
-                    Text(desc)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
-            Spacer()
-            
-            if table.isSelected {
-                Image(systemName: "checkmark")
-                    .foregroundStyle(.tint)
-            }
-        }
-        .contentShape(Rectangle())
-        .onTapGesture {
-            onSelect()
-        }
+    //Delete all existing entities in the preview context
+    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CutterTableEntity.fetchRequest()
+    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+    _ = try? context.execute(deleteRequest)
+    context.reset() // Clears remaining managed objects from memory
+    
+    let table1 = CutterTableEntity(context: context)
+    table1.id = UUID()
+    table1.createdAt = Date()
+    table1.name = "Standard Table"
+    table1.tableDescription = "Default cutter"
+    table1.isSelected = true
+    table1.cannotDelete = true
+    
+    let table2 = CutterTableEntity(context: context)
+    table2.id = UUID()
+    table2.createdAt = Date().addingTimeInterval(-3600)
+    table2.name = "Custom Cutter"
+    table2.isSelected = false
+    table2.cannotDelete = false
+    
+    try? context.save()
+    
+    return NavigationStack {
+        SelectCutterTableView()
+            .environment(\.managedObjectContext, context)
+            .environment(AppSharedData())
     }
 }

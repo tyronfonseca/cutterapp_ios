@@ -51,4 +51,5 @@ struct CutterShortcutProvider: AppShortcutsProvider {
 // MARK: - Notification Extension
 extension Notification.Name {
     static let didReceiveShortcutSearch = Notification.Name("didReceiveShortcutSearch")
+    static let tabChangeNotification = Notification.Name("tabChangeNotification")
 }

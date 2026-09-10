@@ -9,11 +9,31 @@ import SwiftUI
 import Foundation
 import CoreData
 
+enum SearchFilterOption: String, CaseIterable, Identifiable {
+    case all = "All"
+    case needsReview = "Needs Review"
+    case reviewed = "Reviewed"
+    
+    var id: String { rawValue }
+}
+
+enum SearchSortOption: String, CaseIterable, Identifiable {
+    case newest = "Newest First"
+    case oldest = "Oldest First"
+    case author = "Author (A-Z)"
+    
+    var id: String { rawValue }
+}
+
 struct SearchView: View {
     @Environment(AppSharedData.self) private var sharedData
     
     @State private var viewModel: SearchViewModel
     @State private var pendingCSVURL: URL?
+    
+    // MARK: - Filter & Sort State
+    @State private var selectedFilter: SearchFilterOption = .all
+    @State private var selectedSort: SearchSortOption = .newest
     
     // MARK: - Selection & Edit State
     @State private var editMode: EditMode = .inactive
@@ -26,10 +46,26 @@ struct SearchView: View {
     
     // MARK: - Computed Properties
     private var displayedItems: [CutterData] {
-        let items = viewModel.showOnlyNeedsReview
-        ? viewModel.capturedText.filter { $0.needsReview }
-        : viewModel.capturedText
-        return items.reversed()
+        // Filter by Review Status
+        let filteredItems: [CutterData]
+        switch selectedFilter {
+        case .all:
+            filteredItems = viewModel.capturedText
+        case .needsReview:
+            filteredItems = viewModel.capturedText.filter { $0.needsReview }
+        case .reviewed:
+            filteredItems = viewModel.capturedText.filter { $0.needsReview == false }
+        }
+        
+        // Sort Items
+        switch selectedSort {
+        case .newest:
+            return filteredItems.reversed()
+        case .oldest:
+            return filteredItems
+        case .author:
+            return filteredItems.sorted { $0.authorSurname.localizedCaseInsensitiveCompare($1.authorSurname) == .orderedAscending }
+        }
     }
     
     private var isSelecting: Bool {
@@ -58,7 +94,7 @@ struct SearchView: View {
                                     Image(systemName: "info.circle")
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
-                                    Text("\"Name Surname\", \"Name\", \"Surname, Name\" or ISBN.")
+                                    Text("Try: 'John Smith', 'John', 'Smith, John' or ISBN")
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
                                 }
@@ -95,24 +131,49 @@ struct SearchView: View {
                         Divider()
                     }
                     
-                    // Filter Bar
-                    if !viewModel.capturedText.isEmpty && viewModel.capturedText.contains(where: { $0.needsReview }) {
-                        HStack {
-                            Text("Show only needing review")
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
+                    // MARK: - Filter & Sort Bar Card
+                    if !viewModel.capturedText.isEmpty {
+                        HStack(spacing: 12) {
+                            // Sort Control
+                            HStack(spacing: 4) {
+                                Image(systemName: "arrow.up.arrow.down")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                
+                                Picker("Sort Option", selection: $selectedSort) {
+                                    ForEach(SearchSortOption.allCases) { option in
+                                        Text(option.rawValue).tag(option)
+                                            .tag(option)
+                                    }
+                                }
+                                .pickerStyle(.menu)
+                                .buttonStyle(.glass)
+                                
+                                .lineLimit(1)
+                                .fixedSize(horizontal: true, vertical: false)
+                            }
+                            
                             
                             Spacer()
-                            
-                            Button(action: {
-                                viewModel.showOnlyNeedsReview.toggle()
-                            }) {
-                                Image(systemName: viewModel.showOnlyNeedsReview ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+                            // Filter Control
+                            HStack(spacing: 4) {
+                                Image(systemName: "line.3.horizontal.decrease.circle")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                
+                                Picker("Filter Option", selection: $selectedFilter) {
+                                    ForEach(SearchFilterOption.allCases) { option in
+                                        Text(option.rawValue).tag(option)
+                                    }
+                                }
+                                .pickerStyle(.menu)
+                                .buttonStyle(.glass)
+                                
+                                .lineLimit(1)
+                                .fixedSize(horizontal: true, vertical: false)
                             }
-                            .controlSize(.regular)
-                            .buttonStyle(.glass)
+                            
                         }
-                        .accessibilityHint("Filter items that need review")
                         .padding(.horizontal)
                         .padding(.vertical, 8)
                     }
@@ -126,8 +187,16 @@ struct SearchView: View {
                                 description: Text("Add an entry by scanning or entering an author name or ISBN")
                             )
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        } else if displayedItems.isEmpty {
+                            ContentUnavailableView(
+                                "No Matching Items",
+                                systemImage: "line.3.horizontal.decrease.circle",
+                                description: Text("No entries match the selected filter criteria.")
+                            )
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                         } else {
-                            List(selection: $selectedItemIDs) {
+                            // Conditionally pass selection binding only during active multi-select
+                            List(selection: isSelecting ? $selectedItemIDs : nil) {
                                 ForEach(displayedItems) { item in
                                     NavigationLink {
                                         EditSearchItemView(
@@ -148,6 +217,7 @@ struct SearchView: View {
                             }
                             .listStyle(.plain)
                             .environment(\.editMode, $editMode)
+                            .contentMargins(.bottom, isSelecting ? 16 : 88, for: .scrollContent)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                     }
@@ -207,7 +277,6 @@ struct SearchView: View {
             // MARK: - Bottom Action Bar (Select Mode Only)
             .toolbar {
                 if isSelecting {
-                    
                     ToolbarItem(placement: .bottomBar) {
                         HStack {
                             Button(role: .destructive) {
@@ -279,7 +348,7 @@ struct SearchView: View {
                 Button("Delete All", role: .destructive) {
                     if selectedItemIDs.isEmpty {
                         viewModel.reset()
-                    }else {
+                    } else {
                         viewModel.deleteItem(at: selectedItemIDs)
                         selectedItemIDs.removeAll()
                         withAnimation { editMode = .inactive }

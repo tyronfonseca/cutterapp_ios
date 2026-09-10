@@ -35,6 +35,7 @@ struct About: View {
             }
             .padding()
             .navigationTitle("about_btn")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

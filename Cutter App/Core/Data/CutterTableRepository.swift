@@ -32,6 +32,7 @@ final class CutterTableRepository {
                 table.cannotDelete = true
                 table.createdAt = Date()
                 table.isSelected = version == .sanborn // Sanborn selected by default
+                table.hasHeaders = true
             }
             
             do {
@@ -52,7 +53,8 @@ final class CutterTableRepository {
         name: String,
         description: String,
         uniqueFilename: String,
-        context: NSManagedObjectContext
+        context: NSManagedObjectContext,
+        hasHeaders: Bool
     ) -> CutterTableEntity? {
         let newTable = CutterTableEntity(context: context)
         newTable.id = UUID()
@@ -62,6 +64,7 @@ final class CutterTableRepository {
         newTable.isSelected = false
         newTable.cannotDelete = false
         newTable.createdAt = Date()
+        newTable.hasHeaders = hasHeaders
 
         do {
             try context.save()

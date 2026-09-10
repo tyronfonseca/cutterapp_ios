@@ -29,14 +29,17 @@ extension String {
         // Capture group 1 matches the digit sequence with hyphens/spaces
         let pattern = #"(?i)\b(?:ISBN(?:-1[03])?:?\s*)?((?:97[89][-\s]?)?(?:\d[-\s]?){9}[\dX])\b"#
         
+        // Remove spaces that can come from scanning the IBSN barcode
+        let copy = self.replacing(" ", with: "")
+        
         guard let regex = try? NSRegularExpression(pattern: pattern) else { return [] }
-        let nsRange = NSRange(self.startIndex..., in: self)
-        let matches = regex.matches(in: self, range: nsRange)
+        let nsRange = NSRange(copy.startIndex..., in: copy)
+        let matches = regex.matches(in: copy, range: nsRange)
         
         return matches.compactMap { match in
             // Extract Capture Group 1 (the number portion)
-            guard let range = Range(match.range(at: 1), in: self) else { return nil }
-            let rawMatch = String(self[range])
+            guard let range = Range(match.range(at: 1), in: copy) else { return nil }
+            let rawMatch = String(copy[range])
             
             // Strip hyphens and spaces to leave ONLY numbers (and 'X')
             let numberOnly = rawMatch.filter { $0.isNumber || $0.uppercased() == "X" }

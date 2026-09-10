@@ -26,6 +26,12 @@ struct Cutter_App: App {
                 .onOpenURL { url in
                     if let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
                        let query = components.queryItems?.first(where: { $0.name == "query" })?.value {
+                        // Open Search tab
+                        NotificationCenter.default.post(
+                            name: .tabChangeNotification,
+                            object: nil,
+                            userInfo: ["tab": Main.AppTab.search, "query": query]
+                        )
                         
                         NotificationCenter.default.post(
                             name: .didReceiveShortcutSearch,

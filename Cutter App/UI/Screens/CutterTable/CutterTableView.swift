@@ -76,16 +76,16 @@ struct CutterTableView: View {
                         .font(.caption)
                 }
                 ToolbarItemGroup(placement: .topBarTrailing) {
-                    Menu {
-                        NavigationLink {
-                            AddNewCutterTableView()
-                        } label: {
-                            Label("Add new table", systemImage: "plus.circle")
-                        }
+                    Menu {                        
                         NavigationLink {
                             SelectCutterTableView()
                         } label: {
                             Label("Set current table", systemImage: "checkmark.circle")
+                        }
+                        NavigationLink {
+                            AddNewCutterTableView()
+                        } label: {
+                            Label("Add new table", systemImage: "plus.circle")
                         }
                     } label: {
                         Image(systemName: "ellipsis")

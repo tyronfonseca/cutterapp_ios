@@ -35,7 +35,7 @@ final class AppSharedData {
         // Try external/custom directory URL
         if let customURL = storage.getURL(for: filename),
            FileManager.default.fileExists(atPath: customURL.path) {
-            rawData = CSVHelper.getCSVData(from: customURL, hasHeaders: true)
+            rawData = CSVHelper.getCSVData(from: customURL, hasHeaders: activeEntity.hasHeaders)
         }
         // Fall back to main bundle using the filename string
         else {
@@ -63,49 +63,49 @@ final class AppSharedData {
             options: options
         )
     }
-    
-    @discardableResult
-    func importCustomCSV(
+        
+    func saveImportedCSV(
         from fileURL: URL,
+        context: NSManagedObjectContext,
         name: String,
         description: String,
-        context: NSManagedObjectContext,
-        setSelected: Bool = false,
-        hasHeaders: Bool = false
+        setSelected: Bool,
+        hasHeaders: Bool
     ) -> Bool {
         let accessGranted = fileURL.startAccessingSecurityScopedResource()
         defer {
             if accessGranted { fileURL.stopAccessingSecurityScopedResource() }
         }
         
+        // Generate unique filename on save
         let sanitizeName = name.replacingOccurrences(of: " ", with: "_").lowercased()
         let uniqueFilename = "\(sanitizeName)_\(UUID().uuidString.prefix(8)).csv"
         
-        guard let destinationURL = storage.copyToApplicationSupport(sourceURL: fileURL, targetFilename: uniqueFilename) else {
+        // Copy file to Application Support
+        guard storage.copyToApplicationSupport(sourceURL: fileURL, targetFilename: uniqueFilename) != nil else {
             return false
         }
         
-        let parsedData = CSVHelper.getCSVData(from: destinationURL, hasHeaders: hasHeaders)
-        guard !parsedData.isEmpty else {
-            storage.deleteFile(filename: uniqueFilename)
-            return false
-        }
-        
-        let displayName = name.trimmingCharacters(in: .whitespaces).isEmpty ? fileURL.deletingPathExtension().lastPathComponent : name
-        
+        // Save metadata in Core Data
+        let displayName = name.trimmingCharacters(in: .whitespaces).isEmpty ? "No name" : name
         let savedEntity = repository.saveCustomTableMetadata(
             name: displayName,
             description: description,
             uniqueFilename: uniqueFilename,
-            context: context
+            context: context,
+            hasHeaders: hasHeaders
         )
         
-        if let entity = savedEntity {
-            if setSelected {
-                selectActiveTable(entity, context: context)
-            }
+        // Roll back copied file if Core Data save fails
+        guard let entity = savedEntity else {
+            storage.deleteFile(filename: uniqueFilename)
+            return false
         }
         
-        return savedEntity != nil
+        if setSelected {
+            selectActiveTable(entity, context: context)
+        }
+        
+        return true
     }
 }
