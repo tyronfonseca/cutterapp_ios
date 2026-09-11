@@ -25,14 +25,17 @@ struct EditSearchItemView: View {
                         Image(systemName: "exclamationmark.circle.fill")
                             .foregroundStyle(.orange)
                             .font(.title3)
+                            .accessibilityIdentifier("edit_review_warning_icon")
                         
                         VStack(alignment: .leading, spacing: 2) {
                             Text(String(localized: "edit_review_required"))
                                 .font(.subheadline)
                                 .bold()
+                                .accessibilityIdentifier("edit_review_required_title")
                             Text(String(localized: "edit_review_required_message"))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
+                                .accessibilityIdentifier("edit_review_required_message")
                         }
                         Spacer()
                         Button {
@@ -47,6 +50,7 @@ struct EditSearchItemView: View {
                                 .contentShape(Circle())
                         }
                         .buttonStyle(.plain)
+                        .accessibilityIdentifier("edit_dismiss_review_button")
                     }
                     .padding(.vertical, 4)
                 }
@@ -54,6 +58,7 @@ struct EditSearchItemView: View {
             
             Section(header: Text(String(localized: "edit_cutter_number_used"))) {
                 ReadOnlyField(text: item.cutterUsed.isEmpty ? String(localized: "edit_no_cutter_code") : item.cutterUsed)
+                    .accessibilityIdentifier("edit_cutter_number_field")
             }
             
             Section(
@@ -64,11 +69,14 @@ struct EditSearchItemView: View {
                     item.dontSeparateName ? String(localized: "name") : String(localized: "surname"),
                     text: $item.authorSurname
                 )
+                .accessibilityIdentifier("edit_author_surname_textfield")
+
                 if !item.dontSeparateName {
                     TextField(
                         String(localized: "edit_name_optional"),
                         text: $item.authorName
                     )
+                    .accessibilityIdentifier("edit_author_name_textfield")
                 }
             }
             
@@ -80,10 +88,12 @@ struct EditSearchItemView: View {
                     isOn: $item.dontSeparateName
                 )
                 .toggleStyle(.switch)
+                .accessibilityIdentifier("edit_no_surname_toggle")
             }
             
             Section(header: Text(String(localized: "book")), footer: Text(item.isbn.isEmpty ? "" : String(localized: "edit_data_warning"))) {
                 TextField(String(localized: "edit_add_or_modify_book"), text: $item.bookName)
+                    .accessibilityIdentifier("edit_book_title_textfield")
             }
             
             if !item.ddcs.isEmpty {
@@ -97,6 +107,7 @@ struct EditSearchItemView: View {
                         }
                     }
                     .pickerStyle(.menu)
+                    .accessibilityIdentifier("edit_ddc_picker")
                     .onAppear {
                         if item.ddcSelected.isEmpty, let firstDDC = item.ddcs.first {
                             item.ddcSelected = firstDDC
@@ -108,6 +119,7 @@ struct EditSearchItemView: View {
             if !item.isbn.isEmpty {
                 Section(header: Text("isbn")) {
                     ReadOnlyField(text: item.isbn)
+                        .accessibilityIdentifier("edit_isbn_field")
                 }
             }
             
@@ -123,6 +135,7 @@ struct EditSearchItemView: View {
                     Label(String(localized: "delete"), systemImage: "trash")
                         .foregroundStyle(.red)
                 }
+                .accessibilityIdentifier("edit_delete_toolbar_button")
             }
         }
         .alert(String(localized: "edit_delete_item_title"), isPresented: $showingDeleteAlert) {

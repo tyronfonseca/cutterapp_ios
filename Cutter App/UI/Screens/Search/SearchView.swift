@@ -74,6 +74,7 @@ struct SearchView: View {
                                     .onSubmit {
                                         viewModel.search()
                                     }
+                                    .accessibilityIdentifier("search_main_textfield")
                                 
                                 HStack {
                                     Image(systemName: "info.circle")
@@ -83,6 +84,8 @@ struct SearchView: View {
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
                                 }
+                                .accessibilityElement(children: .combine)
+                                .accessibilityIdentifier("search_textfield_hint")
                             }
                             
                             HStack(spacing: 8) {
@@ -94,6 +97,7 @@ struct SearchView: View {
                                         OCRCameraView(searchText: bindableViewModel.searchText)
                                     }
                                     .buttonStyle(.glass)
+                                    .accessibilityIdentifier("search_scan_button")
                                 }
                                 
                                 Spacer()
@@ -101,12 +105,15 @@ struct SearchView: View {
                                 if viewModel.isSearchingISBN {
                                     ProgressView()
                                         .padding(.horizontal, 8)
+                                        .accessibilityIdentifier("search_isbn_progress")
                                 } else {
                                     Button(action: { viewModel.search() }) {
                                         Label("search", systemImage: "magnifyingglass")
                                     }
+                                    .accessibilityIdentifier("search_button")
                                     .buttonStyle(.glassProminent)
                                     .disabled(viewModel.searchText.trimmingCharacters(in: .whitespaces).isEmpty)
+                                    
                                 }
                             }
                         }
@@ -120,44 +127,24 @@ struct SearchView: View {
                     if !viewModel.capturedText.isEmpty {
                         HStack(spacing: 12) {
                             // Sort Control
-                            HStack(spacing: 4) {
-                                Image(systemName: "arrow.up.arrow.down")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                                
-                                Picker("search_sort_by", selection: $selectedSort) {
-                                    ForEach(SearchSortOption.allCases) { option in
-                                        Text(option.localizedName).tag(option)
-                                            .tag(option)
-                                    }
-                                }
-                                .pickerStyle(.menu)
-                                .buttonStyle(.glass)
-                                
-                                .lineLimit(1)
-                                .fixedSize(horizontal: true, vertical: false)
-                            }
-                            
+                            SearchMenuPicker(
+                                iconName: "arrow.up.arrow.down",
+                                titleKey: "search_sort_by",
+                                iconAccessibilityID: "search_sort_by_icon",
+                                pickerAccessibilityID: "search_sort_by_picker",
+                                selection: $selectedSort
+                            )
                             
                             Spacer()
                             // Filter Control
-                            HStack(spacing: 4) {
-                                Image(systemName: "line.3.horizontal.decrease.circle")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                                
-                                Picker("search_filter_by", selection: $selectedFilter) {
-                                    ForEach(SearchFilterOption.allCases) { option in
-                                        Text(option.localizedName).tag(option)
-                                    }
-                                }
-                                .pickerStyle(.menu)
-                                .buttonStyle(.glass)
-                                
-                                .lineLimit(1)
-                                .fixedSize(horizontal: true, vertical: false)
-                            }
-                            
+                            SearchMenuPicker(
+                                iconName: "line.3.horizontal.decrease.circle",
+                                titleKey: "search_filter_by",
+                                iconAccessibilityID: "search_filter_by_icon",
+                                pickerAccessibilityID: "search_filter_by_picker",
+                                selection: $selectedFilter
+                            )
+                           
                         }
                         .padding(.horizontal)
                         .padding(.vertical, 8)
@@ -171,6 +158,7 @@ struct SearchView: View {
                                 systemImage: "book.closed.fill",
                                 description: Text("search_no_entries_description")
                             )
+                            .accessibilityIdentifier("search_no_entries_view")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         } else if displayedItems.isEmpty {
                             ContentUnavailableView(
@@ -178,11 +166,12 @@ struct SearchView: View {
                                 systemImage: "line.3.horizontal.decrease.circle",
                                 description: Text("search_no_mathcing_items_description")
                             )
+                            .accessibilityIdentifier("search_no_matching_items_view")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         } else {
                             // Conditionally pass selection binding only during active multi-select
                             List(selection: isSelecting ? $selectedItemIDs : nil) {
-                                ForEach(displayedItems) { item in
+                                ForEach(Array(displayedItems.enumerated()), id: \.element.id) { index, item in
                                     NavigationLink {
                                         EditSearchItemView(
                                             item: binding(for: item),
@@ -191,6 +180,7 @@ struct SearchView: View {
                                         )
                                     } label: {
                                         SearchItemView(item: item)
+                                            .accessibilityIdentifier("search_result_item-\(index)")
                                     }
                                     .tag(item.id)
                                 }
@@ -200,6 +190,7 @@ struct SearchView: View {
                                     viewModel.deleteItem(at: idsToDelete)
                                 }
                             }
+                            .accessibilityIdentifier("search_results_list")
                             .listStyle(.plain)
                             .environment(\.editMode, $editMode)
                             .contentMargins(.bottom, isSelecting ? 16 : 88, for: .scrollContent)
@@ -209,8 +200,10 @@ struct SearchView: View {
                     .layoutPriority(1)
                     .alert("search_error", isPresented: bindableViewModel.showErrorAlert) {
                         Button("ok", role: .cancel) { }
+                            .accessibilityIdentifier("search_error_alert")
                     } message: {
                         Text(viewModel.errorMessage)
+                            .accessibilityIdentifier("search_error_message")
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -221,8 +214,11 @@ struct SearchView: View {
                         exportItems(displayedItems)
                     }) {
                         Image(systemName: "square.and.arrow.up")
+                            .accessibilityLabel(Text("export_to_csv"))
+                            .accessibilityIdentifier("export_button_image")
                             .font(.title2)
                     }
+                    .accessibilityIdentifier("export_button")
                     .buttonStyle(.glass)
                     .controlSize(.extraLarge)
                     .disabled(displayedItems.isEmpty)
@@ -252,11 +248,13 @@ struct SearchView: View {
                     if let url = pendingCSVURL {
                         viewModel.proceedWithExport(url)
                     }
-                }
+                }.accessibilityIdentifier("search_export_alert_btn")
                 Button("cancel", role: .cancel) { }
+                    .accessibilityIdentifier("search_export_alert_cancel")
             } message: {
                 let count = viewModel.capturedText.filter { $0.needsReview }.count
                 Text(.searchExportConfirmation(count, count == 1 ? "" : "s", count == 1 ? "has" : "have"))
+                    .accessibilityIdentifier("search_export_alert_message")
             }
             
             // MARK: - Bottom Action Bar (Select Mode Only)
@@ -294,7 +292,7 @@ struct SearchView: View {
                         .frame(width: 150)
                         .foregroundStyle(.logo)
                         .accessibilityLabel(Text("logo_description"))
-                        .accessibilityAddTraits(.isImage)
+                        .accessibilityIdentifier("search_app_logo")
                 }
                 
                 // MARK: - Navigation Bar Menu
@@ -306,6 +304,7 @@ struct SearchView: View {
                                 selectedItemIDs.removeAll()
                             }
                         }
+                        .accessibilityIdentifier("search_edit_done")
                         .fontWeight(.bold)
                     } else {
                         Menu {
@@ -314,6 +313,7 @@ struct SearchView: View {
                             } label: {
                                 Label("select_items", systemImage: "checkmark.circle")
                             }
+                            .accessibilityIdentifier("search_select_items")
                             .disabled(viewModel.capturedText.isEmpty)
                             
                             Button(role: .destructive) {
@@ -321,11 +321,13 @@ struct SearchView: View {
                             } label: {
                                 Label("delete_all", systemImage: "trash.circle")
                             }
+                            .accessibilityIdentifier("search_delete_all")
                             .disabled(viewModel.capturedText.isEmpty)
                             
-                        } label: {
-                            Image(systemName: "ellipsis")
+                        }  label: {
+                            Label("more_actions", systemImage: "ellipsis")
                         }
+                        .accessibilityIdentifier("search_more_actions")
                     }
                 }
             }
@@ -340,7 +342,10 @@ struct SearchView: View {
                     }
                     
                 }
+                .accessibilityIdentifier("search_delete_all_confirm")
+                
                 Button("cancel", role: .cancel) { }
+                    .accessibilityIdentifier("search_delete_all_cancel")
             }
             .navigationBarTitleDisplayMode(.inline)
         }

@@ -18,12 +18,16 @@ struct AddNewCutterTableView: View {
         Form {
             Section("add_cutter_table_load_table") {
                 TextField("add_cutter_table_name", text: $viewModel.newCutterName)
+                    .accessibilityIdentifier("add_cutter_table_name_input")
                 TextField("add_cutter_table_description", text: $viewModel.newCutterDescription)
+                    .accessibilityIdentifier("add_cutter_table_description_input")
                 Toggle("add_cutter_table_csv_headers", isOn: $viewModel.includesHeader)
+                    .accessibilityIdentifier("add_cutter_table_csv_headers_toggle")
             }
             
             Section {
                 Toggle("add_cutter_table_set_current", isOn: $viewModel.setSelected)
+                    .accessibilityIdentifier("add_cutter_table_set_current_toggle")
             }
             
             Section(footer: Text("add_cutter_table_footer")) {
@@ -31,11 +35,13 @@ struct AddNewCutterTableView: View {
                     viewModel.isImporting = true
                 }
                 .disabled(viewModel.newCutterName.trimmingCharacters(in: .whitespaces).isEmpty)
+                .accessibilityIdentifier("add_cutter_table_select_csv_button")
             }
             
             if !viewModel.previewData.isEmpty {
                 Section(header: Text("add_cutter_table_preview")) {
                     TableHeaderView()
+                        .accessibilityIdentifier("add_cutter_table_preview_header")
                     
                     ForEach(viewModel.previewData) { item in
                         HStack {
@@ -44,6 +50,7 @@ struct AddNewCutterTableView: View {
                             Text(item.code)
                                 .foregroundColor(.secondary)
                         }
+                        .accessibilityIdentifier("add_cutter_table_preview_row_\(item.code)")
                     }
                 }
             }
@@ -72,11 +79,13 @@ struct AddNewCutterTableView: View {
         }
         .alert("add_cutter_table_error_import", isPresented: $viewModel.importError) {
             Button("ok", role: .cancel) { dismiss() }
+                .accessibilityIdentifier("add_cutter_table_error_ok_button")
         } message: {
             Text("add_cutter_table_error_import_description")
         }
         .alert("add_cutter_table_successful", isPresented: $viewModel.isImportSuccessful) {
             Button("close") { dismiss() }
+                .accessibilityIdentifier("add_cutter_table_success_close_button")
         } message: {
             Text(.addCutterTableAdded(viewModel.newCutterName))
         }
@@ -88,6 +97,7 @@ struct AddNewCutterTableView: View {
                     Button("save") {
                         viewModel.saveCSV(viewContext: viewContext, sharedData: sharedData)
                     }
+                    .accessibilityIdentifier("add_cutter_table_save_button")
                 }
             }
         }

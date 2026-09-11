@@ -9,9 +9,24 @@ import SwiftUI
 
 @main
 struct Cutter_App: App {
-    let persistenceController = PersistenceController.shared
+    var persistenceController = PersistenceController.shared
     
     @State private var appSharedData = AppSharedData()
+    
+    init() {
+        // Check if launching from XCUITest with the reset flag
+        if CommandLine.arguments.contains("-resetData") {
+            // Clear UserDefaults
+            if let bundleID = Bundle.main.bundleIdentifier {
+                UserDefaults.standard.removePersistentDomain(forName: bundleID)
+            }
+            
+            // Use an in-memory Core Data stack to avoid persisting changes to disk
+            persistenceController = PersistenceController(inMemory: true)
+        } else {
+            persistenceController = PersistenceController.shared
+        }
+    }
     
     var body: some Scene {
         WindowGroup {

@@ -4,8 +4,13 @@
 //
 //  Created by Tyron on 10/9/26.
 //
+protocol SearchOptionSelectable: Identifiable, Hashable, CaseIterable where AllCases: RandomAccessCollection {
+    var localizedName: String { get }
+    var accessibilityID: String { get }
+    var id : String { get }
+}
 
-enum SearchFilterOption: String, CaseIterable, Identifiable {
+enum SearchFilterOption: String, CaseIterable, Identifiable, SearchOptionSelectable {
     case all
     case needsReview
     case reviewed
@@ -22,9 +27,13 @@ enum SearchFilterOption: String, CaseIterable, Identifiable {
             return String(localized: "filter_reviewed")
         }
     }
+    
+    var accessibilityID: String {
+        "search_filter_by_\(id)"
+    }
 }
 
-enum SearchSortOption: String, CaseIterable, Identifiable {
+enum SearchSortOption: String, CaseIterable, Identifiable, SearchOptionSelectable {
     case newest
     case oldest
     case author
@@ -40,5 +49,9 @@ enum SearchSortOption: String, CaseIterable, Identifiable {
         case .author:
             return String(localized: "filter_author")
         }
+    }
+    
+    var accessibilityID: String {
+        "search_sort_by_\(id)"
     }
 }

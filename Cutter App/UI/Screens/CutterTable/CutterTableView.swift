@@ -48,6 +48,10 @@ struct CutterTableView: View {
     
     var body: some View {
         NavigationStack {
+            // Accessibility: Identify the Cutter Table screen
+            EmptyView()
+                .accessibilityHidden(true)
+            
             Group {
                 if sharedData.currentCutterData.isEmpty {
                     ContentUnavailableView(
@@ -55,25 +59,38 @@ struct CutterTableView: View {
                         systemImage: "book.closed",
                         description: Text(String(localized: "cuttertable_unable_to_load"))
                     )
+                    .accessibilityElement(children: .combine)
+                    .accessibilityIdentifier("cutterTable.emptyState")
                 } else {
                     List {
                         ForEach(groupedCutters, id: \.key) { section in
                             Section(header: Text(section.key)) {
                                 ForEach(section.value) { cutter in
+                                    let hint = cutter.bookName.isEmpty ? String(localized: "cutter_row_hint_no_book") : String(localized: .cutterRowHint(cutter.bookName))
                                     CutterRowView(cutter: cutter)
+                                        .accessibilityElement(children: .combine)
+                                        .accessibilityLabel(Text(cutter.name))
+                                        .accessibilityValue(Text(cutter.number))
+                                        .accessibilityHint(Text(hint))
+                                        .accessibilityIdentifier("cutterTableRow.\(cutter.code)")
                                 }
                             }
                             .sectionIndexLabel(Text(section.key))
                         }
                     }
+                    .accessibilityLabel(Text("cuttertable_list_label"))
+                    .accessibilityHint(Text("cuttertable_list_hint"))
+                    .accessibilityIdentifier("cutterTable.list")
                     .listStyle(.plain)
                 }
             }
             .navigationTitle(String(localized: "cuttertable_nav_title"))
+            .accessibilityIdentifier("cutterTable.screen")
             .toolbar {
                 ToolbarItem(placement: .subtitle) {
                     Text("\(sharedData.currentTableSelected?.name ?? "")")
                         .font(.caption)
+                        .accessibilityIdentifier("cutterTable.currentTableName")
                 }
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Menu {                        
@@ -81,15 +98,18 @@ struct CutterTableView: View {
                             SelectCutterTableView()
                         } label: {
                             Label(String(localized: "cuttertable_set_current_table"), systemImage: "checkmark.circle")
+                                .accessibilityIdentifier("cutterTable.action.setCurrent")
                         }
                         NavigationLink {
                             AddNewCutterTableView()
                         } label: {
                             Label(String(localized: "cuttertable_add_new_table"), systemImage: "plus.circle")
+                                .accessibilityIdentifier("cutterTable.action.addNew")
                         }
                     } label: {
-                        Image(systemName: "ellipsis")
+                        Label("more_actions", systemImage: "ellipsis")
                     }
+                    .accessibilityIdentifier("cutterTable.moreActions")
                 }
             }
             .toolbarTitleDisplayMode(.inline)
@@ -98,9 +118,13 @@ struct CutterTableView: View {
                 placement: .navigationBarDrawer(displayMode: .always),
                 prompt: String(localized: "cuttertable_search_prompt")
             )
+            .accessibilityIdentifier("cutterTable.searchField")
             .overlay {
                 if !sharedData.currentCutterData.isEmpty && filteredCutters.isEmpty {
                     ContentUnavailableView.search(text: searchText)
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel(Text("no_results"))
+                        .accessibilityIdentifier("cutterTable.noResults")
                 }
             }
         }
@@ -149,3 +173,4 @@ private struct CutterRowView: View {
     CutterTableView()
         .environment(AppSharedData())
 }
+

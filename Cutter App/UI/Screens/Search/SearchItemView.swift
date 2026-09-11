@@ -19,13 +19,15 @@ struct SearchItemView: View {
                     .fontWeight(.medium)
                     .lineLimit(1)
                     .truncationMode(.tail)
+                    .accessibilityIdentifier("search_view_item_title")
+                    .accessibilityLabel(String("\(String(localized: .author)): \(item.searchValue)"))
                 
                 if !item.bookName.isEmpty {
-                    HStack {
-                        Text(item.bookName)
-                            .font(.caption2)
-                            .foregroundStyle(.secondary)
-                    }
+                    Text(item.bookName)
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                        .accessibilityIdentifier("search_view_item_subtitle")
+                        .accessibilityLabel(String("\(String(localized: .book)): \(item.bookName)"))
                 }
             }
             
@@ -42,6 +44,8 @@ struct SearchItemView: View {
                     .background(Color.blue.opacity(0.12))
                     .foregroundColor(.blue)
                     .clipShape(Capsule())
+                    .accessibilityIdentifier("searchitem_cutter_value")
+                    .accessibilityLabel(String("Cutter Value: \(item.fullCallNumber(using: settings))"))
                 
                 if item.needsReview {
                     Image(systemName: "exclamationmark.circle.fill")
@@ -54,9 +58,11 @@ struct SearchItemView: View {
                         .clipShape(Capsule())
                         .accessibilityLabel(String(localized: "searchitem_requires_review"))
                         .accessibilityHint(String(localized: "searchitem_requires_review_hint"))
+                        .accessibilityIdentifier("searchitem_cutter_warning")
                 }
             }
         }
+        .accessibilityElement(children: .combine)
     }
 }
 

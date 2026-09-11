@@ -30,6 +30,17 @@
                ReferencedContainer = "container:Cutter App.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A489159D305470D90073A001"
+               BuildableName = "Cutter AppUITests.xctest"
+               BlueprintName = "Cutter AppUITests"
+               ReferencedContainer = "container:Cutter App.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

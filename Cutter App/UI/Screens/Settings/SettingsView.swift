@@ -39,6 +39,7 @@ struct SettingsView: View {
                                 .foregroundStyle(.secondary)
                         }
                     }
+                    .accessibilityIdentifier("settings_select_cutter_table_link")
                     
                     NavigationLink {
                         AddNewCutterTableView()
@@ -47,7 +48,8 @@ struct SettingsView: View {
                             .font(.body.weight(.medium))
                             .foregroundStyle(.tint)
                     }
-                }                
+                    .accessibilityIdentifier("settings_add_cutter_table_link")
+                }
                 
                 // MARK: - Search Behavior Settings
                 Section(
@@ -56,13 +58,16 @@ struct SettingsView: View {
                 ) {
                     Toggle(String(localized: "settings_searchBehavior_noSurname"), isOn: $settings.dontSeparateName)
                         .toggleStyle(.switch)
+                        .accessibilityIdentifier("settings_dont_separate_name_toggle")
                 }
                 
                 Section {
                     Toggle(String(localized: "settings_searchBehavior_ignoreArticles"), isOn: $settings.ignoreArticles)
                         .toggleStyle(.switch)
+                        .accessibilityIdentifier("settings_ignore_articles_toggle")
                     Toggle(String(localized: "settings_searchBehavior_spellAsMac"), isOn: $settings.useFormatMac)
                         .toggleStyle(.switch)
+                        .accessibilityIdentifier("settings_use_format_mac_toggle")
                 }
                 
                 // MARK: - Preview Section
@@ -71,6 +76,7 @@ struct SettingsView: View {
                     footer: Text(String(localized: "settings_preview_footer"))
                 ) {
                     SearchItemView(item: cutterExample)
+                        .accessibilityIdentifier("settings_preview_item")
                 }
                 
                 // MARK: - Number Formatting (Prefix & Suffix)
@@ -84,10 +90,15 @@ struct SettingsView: View {
                             .foregroundStyle(.secondary)
                         
                         Picker(String(localized: "settings_number_prefix"), selection: $settings.textBeforeNum) {
-                            Text(String(localized: "author")).tag(TextBeforeAfterNum.authorSurname)
-                            Text(String(localized: "title")).tag(TextBeforeAfterNum.title)
+                            Text(String(localized: "author"))
+                                .tag(TextBeforeAfterNum.authorSurname)
+                                .accessibilityIdentifier("settings_prefix_picker_author")
+                            Text(String(localized: "title"))
+                                .tag(TextBeforeAfterNum.title)
+                                .accessibilityIdentifier("settings_prefix_picker_title")
                         }
                         .pickerStyle(.segmented)
+                        .accessibilityIdentifier("settings_prefix_picker")
                     }
                     .padding(.vertical, 4)
                     
@@ -99,6 +110,7 @@ struct SettingsView: View {
                                 .foregroundStyle(.secondary)
                         }
                     }
+                    .accessibilityIdentifier("settings_prefix_length_stepper")
                     
                     VStack(alignment: .leading, spacing: 8) {
                         Text(String(localized: "settings_number_suffix"))
@@ -106,10 +118,15 @@ struct SettingsView: View {
                             .foregroundStyle(.secondary)
                         
                         Picker(String(localized: "settings_number_suffix"), selection: $settings.textAfterNum) {
-                            Text(String(localized: "author")).tag(TextBeforeAfterNum.authorSurname)
-                            Text(String(localized: "title")).tag(TextBeforeAfterNum.title)
+                            Text(String(localized: "author"))
+                                .tag(TextBeforeAfterNum.authorSurname)
+                                .accessibilityIdentifier("settings_suffix_picker_author")
+                            Text(String(localized: "title"))
+                                .tag(TextBeforeAfterNum.title)
+                                .accessibilityIdentifier("settings_suffix_picker_title")
                         }
                         .pickerStyle(.segmented)
+                        .accessibilityIdentifier("settings_suffix_picker")
                     }
                     .padding(.vertical, 4)
                     
@@ -121,6 +138,7 @@ struct SettingsView: View {
                                 .foregroundStyle(.secondary)
                         }
                     }
+                    .accessibilityIdentifier("settings_suffix_length_stepper")
                 }
                 
                 // MARK: - Export Settings
@@ -130,6 +148,7 @@ struct SettingsView: View {
                 ) {
                     Toggle(String(localized: "settings_export_includeExtras"), isOn: $settings.includeExtrasInExport)
                         .toggleStyle(.switch)
+                        .accessibilityIdentifier("settings_include_extras_toggle")
                 }
             }
             .navigationTitle(String(localized: "settings"))

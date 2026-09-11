@@ -28,11 +28,13 @@ struct SelectCutterTableView: View {
                     Text("select_cutter_table_no_available")
                         .foregroundStyle(.secondary)
                         .font(.subheadline)
+                        .accessibilityIdentifier("select_cutter_table_empty_state_text")
                 } else {
                     ForEach(customTables) { table in
                         CutterTableRowView(table: table) {
                             selectCutterTable(table)
                         }
+                        .accessibilityIdentifier("select_cutter_table_row_\(table.name ?? "unknown")")
                         .deleteDisabled(table.cannotDelete)
                         .swipeActions(edge: .trailing) {
                             if !table.cannotDelete {
@@ -43,6 +45,7 @@ struct SelectCutterTableView: View {
                                 } label: {
                                     Label("delete", systemImage: "trash")
                                 }
+                                .accessibilityIdentifier("select_cutter_table_delete_button_\(table.name ?? "unknown")")
                             }
                         }
                     }
@@ -56,6 +59,7 @@ struct SelectCutterTableView: View {
                     EmptyView()
                 } else {
                     EditButton()
+                        .accessibilityIdentifier("select_cutter_table_edit_button")
                 }
             }
         }

@@ -40,6 +40,7 @@
 		A4CF0104304F5829003D003B /* CSVHelperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CF0103304F5824003D003B /* CSVHelperTest.swift */; };
 		A4E9DCC5304B7F88004C68A3 /* Get Cutter Number.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A4E9DCBB304B7F87004C68A3 /* Get Cutter Number.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A4E9DCE9304B9C89004C68A3 /* CSVFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E9DCE8304B9C86004C68A3 /* CSVFile.swift */; };
+		A4F3F19F3054593A000A1332 /* SearchMenuPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3F19E30545933000A1332 /* SearchMenuPicker.swift */; };
 		F83D098A304710D70078DC3C /* AdknowledgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83D0979304710D70078DC3C /* AdknowledgeView.swift */; };
 		F83D098B304710D70078DC3C /* CardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83D097A304710D70078DC3C /* CardModifier.swift */; };
 		F83D098D304710D70078DC3C /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83D097C304710D70078DC3C /* FAQView.swift */; };
@@ -57,6 +58,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A48915A4305470D90073A001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F83DE2502BE9747200E668B6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F83DE2572BE9747200E668B6;
+			remoteInfo = "Cutter App";
+		};
 		A4E9DCC3304B7F88004C68A3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F83DE2502BE9747200E668B6 /* Project object */;
@@ -107,6 +115,7 @@
 		A46B0E7E304B4B4000488617 /* OpenLibrarySearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLibrarySearchResult.swift; sourceTree = "<group>"; };
 		A46B0E81304B57DB00488617 /* CutterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterTableView.swift; sourceTree = "<group>"; };
 		A46B0E84304B5E0000488617 /* SearchCutterIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCutterIntent.swift; sourceTree = "<group>"; };
+		A489159E305470D90073A001 /* Cutter AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cutter AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4A120263052F9CD00CD02DC /* AddNewCutterTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCutterTableViewModel.swift; sourceTree = "<group>"; };
 		A4A1202D3053021B00CD02DC /* CutterTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterTableRowView.swift; sourceTree = "<group>"; };
 		A4A12038305336B700CD02DC /* SearchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOptions.swift; sourceTree = "<group>"; };
@@ -122,6 +131,7 @@
 		A4CF0103304F5824003D003B /* CSVHelperTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVHelperTest.swift; sourceTree = "<group>"; };
 		A4E9DCBB304B7F87004C68A3 /* Get Cutter Number.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Get Cutter Number.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4E9DCE8304B9C86004C68A3 /* CSVFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVFile.swift; sourceTree = "<group>"; };
+		A4F3F19E30545933000A1332 /* SearchMenuPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMenuPicker.swift; sourceTree = "<group>"; };
 		F82ED0302D41582300F7CFB9 /* Cutter-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Cutter-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		F83D0979304710D70078DC3C /* AdknowledgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdknowledgeView.swift; sourceTree = "<group>"; };
 		F83D097A304710D70078DC3C /* CardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModifier.swift; sourceTree = "<group>"; };
@@ -152,10 +162,18 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		A489159F305470D90073A001 /* Cutter AppUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Cutter AppUITests"; sourceTree = "<group>"; };
 		A4E9DCBC304B7F87004C68A3 /* Get Cutter Number */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A4E9DCC6304B7F88004C68A3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Get Cutter Number"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A489159B305470D90073A001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A4E9DCB8304B7F87004C68A3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -298,6 +316,7 @@
 		F83D097D304710D70078DC3C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A4F3F19E30545933000A1332 /* SearchMenuPicker.swift */,
 				F83D097A304710D70078DC3C /* CardModifier.swift */,
 				A45CEF2D304CCA800081FBBA /* ReadOnlyField.swift */,
 			);
@@ -377,6 +396,7 @@
 				F83DE25A2BE9747200E668B6 /* Cutter App */,
 				F83DE28F2BE9D79A00E668B6 /* Cutter AppTests */,
 				A4E9DCBC304B7F87004C68A3 /* Get Cutter Number */,
+				A489159F305470D90073A001 /* Cutter AppUITests */,
 				F83DE2592BE9747200E668B6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -387,6 +407,7 @@
 				F83DE2582BE9747200E668B6 /* Cutter App.app */,
 				F83DE28E2BE9D79A00E668B6 /* Cutter AppTests.xctest */,
 				A4E9DCBB304B7F87004C68A3 /* Get Cutter Number.appex */,
+				A489159E305470D90073A001 /* Cutter AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -481,6 +502,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A489159D305470D90073A001 /* Cutter AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A48915A8305470D90073A001 /* Build configuration list for PBXNativeTarget "Cutter AppUITests" */;
+			buildPhases = (
+				A489159A305470D90073A001 /* Sources */,
+				A489159B305470D90073A001 /* Frameworks */,
+				A489159C305470D90073A001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A48915A5305470D90073A001 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A489159F305470D90073A001 /* Cutter AppUITests */,
+			);
+			name = "Cutter AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "Cutter AppUITests";
+			productReference = A489159E305470D90073A001 /* Cutter AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		A4E9DCBA304B7F87004C68A3 /* Get Cutter Number */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A4E9DCC7304B7F88004C68A3 /* Build configuration list for PBXNativeTarget "Get Cutter Number" */;
@@ -552,6 +596,10 @@
 				LastSwiftUpdateCheck = 2660;
 				LastUpgradeCheck = 2660;
 				TargetAttributes = {
+					A489159D305470D90073A001 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = F83DE2572BE9747200E668B6;
+					};
 					A4E9DCBA304B7F87004C68A3 = {
 						CreatedOnToolsVersion = 26.6;
 					};
@@ -585,11 +633,19 @@
 				F83DE2572BE9747200E668B6 /* Cutter App */,
 				F83DE28D2BE9D79A00E668B6 /* Cutter AppTests */,
 				A4E9DCBA304B7F87004C68A3 /* Get Cutter Number */,
+				A489159D305470D90073A001 /* Cutter AppUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A489159C305470D90073A001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A4E9DCB9304B7F87004C68A3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -619,6 +675,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A489159A305470D90073A001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A4E9DCB7304B7F87004C68A3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -660,6 +723,7 @@
 				A447C9DE304C7D97002AB980 /* Persistence.swift in Sources */,
 				F83D0993304710D70078DC3C /* SettingsView.swift in Sources */,
 				A447C9E4304C8389002AB980 /* CutterSearchEngine.swift in Sources */,
+				A4F3F19F3054593A000A1332 /* SearchMenuPicker.swift in Sources */,
 				A4BDB9B4304E0A6D00332E71 /* CutterData+Ext.swift in Sources */,
 				A425FE3030486D6F0007F2C1 /* OCRCameraView.swift in Sources */,
 				A447C9E0304C831F002AB980 /* CSVStorageManager.swift in Sources */,
@@ -684,6 +748,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A48915A5305470D90073A001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F83DE2572BE9747200E668B6 /* Cutter App */;
+			targetProxy = A48915A4305470D90073A001 /* PBXContainerItemProxy */;
+		};
 		A4E9DCC4304B7F88004C68A3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A4E9DCBA304B7F87004C68A3 /* Get Cutter Number */;
@@ -697,6 +766,54 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		A48915A6305470D90073A001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7N78JQ4KFW;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tfonseca.cuttersanborn.Cutter-App.Cutter-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Cutter App";
+			};
+			name = Debug;
+		};
+		A48915A7305470D90073A001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7N78JQ4KFW;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tfonseca.cuttersanborn.Cutter-App.Cutter-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Cutter App";
+			};
+			name = Release;
+		};
 		A4E9DCC8304B7F88004C68A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1009,6 +1126,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A48915A8305470D90073A001 /* Build configuration list for PBXNativeTarget "Cutter AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A48915A6305470D90073A001 /* Debug */,
+				A48915A7305470D90073A001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A4E9DCC7304B7F88004C68A3 /* Build configuration list for PBXNativeTarget "Get Cutter Number" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
